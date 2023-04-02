@@ -1,0 +1,22 @@
+.wordle-letter {
+    display: inline-block;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    border-width: thin;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    margin: 5px;
+}
+
+.wordle-letter-badplace {
+    border-color: orange;
+    background-color: orange;
+}
+
+.wordle-letter-correct {
+    border-color: green;
+    background-color: green;
+}
