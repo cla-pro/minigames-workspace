@@ -126,6 +126,39 @@
           }
         }
       }
+    },
+    "minigame-memory": {
+      "projectType": "library",
+      "root": "projects/minigame-memory",
+      "sourceRoot": "projects/minigame-memory/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/minigame-memory/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/minigame-memory/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/minigame-memory/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/minigame-memory/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   }
 }

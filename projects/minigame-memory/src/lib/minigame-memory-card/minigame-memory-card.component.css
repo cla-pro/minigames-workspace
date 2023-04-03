@@ -1,0 +1,20 @@
+.memory-card {
+    display: inline-block;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    border-width: thin;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    margin: 5px;
+}
+
+.memory-card-found {
+    border-color: lightgray;
+}
+
+.memory-card-content-hidden {
+    display: none;
+}
