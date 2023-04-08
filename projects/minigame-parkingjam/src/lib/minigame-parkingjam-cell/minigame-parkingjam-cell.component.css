@@ -1,0 +1,25 @@
+.parkingjam-cell {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    margin: 5px;
+}
+
+.parkingjam-cell-content {
+    border-style: solid;
+    border-radius: 5px;
+    border-width: thin;
+    border-color: lightgrey;
+    width: 25px;
+    height: 25px;
+}
+
+.parkingjam-cell-content-occupied {
+    display: none;
+}
+
+.parkingjam-cell-content-reachable {
+    border-color: green;
+}

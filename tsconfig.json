@@ -13,6 +13,9 @@
       "minigame-memory": [
         "dist/minigame-memory"
       ],
+      "minigame-parkingjam": [
+        "dist/minigame-parkingjam"
+      ],
       "minigame-wordle": [
         "dist/minigame-wordle"
       ]

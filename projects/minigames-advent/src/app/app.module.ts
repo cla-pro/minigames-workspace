@@ -7,18 +7,22 @@ import { AdventWordleComponent } from './advent-wordle/advent-wordle.component';
 import { AdventMemoryComponent } from './advent-memory/advent-memory.component';
 import { MinigameWordleModule } from 'projects/minigame-wordle/src/public-api';
 import { MinigameMemoryModule } from 'projects/minigame-memory/src/public-api';
+import { AdventParkingjamComponent } from './advent-parkingjam/advent-parkingjam.component';
+import { MinigameParkingjamModule } from 'projects/minigame-parkingjam/src/public-api';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdventWordleComponent,
-    AdventMemoryComponent
+    AdventMemoryComponent,
+    AdventParkingjamComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MinigameWordleModule,
-    MinigameMemoryModule
+    MinigameMemoryModule,
+    MinigameParkingjamModule
   ],
   providers: [],
   bootstrap: [AppComponent]

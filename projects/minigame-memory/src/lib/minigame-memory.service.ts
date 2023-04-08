@@ -39,9 +39,9 @@ export class MinigameMemoryService {
       let ids: number[] = Array(nbCards).fill(-1).map((value, index) => Math.floor(index / 2));
 
       this._board = [];
-      for (let i = 0; i < this._width; i++) {
+      for (let i = 0; i < this._height; i++) {
         let line: MinigameMemoryCardDataModel[] = [];
-        for (let j = 0; j < this._height; j++) {
+        for (let j = 0; j < this._width; j++) {
           let index = Math.floor(Math.random() * ids.length);
           let value = ids[index];
           ids = ids.slice(0, index).concat(ids.slice(index + 1));

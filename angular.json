@@ -159,6 +159,39 @@
           }
         }
       }
+    },
+    "minigame-parkingjam": {
+      "projectType": "library",
+      "root": "projects/minigame-parkingjam",
+      "sourceRoot": "projects/minigame-parkingjam/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/minigame-parkingjam/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/minigame-parkingjam/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/minigame-parkingjam/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/minigame-parkingjam/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   }
 }
