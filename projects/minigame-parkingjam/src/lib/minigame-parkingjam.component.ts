@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MinigameParkingjamService } from './minigame-parkingjam.service';
+import { MinigameParkingjamWall } from './shared/minigame-parkingjam-wall.model';
 
 @Component({
   selector: 'minigame-parkingjam',
@@ -8,7 +9,7 @@ import { MinigameParkingjamService } from './minigame-parkingjam.service';
   ]
 })
 export class MinigameParkingjamComponent {
-  constructor(private parkingjamService: MinigameParkingjamService) {
-    this.parkingjamService.setSize(24, 12);
+  constructor(private service: MinigameParkingjamService) {
+    this.service.setSize(5, 7);
   }
 }

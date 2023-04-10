@@ -1,35 +1,32 @@
 import { Injectable } from '@angular/core';
 import { MinigameParkingjamCar } from './shared/minigame-parkingjam-car.model';
-import { MinigameParkingjamCellstate } from './shared/minigame-parkingjam-cellstate.model';
-import { MinigameParkingjamPosition } from './shared/minigame-parkingjam-position.model';
-import { Rectangle } from './shared/rectangle.model';
+import { MinigameParkingjamWall } from './shared/minigame-parkingjam-wall.model';
+import { min } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MinigameParkingjamService {
-  private width: number = -1;
-  private height: number = -1;
-  cars: MinigameParkingjamCar[] = [];
-  board: MinigameParkingjamCellstate[][] = [];
-  movingCar: MinigameParkingjamCar | undefined;
+  public width: number = -1;
+  public height: number = -1;
 
-  public setSize(width: number, height: number) {
-    this.width = width;
-    this.height = height;
-    this.createBoard();
-  }
+  private walls: MinigameParkingjamWall[] = [];
+  private cars: MinigameParkingjamCar[] = [];
+  private movingCar: MinigameParkingjamCar | undefined;
 
   constructor() { }
-  
-  private createBoard() {
-    for (let i = 0; i < this.height; i++) {
-      let line: MinigameParkingjamCellstate[] = [];
-      for (let j = 0; j < this.width; j++) {
-        line.push(new MinigameParkingjamCellstate("EMPTY"));
-      }
-      this.board.push(line);
-    }
+
+  addCar(car: MinigameParkingjamCar) {
+    this.cars.push(car);
+  }
+
+  addWall(wall: MinigameParkingjamWall) {
+    this.walls.push(wall);
+  }
+
+  setSize(width: number, height: number) {
+    this.width = width;
+    this.height = height;
   }
 
   startMoving(car: MinigameParkingjamCar): void {
@@ -40,20 +37,45 @@ export class MinigameParkingjamService {
 
   rangeForMovement(): number[] {
     if (this.movingCar) {
-      let minBound = 0;
-      let maxBound = this.movingCar.vertical ? this.height : this.width;
+      let minBound = -10;
+      // +1 because if there is no wall at the side of the board, the car must be able to leave it.
+      let maxBound = (this.movingCar.vertical ? this.height : this.width) + 10;
       let indices = this.movingCar.vertical ? this.movingCar.lines() : this.movingCar.columns();
       this.findCarsOnTheWay(this.movingCar)
         .flatMap(c => (this.movingCar?.vertical) ? c.lines() : c.columns())
+        .concat(this.findWallsOnTheWay(this.movingCar))
         .forEach(i => {
           if (indices[0] > i) minBound = Math.max(minBound, i);
           else maxBound = Math.min(maxBound, i);
         });
       
-      return [minBound == 0 ? minBound : minBound + 1, maxBound - this.movingCar.size];
+      return [minBound + 1, maxBound - this.movingCar.size];
     }
 
     return [0, 0];
+  }
+
+  findWallsOnTheWay(movingCar: MinigameParkingjamCar): number[] {
+    let w = this.walls
+    .filter(w => w.vertical != movingCar.vertical && this.hasSameIndex(w, movingCar))
+    .map(w => this.extractIndexOfTheWall(w, movingCar));
+    return w;
+  }
+
+  hasSameIndex(wall: MinigameParkingjamWall, car: MinigameParkingjamCar): boolean {
+    return (car.vertical) ? (wall.columnFrom <= car.column && wall.columnTo > car.column)
+      : (wall.lineFrom <= car.line && wall.lineTo > car.line);
+  }
+
+  // Determine on which side of the wall the car is located.
+  extractIndexOfTheWall(wall: MinigameParkingjamWall, car: MinigameParkingjamCar): number {
+    if (car.vertical) {
+      let wallLine = wall.lineFrom;
+      return (car.line >= wallLine) ? wallLine - 1 : wallLine;
+    } else {
+      let wallCol = wall.columnFrom;
+      return (car.column >= wallCol) ? wallCol - 1 : wallCol;
+    }
   }
 
   private findCarsOnTheWay(car: MinigameParkingjamCar): MinigameParkingjamCar[] {
@@ -69,13 +91,29 @@ export class MinigameParkingjamService {
 
   movementComplete(): void {
     if (this.movingCar) {
-      this.cars.push(this.movingCar);
-      this.movingCar = undefined;
+      if (this.isOut(this.movingCar)) {
+        this.movingCar.isOut();
+      } else {
+        this.cars.push(this.movingCar);
+        this.movingCar = undefined;
+      }
+    }
+  }
+
+  private isOut(car: MinigameParkingjamCar): boolean {
+    if (car.vertical) {
+      return car.line < 0 || (car.line + car.size) > this.height;
+    } else {
+      return car.column < 0 || (car.column + car.size) > this.width;
     }
   }
 
   getCarForPosition(x: number, y: number): MinigameParkingjamCar | undefined {
     let filtered = this.cars.filter(c => c.isPositionOnCar(x, y));
     return (filtered.length === 1) ? filtered[0] : undefined;
+  }
+
+  drawBoard() {
+    this.walls.forEach(w => w.draw());
   }
 }
