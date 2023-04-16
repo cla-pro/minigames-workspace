@@ -111,13 +111,13 @@ export class MinigameParkingjamBoardComponent implements AfterViewInit, OnDestro
     let canvasEl = this.canvas.nativeElement;
 
     this.mousedown = fromEvent(canvasEl, 'mousedown');
-    this.mouseup = fromEvent(canvasEl, 'mouseup');
+    this.mouseup = fromEvent(document, 'mouseup');
 
     this.mousedownSubscription = this.mousedown.subscribe((res: any) => {
       let filtered = this.service.getCarForPosition(res.offsetX, res.offsetY);
       if (filtered) {
         this.movingCar = filtered;
-        this.movingCar.onMouseClick(res.offsetX, res.offsetY);
+        this.movingCar.onMouseClick(res.pageX, res.pageY);
       }
     });
 
@@ -142,12 +142,12 @@ export class MinigameParkingjamBoardComponent implements AfterViewInit, OnDestro
       this.drawingSubscription.unsubscribe();
     }
 
-    this.drawingSubscription = fromEvent(canvasEl, 'mousemove')
+    this.drawingSubscription = fromEvent(document, 'mousemove')
       .pipe(skipUntil(this.mousedown))
       .pipe(takeUntil(this.mouseup))
       .subscribe((res: any) => {
         if (this.movingCar) {
-          this.movingCar.onMouseMove(res.offsetX, res.offsetY);
+          this.movingCar.onMouseMove(res.pageX, res.pageY);
           this.service.drawBoard();
         }
       });
