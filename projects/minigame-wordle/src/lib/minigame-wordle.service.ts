@@ -42,6 +42,10 @@ export class MinigameWordleService {
     this.prefix = prefix;
     this.words = this.loadFromStorage();
   }
+
+  setWord(word: string[]): void {
+    this.mockWord = word;
+  }
   
   getLetter(line: number, index: number): MinigameWordleLetterModel {
     return this.words[line][index];

@@ -11,6 +11,7 @@ import { MinigameWordleService } from './minigame-wordle.service';
 })
 export class MinigameWordleComponent implements OnInit {
   @Input() prefix: string = "";
+  @Input() word: string[] = [];
 
   private status: string = "RUNNING";
 
@@ -18,6 +19,7 @@ export class MinigameWordleComponent implements OnInit {
 
   ngOnInit(): void {
     this.wordleService.setPrefix(this.prefix);
+    this.wordleService.setWord(this.word);
   }
   
   keyup(event: KeyboardEvent): void {

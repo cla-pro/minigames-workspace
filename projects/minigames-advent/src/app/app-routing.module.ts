@@ -3,12 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdventMemoryComponent } from './advent-memory/advent-memory.component';
 import { AdventWordleComponent } from './advent-wordle/advent-wordle.component';
 import { AdventParkingjamComponent } from './advent-parkingjam/advent-parkingjam.component';
+import { AdventBoardComponent } from './advent-board/advent-board.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'wordle', pathMatch: 'full' },
+  { path: '', pathMatch: 'full', component: AdventBoardComponent },
   { path: 'wordle', component: AdventWordleComponent },
+  { path: 'wordle/:id', component: AdventWordleComponent },
   { path: 'memory', component: AdventMemoryComponent },
-  { path: 'parkingjam', component: AdventParkingjamComponent }
+  { path: 'memory/:id', component: AdventMemoryComponent },
+  { path: 'parkingjam', component: AdventParkingjamComponent },
+  { path: 'parkingjam/:id', component: AdventParkingjamComponent }
 ];
 
 @NgModule({

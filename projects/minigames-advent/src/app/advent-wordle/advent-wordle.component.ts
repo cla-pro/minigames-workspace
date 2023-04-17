@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MinigameWordleComponent } from 'projects/minigame-wordle/src/public-api';
+import { AdventScenarioService } from '../advent-scenario.service';
+import { AdventScenarioWordle } from '../shared/advent-scenario.model';
 
 @Component({
   selector: 'app-advent-wordle',
@@ -7,5 +10,22 @@ import { MinigameWordleComponent } from 'projects/minigame-wordle/src/public-api
   styleUrls: ['./advent-wordle.component.css']
 })
 export class AdventWordleComponent {
-  
+  prefix: string = "not-set";
+  private scenario!: AdventScenarioWordle;
+  word: string[] = [];
+
+  constructor(private route: ActivatedRoute, private scenarioService: AdventScenarioService) {
+    this.route.paramMap.subscribe(map => {
+      let id = map.get('id');
+      if (id) {
+        this.prefix = id;
+        this.loadScenario(id);
+      }
+    });
+  }
+
+  loadScenario(id: string): void {
+    this.scenario = this.scenarioService.loadScenarioWordle(id);
+    this.word = this.scenario.word.split('');
+  }
 }
