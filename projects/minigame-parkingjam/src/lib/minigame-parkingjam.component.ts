@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MinigameParkingjamService } from './minigame-parkingjam.service';
 import { MinigameParkingjamWall } from './shared/minigame-parkingjam-wall.model';
 
@@ -9,6 +9,9 @@ import { MinigameParkingjamWall } from './shared/minigame-parkingjam-wall.model'
   ]
 })
 export class MinigameParkingjamComponent {
+  @Input() prefix: string = "";
+  @Output() completionEvent = new EventEmitter<boolean>();
+
   constructor(private service: MinigameParkingjamService) {
     this.service.setSize(5, 7);
   }

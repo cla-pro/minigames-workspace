@@ -5,22 +5,56 @@ import { AdventScenario, AdventScenarioMemory, AdventScenarioParkingjam, AdventS
   providedIn: 'root'
 })
 export class AdventScenarioService {
+  private adventPrefix: string = "advent_";
 
   constructor() {}
 
+  loadScenarios(): AdventScenario[] {
+    return Object.keys(localStorage)
+      .filter(k => k.search('_id') > -1)
+      .sort()
+      .map(k => localStorage.getItem(k))
+      .map(k => this.loadScenario(k!));;
+  }
+
+  private loadScenario(id: string): AdventScenario {
+    let type = localStorage.getItem(id + "_type");
+    if (type === "wordle") {
+      return this.loadScenarioWordle(id);
+    } else if (type === "memory") {
+      return this.loadScenarioMemory(id);
+    } else if (type === "parkingjam") {
+      return this.loadScenarioParkingjam(id);
+    } else {
+      throw new Error('Unknown scenario type: ' + type);
+    }
+  }
+
   loadScenarioWordle(id: string): AdventScenarioWordle {
     let word = localStorage.getItem(id + "_word");
-    return new AdventScenarioWordle(id, (word) ? word : "");
+    return this.loadScenarioStatus(new AdventScenarioWordle(id, (word) ? word : ""));
   }
 
   loadScenarioMemory(id: string): AdventScenarioMemory {
     let width = this.parseIntOrDefault(localStorage.getItem(id + "_width"), 0);
     let height = this.parseIntOrDefault(localStorage.getItem(id + "_height"), 0);
-    return new AdventScenarioMemory(id, width, height);
+    return this.loadScenarioStatus(new AdventScenarioMemory(id, width, height));
   }
 
   loadScenarioParkingjam(id: string): AdventScenarioParkingjam {
-    return new AdventScenarioParkingjam(id);
+    return this.loadScenarioStatus(new AdventScenarioParkingjam(id));
+  }
+
+  private loadScenarioStatus<T extends AdventScenario>(scenario: T): T {
+    scenario.completed = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_completed"), false);
+    scenario.bonus = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_bonus"), false);
+    console.log("Scenario " + scenario.prefix + " -> " + scenario.completed + ", " + scenario.bonus);
+    return scenario;
+  }
+
+  saveScoreStatus(scenario: AdventScenario): void {
+    localStorage.setItem(scenario.prefix + "_completed", `${scenario.completed}`);
+    localStorage.setItem(scenario.prefix + "_bonus", `${scenario.bonus}`);
   }
 
   saveScenarios(scenarios: AdventScenario[]): void {
@@ -28,9 +62,10 @@ export class AdventScenarioService {
       .filter(s => this.isNotSaved(s))
       .forEach(s => {
         let id = s.prefix;
-        console.log("Storing scenario " + id);
         localStorage.setItem(id + "_id", id);
         localStorage.setItem(id + "_type", s.type);
+        localStorage.setItem(id + "_completed", `${s.completed}`);
+        localStorage.setItem(id + "_bonus", `${s.bonus}`);
 
         if (s instanceof AdventScenarioWordle) {
           this.saveScenarioWordle(id, s as AdventScenarioWordle);
@@ -61,5 +96,9 @@ export class AdventScenarioService {
 
   private parseIntOrDefault(text: string | null, defaultValue: number): number {
     return (text) ? parseInt(text) : defaultValue;
+  }
+
+  private parseBooleanOrDefault(text: string | null, defaultValue: boolean): boolean {
+    return (text) ? text === "true" : defaultValue;
   }
 }

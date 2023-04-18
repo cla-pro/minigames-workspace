@@ -9,14 +9,16 @@ import { AdventScenarioService } from '../advent-scenario.service';
   styleUrls: ['./advent-board.component.css']
 })
 export class AdventBoardComponent {
-  scenarios: AdventScenario[] = [
-    new AdventScenarioWordle("2023-12-01", "AVION"),
-    new AdventScenarioMemory("2023-12-02", 6, 2),
-    new AdventScenarioParkingjam("2023-12-03")
-  ];
+  scenarios: AdventScenario[] = [];
 
   constructor(private router: Router, private scenarioService: AdventScenarioService) {
-    this.scenarioService.saveScenarios(this.scenarios);
+    // localStorage.clear();
+    // this.scenarioService.saveScenarios([
+    //   new AdventScenarioWordle("2023-12-01", "AVION"),
+    //   new AdventScenarioMemory("2023-12-02", 6, 2),
+    //   new AdventScenarioParkingjam("2023-12-03")
+    // ]);
+    this.scenarios = this.scenarioService.loadScenarios();
   }
 
   startScenario(scenario: AdventScenario): void {

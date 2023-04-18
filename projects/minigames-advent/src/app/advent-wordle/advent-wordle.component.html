@@ -1,1 +1,1 @@
-<minigame-wordle [prefix]="prefix" [word]="word"></minigame-wordle>
+<minigame-wordle [prefix]="scenario.prefix" [word]="word" (completionEvent)="scenarioCompleted($event)"></minigame-wordle>

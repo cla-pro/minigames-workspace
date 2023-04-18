@@ -74,6 +74,7 @@ export class MinigameWordleService {
   }
 
   confirmWord(): void {
+    console.log("confirm word, current index=" + this.currentIndex);
     // check all leters have been entered
     if (this.currentIndex < 5) {
       console.log('Word not complete, wait for the other inputs');
@@ -98,10 +99,6 @@ export class MinigameWordleService {
     // move to the next line
     this.currentLine++;
     this.currentIndex = 0;
-    
-    if (this.currentLine > 5) {
-      this.currentLine = -1;
-    }
   }
 
   private isLetterAtWrongPlace(letter: string): boolean {
@@ -115,6 +112,10 @@ export class MinigameWordleService {
 
   isCompleted(): boolean {
     return this.completed;
+  }
+
+  hasBonus(): boolean {
+    return this.currentLine < 5;
   }
 
   private loadFromStorage(): MinigameWordleLetterModel[][] {

@@ -10,22 +10,25 @@ import { AdventScenarioWordle } from '../shared/advent-scenario.model';
   styleUrls: ['./advent-wordle.component.css']
 })
 export class AdventWordleComponent {
-  prefix: string = "not-set";
-  private scenario!: AdventScenarioWordle;
+  scenario!: AdventScenarioWordle;
   word: string[] = [];
 
   constructor(private route: ActivatedRoute, private scenarioService: AdventScenarioService) {
     this.route.paramMap.subscribe(map => {
       let id = map.get('id');
       if (id) {
-        this.prefix = id;
-        this.loadScenario(id);
+        this.scenario = this.scenarioService.loadScenarioWordle(id);
+        this.word = this.scenario.word.split('');
       }
     });
   }
 
   loadScenario(id: string): void {
-    this.scenario = this.scenarioService.loadScenarioWordle(id);
-    this.word = this.scenario.word.split('');
+  }
+
+  scenarioCompleted(bonus: boolean): void {
+    this.scenario.completed = true;
+    this.scenario.bonus = bonus;
+    this.scenarioService.saveScoreStatus(this.scenario);
   }
 }

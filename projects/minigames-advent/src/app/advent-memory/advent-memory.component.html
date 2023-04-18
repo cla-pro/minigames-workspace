@@ -1,1 +1,1 @@
-<minigame-memory [prefix]="prefix" [boardWidth]="width" [boardHeight]="height"></minigame-memory>
+<minigame-memory [prefix]="scenario.prefix" [boardWidth]="scenario.width" [boardHeight]="scenario.height" (completionEvent)="scenarioCompleted($event)"></minigame-memory>

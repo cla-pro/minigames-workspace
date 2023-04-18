@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MinigameMemoryService } from './minigame-memory.service';
 
 @Component({
@@ -12,6 +12,8 @@ export class MinigameMemoryComponent implements OnInit {
 
   @Input() boardWidth: number = 0;
   @Input() boardHeight: number = 0;
+  
+  @Output() completionEvent = new EventEmitter<boolean>();
 
   constructor(private memoryService: MinigameMemoryService) {}
 

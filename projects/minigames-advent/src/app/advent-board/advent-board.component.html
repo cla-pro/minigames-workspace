@@ -1,3 +1,5 @@
 <div *ngFor="let s of scenarios">
-    <button (click)="startScenario(s)">{{s.prefix}}</button>
+    <button (click)="startScenario(s)" [disabled]="s.completed">{{s.prefix}}</button>
+    <img src="assets/star-empty.png" class="bonus" *ngIf="s.completed && !s.bonus" />
+    <img src="assets/star-full.png" class="bonus" *ngIf="s.completed && s.bonus" />
 </div>
