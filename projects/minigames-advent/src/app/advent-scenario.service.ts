@@ -48,7 +48,6 @@ export class AdventScenarioService {
   private loadScenarioStatus<T extends AdventScenario>(scenario: T): T {
     scenario.completed = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_completed"), false);
     scenario.bonus = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_bonus"), false);
-    console.log("Scenario " + scenario.prefix + " -> " + scenario.completed + ", " + scenario.bonus);
     return scenario;
   }
 

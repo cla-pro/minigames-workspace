@@ -72,6 +72,7 @@ export class MinigameParkingjamBoardComponent implements AfterViewInit, OnDestro
       car1.column = 0;
       car1.size = 2;
       car1.vertical = false;
+      car1.required = true;
       car1.mapToGrid();
       car1.draw();
       this.service.addCar(car1);

@@ -14,5 +14,8 @@ export class MinigameParkingjamComponent {
 
   constructor(private service: MinigameParkingjamService) {
     this.service.setSize(5, 7);
+    // Required for the callback in order to run in the right context (otherwise is the context of the caller, here the service)
+    let that = this;
+    this.service.completionCallback = (bonus: boolean) => { that.completionEvent.emit(bonus); };
   }
 }

@@ -13,8 +13,14 @@ export class MinigameParkingjamService {
   private walls: MinigameParkingjamWall[] = [];
   private cars: MinigameParkingjamCar[] = [];
   private movingCar: MinigameParkingjamCar | undefined;
+  
+  private _completionCallback!: (bonus: boolean) => void;
 
   constructor() { }
+
+  public set completionCallback(callback: (bonus: boolean) => void) {
+    this._completionCallback = callback;
+  }
 
   addCar(car: MinigameParkingjamCar) {
     this.cars.push(car);
@@ -92,10 +98,14 @@ export class MinigameParkingjamService {
   movementComplete(): void {
     if (this.movingCar) {
       if (this.isOut(this.movingCar)) {
-        this.movingCar.isOut();
+        this.movingCar.wentOut();
       } else {
         this.cars.push(this.movingCar);
         this.movingCar = undefined;
+      }
+
+      if (this.isCompleted()) {
+        this._completionCallback(false);
       }
     }
   }
@@ -106,6 +116,13 @@ export class MinigameParkingjamService {
     } else {
       return car.column < 0 || (car.column + car.size) > this.width;
     }
+  }
+
+  private isCompleted(): boolean {
+    return this.cars
+      .filter(c => c.required)
+      .filter(c => !c.isOut())
+      .length === 0;
   }
 
   getCarForPosition(x: number, y: number): MinigameParkingjamCar | undefined {

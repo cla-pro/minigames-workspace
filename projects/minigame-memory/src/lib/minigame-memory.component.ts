@@ -21,5 +21,8 @@ export class MinigameMemoryComponent implements OnInit {
     this.memoryService.prefix = this.prefix;
     this.memoryService.width = this.boardWidth;
     this.memoryService.height = this.boardHeight;
+    // Required for the callback in order to run in the right context (otherwise is the context of the caller, here the service)
+    let that = this;
+    this.memoryService.completionCallback = (bonus: boolean) => { that.completionEvent.emit(bonus); };
   }
 }

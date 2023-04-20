@@ -15,7 +15,7 @@ export class AdventBoardComponent {
     // localStorage.clear();
     // this.scenarioService.saveScenarios([
     //   new AdventScenarioWordle("2023-12-01", "AVION"),
-    //   new AdventScenarioMemory("2023-12-02", 6, 2),
+    //   new AdventScenarioMemory("2023-12-02", 2, 2),
     //   new AdventScenarioParkingjam("2023-12-03")
     // ]);
     this.scenarios = this.scenarioService.loadScenarios();

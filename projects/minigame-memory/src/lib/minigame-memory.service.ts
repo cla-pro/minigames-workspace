@@ -12,6 +12,8 @@ export class MinigameMemoryService {
   private fliped: MinigameMemoryCardDataModel[] = [];
   private loaded: boolean = false;
 
+  private _completionCallback!: (bonus: boolean) => void;
+
   public get width(): number { return this._width; }
   public get height(): number { return this._height; }
   public get board(): MinigameMemoryCardDataModel[][] { return this._board; }
@@ -29,6 +31,10 @@ export class MinigameMemoryService {
   public set height(h: number) {
     this._height = h;
     this.defineBoard();
+  }
+
+  public set completionCallback(callback: (bonus: boolean) => void) {
+    this._completionCallback = callback;
   }
 
   constructor() {}
@@ -64,12 +70,25 @@ export class MinigameMemoryService {
         first.found = true;
         second.found = true;
         this.updateStorage();
+
+        if (this.areAllPairsFound()) {
+          this.setCompleted();
+        }
       }
       
       this.fliped = [];
       let that = this;
       setTimeout(function callback() { that.resetCards(first, second); }, 1000);
     }
+  }
+
+  private areAllPairsFound(): boolean {
+    return this.board.flatMap(line => line).filter(c => !c.found).length == 0;
+  }
+
+  private setCompleted(): void {
+    this._completionCallback(false);
+    console.log("memory completed");
   }
 
   private resetCards(first: MinigameMemoryCardDataModel, second: MinigameMemoryCardDataModel): void {

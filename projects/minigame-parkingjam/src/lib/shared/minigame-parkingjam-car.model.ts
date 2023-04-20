@@ -9,6 +9,8 @@ export class MinigameParkingjamCar {
     size: number = 0;
     vertical: boolean = false;
     color: string = "#000000";
+    required: boolean = false;
+
     // distance in pixel to the position before the movement started
     private rectangle: Rectangle = new Rectangle(0, 0, 0, 0);
 
@@ -88,9 +90,13 @@ export class MinigameParkingjamCar {
         }
     }
 
-    public isOut() {
+    public wentOut() {
         this._isOut = true;
         this.clear();
+    }
+
+    public isOut(): boolean {
+        return this._isOut;
     }
 
     lines(): number[] {
