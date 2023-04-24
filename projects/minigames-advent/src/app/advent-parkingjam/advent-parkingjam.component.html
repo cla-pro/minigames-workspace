@@ -1,1 +1,7 @@
-<minigame-parkingjam [prefix]="scenario.prefix" (completionEvent)="scenarioCompleted($event)"></minigame-parkingjam>
+<minigame-parkingjam
+    [prefix]="scenario.prefix"
+    [width]="scenario.width"
+    [height]="scenario.height"
+    [cars]="scenario.cars"
+    [walls]="scenario.walls"
+    (completionEvent)="scenarioCompleted($event)"></minigame-parkingjam>

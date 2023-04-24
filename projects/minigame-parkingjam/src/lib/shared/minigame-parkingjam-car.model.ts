@@ -3,6 +3,8 @@ import { MinigameParkingjamConst } from "./minigame-parkingjam-const.model";
 import { Rectangle } from "./rectangle.model";
 
 export class MinigameParkingjamCar {
+    ctx!: CanvasRenderingContext2D;
+    service!: MinigameParkingjamService;
     // position of the head of the car
     line: number = 0;
     column: number = 0;
@@ -20,7 +22,7 @@ export class MinigameParkingjamCar {
     private maxOffset: number = 0;
     private _isOut: boolean = false;
     
-    constructor(private ctx: CanvasRenderingContext2D, private service: MinigameParkingjamService) {}
+    constructor(private id: number) {}
 
     mapToGrid() {
         let width = (this.vertical) ? 1 : this.size;
@@ -122,5 +124,33 @@ export class MinigameParkingjamCar {
             this.rectangle.width,
             this.rectangle.height
         );
+    }
+
+    store(prefix: string): void {
+        let base = prefix + '_' + this.id;
+        localStorage.setItem(base + '_car_id', '' + this.id);
+        localStorage.setItem(base + '_car_line', '' + this.line);
+        localStorage.setItem(base + '_car_column', '' + this.column);
+        localStorage.setItem(base + '_car_size', '' + this.size);
+        localStorage.setItem(base + '_car_vertical', '' + this.vertical);
+        localStorage.setItem(base + '_car_required', '' + this.required);
+        localStorage.setItem(base + '_car_color', this.color);
+    }
+
+    // The id must be set in order to load the car
+    load(prefix: string): MinigameParkingjamCar {
+        let base = prefix + '_' + this.id;
+        this.line = this.convertToNumberWithDefault(localStorage.getItem(base + "_car_line"), 0);
+        this.column = this.convertToNumberWithDefault(localStorage.getItem(base + "_car_column"), 0);
+        this.size = this.convertToNumberWithDefault(localStorage.getItem(base + "_car_size"), 1);
+        this.vertical = localStorage.getItem(base + "_car_vertical") === "true";
+        this.required = localStorage.getItem(base + "_car_required") === "true";
+        let c = localStorage.getItem(base + "_car_color");
+        this.color = (c) ? c : "#000000";
+        return this;
+    }
+
+    private convertToNumberWithDefault(text: string | null, defaultValue: number): number {
+        return (text) ? +text : defaultValue;
     }
 }

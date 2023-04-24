@@ -1,3 +1,6 @@
+import { MinigameParkingjamCar } from "projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model";
+import { MinigameParkingjamWall } from "projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model";
+
 export class AdventScenario {
     prefix: string;
     type: string;
@@ -33,7 +36,16 @@ export class AdventScenarioMemory extends AdventScenario {
 }
 
 export class AdventScenarioParkingjam extends AdventScenario {
-    constructor(prefix: string) {
+    width: number;
+    height: number;
+    cars: MinigameParkingjamCar[];
+    walls: MinigameParkingjamWall[];
+
+    constructor(prefix: string, width: number, height: number, cars: MinigameParkingjamCar[], walls: MinigameParkingjamWall[]) {
         super(prefix, "parkingjam");
+        this.width = width;
+        this.height = height;
+        this.cars = cars;
+        this.walls = walls;
     }
 }

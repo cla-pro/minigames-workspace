@@ -7,6 +7,7 @@ import { min } from 'rxjs';
   providedIn: 'root'
 })
 export class MinigameParkingjamService {
+  prefix: string = "";
   public width: number = -1;
   public height: number = -1;
 
@@ -23,6 +24,7 @@ export class MinigameParkingjamService {
   }
 
   addCar(car: MinigameParkingjamCar) {
+    car.mapToGrid();
     this.cars.push(car);
   }
 
@@ -33,6 +35,14 @@ export class MinigameParkingjamService {
   setSize(width: number, height: number) {
     this.width = width;
     this.height = height;
+  }
+
+  setContext(ctx: CanvasRenderingContext2D) {
+    this.walls.forEach(w => w.ctx = ctx);
+    this.cars.forEach(c => {
+      c.ctx = ctx;
+      c.service = this;
+    });
   }
 
   startMoving(car: MinigameParkingjamCar): void {
@@ -99,7 +109,9 @@ export class MinigameParkingjamService {
     if (this.movingCar) {
       if (this.isOut(this.movingCar)) {
         this.movingCar.wentOut();
+        this.movingCar.store(this.prefix);
       } else {
+        this.movingCar.store(this.prefix);
         this.cars.push(this.movingCar);
         this.movingCar = undefined;
       }
@@ -132,5 +144,45 @@ export class MinigameParkingjamService {
 
   drawBoard() {
     this.walls.forEach(w => w.draw());
+  }
+
+  drawCars() {
+    this.cars.forEach(c => c.draw());
+  }
+
+  load(ctx: CanvasRenderingContext2D): void {
+    this.cars = Object.keys(localStorage)
+      .filter(k => k.startsWith(this.prefix))
+      .filter(k => k.search('_car_id') > -1)
+      .map(k => {
+        let id = localStorage.getItem(k);
+        return (id) ? +id : 0;
+      })
+      .filter(id => id != 0)
+      .map(id => {
+        let car = new MinigameParkingjamCar(id).load(this.prefix)
+        car.ctx = ctx;
+        car.service = this;
+        return car.load(this.prefix);
+      });
+    
+    this.walls = Object.keys(localStorage)
+      .filter(k => k.startsWith(this.prefix))
+      .filter(k => k.search('_wall_id') > -1)
+      .map(k => {
+        let id = localStorage.getItem(k);
+        return (id) ? +id : 0;
+      })
+      .filter(id => id != 0)
+      .map(id => {
+        let wall = new MinigameParkingjamWall(id);
+        wall.ctx = ctx;
+        return wall.load(this.prefix)
+      });
+  }
+
+  store(): void {
+    this.walls.forEach(w => w.store(this.prefix));
+    this.cars.forEach(c => c.store(this.prefix));
   }
 }
