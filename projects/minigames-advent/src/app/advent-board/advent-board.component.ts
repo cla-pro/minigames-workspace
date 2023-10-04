@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { AdventScenario, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioWordle } from '../shared/advent-scenario.model';
+import { AdventScenario, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from '../shared/advent-scenario.model';
 import { Router } from '@angular/router';
 import { AdventScenarioService } from '../advent-scenario.service';
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
-import { ɵDomSanitizerImpl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-advent-board',
@@ -55,14 +54,13 @@ export class AdventBoardComponent {
       this.car(4, 5, 4, 2, true, '#00FF00', false)
     ];
     
-    let parkingjamScenario = new AdventScenarioParkingjam("2023-12-03", 5, 7, cars, walls);
-    
-    localStorage.clear();
+    /*localStorage.clear();
     this.service.saveScenarios([
       new AdventScenarioWordle("2023-12-01", "AVION"),
       new AdventScenarioMemory("2023-12-02", 2, 2),
-      parkingjamScenario
-    ]);
+      new AdventScenarioParkingjam("2023-12-03", 5, 7, cars, walls),
+      new AdventScenarioPuzzle("2023-12-04")
+    ]);*/
     this.scenarios = this.service.loadScenarios();
   }
 

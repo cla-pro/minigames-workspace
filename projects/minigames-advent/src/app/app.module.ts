@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AdventBoardComponent } from './advent-board/advent-board.component';
 import { AppComponent } from './app.component';
-import { AdventWordleComponent } from './advent-wordle/advent-wordle.component';
+import { AppRoutingModule } from './app-routing.module';
 import { AdventMemoryComponent } from './advent-memory/advent-memory.component';
 import { AdventParkingjamComponent } from './advent-parkingjam/advent-parkingjam.component';
-import { MinigameWordleModule } from 'projects/minigame-wordle/src/public-api';
+import { AdventPuzzleComponent } from './advent-puzzle/advent-puzzle.component';
+import { AdventWordleComponent } from './advent-wordle/advent-wordle.component';
 import { MinigameMemoryModule } from 'projects/minigame-memory/src/public-api';
 import { MinigameParkingjamModule } from 'projects/minigame-parkingjam/src/public-api';
-import { AdventBoardComponent } from './advent-board/advent-board.component';
-import { CommonModule } from '@angular/common';
+import { MinigamePuzzleModule } from 'projects/minigame-puzzle/src/public-api';
+import { MinigameWordleModule } from 'projects/minigame-wordle/src/public-api';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { CommonModule } from '@angular/common';
     AdventWordleComponent,
     AdventMemoryComponent,
     AdventParkingjamComponent,
-    AdventBoardComponent
+    AdventBoardComponent,
+    AdventPuzzleComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     MinigameWordleModule,
     MinigameMemoryModule,
-    MinigameParkingjamModule
+    MinigameParkingjamModule,
+    MinigamePuzzleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AdventScenario, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioWordle } from './shared/advent-scenario.model';
+import { AdventScenario, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
 
@@ -25,6 +25,8 @@ export class AdventScenarioService {
       return this.loadScenarioMemory(id);
     } else if (type === "parkingjam") {
       return this.loadScenarioParkingjam(id);
+    } else if (type === "puzzle") {
+      return new AdventScenarioPuzzle(id);
     } else {
       throw new Error('Unknown scenario type: ' + type);
     }
