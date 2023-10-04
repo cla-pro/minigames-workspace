@@ -1,3 +1,3 @@
 export class MinigameParkingjamCellstate {
-    constructor(public state: string) {}
+  constructor(public state: string) {}
 }

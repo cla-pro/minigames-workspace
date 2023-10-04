@@ -1,3 +1,3 @@
 export class MinigameParkingjamPosition {
-    constructor(public line: number, public column: number) {}
+  constructor(public line: number, public column: number) {}
 }
