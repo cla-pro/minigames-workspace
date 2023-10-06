@@ -48,18 +48,18 @@ export class AdventBoardComponent {
     ];
 
     let cars = [
-      this.car(1, 5, 0, 2, false, '#000000', true),
-      this.car(2, 2, 1, 3, true, '#00FFFF', false),
-      this.car(3, 3, 2, 3, false, '#0000FF', false),
-      this.car(4, 5, 4, 2, true, '#00FF00', false)
+      this.car(1, 5, 0, 2, false, '1x2-red-car-left-right.png', true),
+      this.car(2, 2, 1, 3, true, '3x1-blue-truck-top-down.png', false),
+      this.car(3, 3, 2, 3, false, '1x3-blue-truck-left-right.png', false),
+      this.car(4, 5, 4, 2, true, '2x1-red-car-top-down.png', false)
     ];
     
     /*localStorage.clear();
     this.service.saveScenarios([
       new AdventScenarioWordle("2023-12-01", "AVION"),
       new AdventScenarioMemory("2023-12-02", 2, 2),
-      new AdventScenarioParkingjam("2023-12-03", 5, 7, cars, walls),
-      new AdventScenarioPuzzle("2023-12-04")
+      new AdventScenarioParkingjam("2023-12-03", 5, 7, cars, walls)
+      //new AdventScenarioPuzzle("2023-12-04")
     ]);*/
     this.scenarios = this.service.loadScenarios();
   }
@@ -74,13 +74,13 @@ export class AdventBoardComponent {
     return w;
   }
 
-  private car(id: number, line: number, column: number, size: number, vertical: boolean, color: string, required: boolean) {
+  private car(id: number, line: number, column: number, size: number, vertical: boolean, imageName: string, required: boolean) {
     let c = new MinigameParkingjamCar(id);
     c.line = line;
     c.column = column;
     c.size = size;
     c.vertical = vertical;
-    c.color = color;
+    c.imageName = imageName;
     c.required = required;
     return c;
   }

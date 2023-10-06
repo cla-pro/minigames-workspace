@@ -1,3 +1,4 @@
+import { MinigameParkingjamImagesService } from "../minigame-parkingjam-images.service";
 import { MinigameParkingjamService } from "../minigame-parkingjam.service";
 import { MinigameParkingjamConst } from "./minigame-parkingjam-const.model";
 import { Rectangle } from "./rectangle.model";
@@ -5,12 +6,13 @@ import { Rectangle } from "./rectangle.model";
 export class MinigameParkingjamCar {
   ctx!: CanvasRenderingContext2D;
   service!: MinigameParkingjamService;
+  private _imageService!: MinigameParkingjamImagesService;
   // position of the head of the car
   line: number = 0;
   column: number = 0;
   size: number = 0;
   vertical: boolean = false;
-  color: string = "#000000";
+  imageName: string = 'no-name.png';
   required: boolean = false;
 
   // distance in pixel to the position before the movement started
@@ -21,6 +23,17 @@ export class MinigameParkingjamCar {
   private minOffset: number = 0;
   private maxOffset: number = 0;
   private _isOut: boolean = false;
+  private image: any;
+
+  public set imageService(imageService: MinigameParkingjamImagesService) {
+    this._imageService = imageService;
+    console.log(`get image for ${this.imageName}`);
+    let obs = this._imageService.getImageForCar(this.imageName);
+    obs.subscribe(res => {
+      this.image = res;
+      this.draw();
+    });
+  }
 
   constructor(private id: number) { }
 
@@ -43,15 +56,12 @@ export class MinigameParkingjamCar {
   }
 
   draw() {
-    this.ctx.save();
-    let rect = this.getDisplayRectangle(this.offset);
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(
-      rect.x,
-      rect.y,
-      rect.width,
-      rect.height);
-    this.ctx.restore();
+    if (this.image !== undefined) {
+      this.ctx.save();
+      let rect = this.getDisplayRectangle(this.offset);
+      this.ctx.drawImage(this.image, rect.x, rect.y, rect.width, rect.height);
+      this.ctx.restore();
+    }
   }
 
   isPositionOnCar(x: number, y: number) {
@@ -134,7 +144,7 @@ export class MinigameParkingjamCar {
     localStorage.setItem(base + '_car_size', '' + this.size);
     localStorage.setItem(base + '_car_vertical', '' + this.vertical);
     localStorage.setItem(base + '_car_required', '' + this.required);
-    localStorage.setItem(base + '_car_color', this.color);
+    localStorage.setItem(base + '_car_imageName', this.imageName);
   }
 
   // The id must be set in order to load the car
@@ -145,8 +155,8 @@ export class MinigameParkingjamCar {
     this.size = this.convertToNumberWithDefault(localStorage.getItem(base + "_car_size"), 1);
     this.vertical = localStorage.getItem(base + "_car_vertical") === "true";
     this.required = localStorage.getItem(base + "_car_required") === "true";
-    let c = localStorage.getItem(base + "_car_color");
-    this.color = (c) ? c : "#000000";
+    let img = localStorage.getItem(base + "_car_imageName");
+    this.imageName = (img) ? img : 'no-name.png';
     return this;
   }
 

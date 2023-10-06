@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MinigameParkingjamCar } from './shared/minigame-parkingjam-car.model';
 import { MinigameParkingjamWall } from './shared/minigame-parkingjam-wall.model';
-import { min } from 'rxjs';
+import { MinigameParkingjamImagesService } from './minigame-parkingjam-images.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class MinigameParkingjamService {
   
   private _completionCallback!: (bonus: boolean) => void;
 
-  constructor() { }
+  constructor(private imageService: MinigameParkingjamImagesService) { }
 
   public set completionCallback(callback: (bonus: boolean) => void) {
     this._completionCallback = callback;
@@ -42,6 +42,7 @@ export class MinigameParkingjamService {
     this.cars.forEach(c => {
       c.ctx = ctx;
       c.service = this;
+      c.imageService = this.imageService;
     });
   }
 
@@ -163,6 +164,7 @@ export class MinigameParkingjamService {
         let car = new MinigameParkingjamCar(id).load(this.prefix)
         car.ctx = ctx;
         car.service = this;
+        car.imageService = this.imageService;
         return car.load(this.prefix);
       });
     
