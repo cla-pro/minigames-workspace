@@ -120,16 +120,31 @@ export class MinigameWordleService {
 
   private loadFromStorage(): MinigameWordleLetterModel[][] {
     let loaded: MinigameWordleLetterModel[][] = [];
+    let lastLine = 0;
+    let lastIndex = 0;
     for (let i = 0; i < MinigameWordleService.NB_LINES; i++) {
       let line: MinigameWordleLetterModel[] = [];
       for (let j = 0; j < MinigameWordleService.NB_COLUMNS; j++) {
         let key: string = this.prefix + "_" + i + "_" + j;
         let stored = localStorage.getItem(key);
         if (stored) {
-          line.push(new MinigameWordleLetterModel(stored?.split(":")[0], stored?.split(":")[1]));
+          let state = stored?.split(":")[1];
+          line.push(new MinigameWordleLetterModel(stored?.split(":")[0], state));
+          if (state !== 'EMPTY') {
+            lastLine = i;
+            lastIndex = j;
+          }
         } else {
           line.push(new MinigameWordleLetterModel("", "EMPTY"));
         }
+      }
+
+      if (lastIndex === MinigameWordleService.NB_COLUMNS - 1) {
+        this.currentLine = lastLine + 1;
+        this.currentIndex = 0;
+      } else {
+        this.currentLine = lastLine;
+        this.currentIndex = lastIndex;
       }
 
       loaded.push(line);

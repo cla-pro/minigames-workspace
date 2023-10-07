@@ -5,9 +5,9 @@ import { MinigameWordleService } from './minigame-wordle.service';
   selector: 'minigame-wordle',
   templateUrl: './minigame-wordle.component.html',
   styleUrls: ['./minigame-wordle.component.css'],
-  host: {
+  /*host: {
     '(document:keyup)': 'keyup($event)'
-  }
+  }*/
 })
 export class MinigameWordleComponent implements OnInit {
   @Input() prefix: string = "";
