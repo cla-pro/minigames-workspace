@@ -1,5 +1,3 @@
 <div class="memory-card" [class.memory-card-found]="cardData.found" (click)="flipCard()" >
-    <span [class.memory-card-content-hidden]="!cardData.displayed">
-        <img class="memory-card-image" [src]="imageUrl" [alt]="cardData.id" />
-    </span>
+    <img class="memory-card-image" [class.memory-card-content-hidden]="!cardData.displayed" [src]="imageUrl" [alt]="cardData.id" />
 </div>

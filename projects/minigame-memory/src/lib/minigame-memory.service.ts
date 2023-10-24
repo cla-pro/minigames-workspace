@@ -82,8 +82,8 @@ export class MinigameMemoryService {
   }
 
   private resetCards(first: MinigameMemoryCardDataModel, second: MinigameMemoryCardDataModel): void {
-    first.displayed = false;
-    second.displayed = false;
+    first.displayed = first.found;
+    second.displayed = second.found;
   }
 
   private loadFromStorage(): void {
@@ -97,7 +97,8 @@ export class MinigameMemoryService {
           let key: string = this.prefix + "_" + i + "_" + j;
           let stored = localStorage.getItem(key);
           if (stored) {
-            line.push(new MinigameMemoryCardDataModel(stored?.split(":")[0], false, stored?.split(":")[1] === "true"));
+            let found = stored?.split(":")[1] === "true";
+            line.push(new MinigameMemoryCardDataModel(stored?.split(":")[0], found, found));
           } else {
             line.push(new MinigameMemoryCardDataModel('-1', false, false));
           }

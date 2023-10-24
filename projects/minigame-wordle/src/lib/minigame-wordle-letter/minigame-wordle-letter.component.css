@@ -1,5 +1,6 @@
 .wordle-letter {
     display: inline-block;
+    vertical-align: top;
     border-style: solid;
     border-color: black;
     border-radius: 5px;
