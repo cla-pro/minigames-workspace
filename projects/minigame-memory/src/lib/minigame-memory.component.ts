@@ -24,5 +24,6 @@ export class MinigameMemoryComponent implements OnInit {
     // Required for the callback in order to run in the right context (otherwise is the context of the caller, here the service)
     let that = this;
     this.memoryService.completionCallback = (bonus: boolean) => { that.completionEvent.emit(bonus); };
+    this.memoryService.setupComplete();
   }
 }

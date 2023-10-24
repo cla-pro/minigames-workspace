@@ -14,6 +14,10 @@ export class AdventBoardComponent {
   scenarios: AdventScenario[] = [];
 
   constructor(private router: Router, private service: AdventScenarioService) {
+    this.scenarios = this.service.loadScenarios();
+  }
+
+  resetScenario() {
     let walls = [
       // left wall
       this.wall(1, true, 0, 1, 0, 0),
@@ -54,13 +58,13 @@ export class AdventBoardComponent {
       this.car(4, 5, 4, 2, true, '2x1-red-car-top-down.png', false)
     ];
     
-    /*localStorage.clear();
+    localStorage.clear();
     this.service.saveScenarios([
       new AdventScenarioWordle("2023-12-01", "AVION"),
       new AdventScenarioMemory("2023-12-02", 2, 2),
       new AdventScenarioParkingjam("2023-12-03", 5, 7, cars, walls)
       //new AdventScenarioPuzzle("2023-12-04")
-    ]);*/
+    ]);
     this.scenarios = this.service.loadScenarios();
   }
 

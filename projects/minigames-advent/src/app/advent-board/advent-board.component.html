@@ -3,3 +3,7 @@
     <img src="assets/star-empty.png" class="bonus" *ngIf="s.completed && !s.bonus" />
     <img src="assets/star-full.png" class="bonus" *ngIf="s.completed && s.bonus" />
 </div>
+<hr />
+<div>
+    <button (click)="resetScenario()">Reset</button>
+</div>

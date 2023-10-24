@@ -5,33 +5,16 @@ import { MinigameMemoryCardDataModel } from './shared/minigame-memory-card-data.
   providedIn: 'root'
 })
 export class MinigameMemoryService {
-  private _prefix: string = "";
-  private _width: number = -1;
-  private _height: number = -1;
+  prefix: string = "";
+  width: number = -1;
+  height: number = -1;
   private _board: MinigameMemoryCardDataModel[][] = [];
   private fliped: MinigameMemoryCardDataModel[] = [];
   private loaded: boolean = false;
 
   private _completionCallback!: (bonus: boolean) => void;
 
-  public get width(): number { return this._width; }
-  public get height(): number { return this._height; }
   public get board(): MinigameMemoryCardDataModel[][] { return this._board; }
-
-  public set prefix(prefix: string) {
-    this._prefix = prefix;
-    this.loadFromStorage();
-  }
-
-  public set width(w: number) {
-    this._width = w;
-    this.defineBoard();
-  }
-
-  public set height(h: number) {
-    this._height = h;
-    this.defineBoard();
-  }
 
   public set completionCallback(callback: (bonus: boolean) => void) {
     this._completionCallback = callback;
@@ -39,19 +22,26 @@ export class MinigameMemoryService {
 
   constructor() {}
 
+  public setupComplete(): void {
+    this.loadFromStorage();
+    if (!this.loaded) {
+      this.defineBoard();
+    }
+  }
+
   private defineBoard(): void {
-    if (!this.loaded && this._width > -1 && this._height > -1) {
-      let nbCards = this._width * this._height;
+    if (!this.loaded && this.width > -1 && this.height > -1) {
+      let nbCards = this.width * this.height;
       let ids: number[] = Array(nbCards).fill(-1).map((value, index) => Math.floor(index / 2));
 
       this._board = [];
-      for (let i = 0; i < this._height; i++) {
+      for (let i = 0; i < this.height; i++) {
         let line: MinigameMemoryCardDataModel[] = [];
-        for (let j = 0; j < this._width; j++) {
+        for (let j = 0; j < this.width; j++) {
           let index = Math.floor(Math.random() * ids.length);
           let value = ids[index];
           ids = ids.slice(0, index).concat(ids.slice(index + 1));
-          line.push(new MinigameMemoryCardDataModel(value, false, false));
+          line.push(new MinigameMemoryCardDataModel(`${value}`, false, false));
         }
         this._board.push(line);
       }
@@ -83,7 +73,7 @@ export class MinigameMemoryService {
   }
 
   private areAllPairsFound(): boolean {
-    return this.board.flatMap(line => line).filter(c => !c.found).length == 0;
+    return this.board.flatMap(line => line).filter(c => !c.found).length === 0;
   }
 
   private setCompleted(): void {
@@ -97,19 +87,19 @@ export class MinigameMemoryService {
   }
 
   private loadFromStorage(): void {
-    this._width = this.extractNumberFromStorage(this._prefix + "_width");
-    this._height = this.extractNumberFromStorage(this._prefix + "_height");
-    if (this._width > 0 && this._height > 0) {
+    this.width = this.extractNumberFromStorage(this.prefix + "_width");
+    this.height = this.extractNumberFromStorage(this.prefix + "_height");
+    if (this.width > 0 && this.height > 0) {
       let loaded: MinigameMemoryCardDataModel[][] = [];
-      for (let i = 0; i < this._height; i++) {
+      for (let i = 0; i < this.height; i++) {
         let line: MinigameMemoryCardDataModel[] = [];
-        for (let j = 0; j < this._width; j++) {
-          let key: string = this._prefix + "_" + i + "_" + j;
+        for (let j = 0; j < this.width; j++) {
+          let key: string = this.prefix + "_" + i + "_" + j;
           let stored = localStorage.getItem(key);
           if (stored) {
-            line.push(new MinigameMemoryCardDataModel(+stored?.split(":")[0], false, stored?.split(":")[1] === "true"));
+            line.push(new MinigameMemoryCardDataModel(stored?.split(":")[0], false, stored?.split(":")[1] === "true"));
           } else {
-            line.push(new MinigameMemoryCardDataModel(1, false, false));
+            line.push(new MinigameMemoryCardDataModel('-1', false, false));
           }
         }
 
@@ -117,7 +107,7 @@ export class MinigameMemoryService {
       }
 
       this._board = loaded;
-      this.loaded = true;
+      this.loaded = this._board.flatMap(line => line).filter(c => c.id === '-1').length === 0;
     }
   }
 
@@ -127,12 +117,12 @@ export class MinigameMemoryService {
   }
 
   private updateStorage(): void {
-    localStorage.setItem(this._prefix + "_width", "" + this._width);
-    localStorage.setItem(this._prefix + "_height", "" + this._height);
-    for (let i = 0; i < this._height; i++) {
-      for (let j = 0; j < this._width; j++) {
+    localStorage.setItem(this.prefix + "_width", "" + this.width);
+    localStorage.setItem(this.prefix + "_height", "" + this.height);
+    for (let i = 0; i < this.height; i++) {
+      for (let j = 0; j < this.width; j++) {
         let elem = this._board[i][j];
-        let key: string = this._prefix + "_" + i + "_" + j;
+        let key: string = this.prefix + "_" + i + "_" + j;
         localStorage.setItem(key, elem.id + ":" + elem.found);
       }
     }
