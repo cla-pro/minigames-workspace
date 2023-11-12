@@ -100,7 +100,9 @@ export class MinigameWordleService {
     this.currentLine++;
     this.currentIndex = 0;
 
-    this.completed = this.currentLine === 6;
+    if (!this.completed) {
+      this.completed = this.currentLine === 6;
+    }
   }
 
   private isLetterAtWrongPlace(letter: string): boolean {

@@ -15,7 +15,7 @@ export class AdventParkingjamComponent {
     this.route.paramMap.subscribe(map => {
       let id = map.get('id');
       if (id) {
-        this.scenario = this.scenarioService.loadScenarioParkingjam(id);
+        this.scenario = this.scenarioService.getScenarioParkingjam(id);
       }
     });
   }
@@ -23,6 +23,6 @@ export class AdventParkingjamComponent {
   scenarioCompleted(bonus: boolean): void {
     this.scenario.completed = true;
     this.scenario.bonus = bonus;
-    this.scenarioService.saveScoreStatus(this.scenario);
+    this.scenarioService.markCompleted(this.scenario);
   }
 }

@@ -53,8 +53,11 @@ export class AdventServiceInitiatorService {
     ];
     
     localStorage.clear();
+
+    let firstScenario = new AdventScenarioWordle("2023-12-01", "GLACE");
+    firstScenario.enabled = true;
     this.service.saveScenarios([
-      new AdventScenarioWordle("2023-12-01", "GLACE"),
+      firstScenario,
       new AdventScenarioParkingjam("2023-12-02", 5, 7, cars, walls),
       new AdventScenarioMemory("2023-12-03", 2, 2),
       new AdventScenarioWordle("2023-12-04", "ECOLE"),

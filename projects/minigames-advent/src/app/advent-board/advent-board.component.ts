@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { AdventScenario, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from '../shared/advent-scenario.model';
+import { AdventScenario } from '../shared/advent-scenario.model';
 import { Router } from '@angular/router';
 import { AdventScenarioService } from '../advent-scenario.service';
-import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
-import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
 import { AdventServiceInitiatorService } from '../advent-service-initiator.service';
 
 @Component({
@@ -20,6 +18,7 @@ export class AdventBoardComponent {
 
   resetScenario() {
     this.initiatorService.initiateScenarios();
+    this.scenarios = this.service.loadScenarios();
   }
 
   startScenario(scenario: AdventScenario): void {

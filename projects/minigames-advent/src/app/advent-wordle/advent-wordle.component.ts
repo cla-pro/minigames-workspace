@@ -17,7 +17,7 @@ export class AdventWordleComponent {
     this.route.paramMap.subscribe(map => {
       let id = map.get('id');
       if (id) {
-        this.scenario = this.scenarioService.loadScenarioWordle(id);
+        this.scenario = this.scenarioService.getScenarioWordle(id);
         this.word = this.scenario.word.split('');
       }
     });
@@ -27,8 +27,9 @@ export class AdventWordleComponent {
   }
 
   scenarioCompleted(bonus: boolean): void {
+    console.log(`Scenario ${this.scenario.prefix} completed`)
     this.scenario.completed = true;
     this.scenario.bonus = bonus;
-    this.scenarioService.saveScoreStatus(this.scenario);
+    this.scenarioService.markCompleted(this.scenario);
   }
 }

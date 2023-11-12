@@ -7,14 +7,23 @@ import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/sha
   providedIn: 'root'
 })
 export class AdventScenarioService {
-   constructor() {}
+  private FIRST_DECEMBER = new Date(2023, 10, 1, 0, 0, 0, 0).getTime();
+  private MILlIS_PER_DAY = 86400000;
+
+  private scenarios: AdventScenario[] = [];
+
+  constructor() {}
 
   loadScenarios(): AdventScenario[] {
-    return Object.keys(localStorage)
-      .filter(k => k.search('_scenario_id') > -1)
-      .sort()
-      .map(k => localStorage.getItem(k))
-      .map(k => this.loadScenario(k!));
+    if (this.scenarios.length == 0) {
+      this.scenarios = Object.keys(localStorage)
+        .filter(k => k.search('_scenario_id') > -1)
+        .sort()
+        .map(k => localStorage.getItem(k))
+        .map(k => this.loadScenario(k!));
+      this.updateEnabledScenario();
+    }
+    return this.scenarios;
   }
 
   private loadScenario(id: string): AdventScenario {
@@ -79,7 +88,46 @@ export class AdventScenarioService {
   private loadScenarioStatus<T extends AdventScenario>(scenario: T): T {
     scenario.completed = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_completed"), false);
     scenario.bonus = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_bonus"), false);
+    scenario.enabled = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_enabled"), false);
     return scenario;
+  }
+
+  getScenarioWordle(prefix: string): AdventScenarioWordle {
+    return this.scenarios.filter(s => s.prefix === prefix)[0] as AdventScenarioWordle;
+  }
+
+  getScenarioMemory(prefix: string): AdventScenarioMemory {
+    return this.scenarios.filter(s => s.prefix === prefix)[0] as AdventScenarioMemory;
+  }
+
+  getScenarioParkingjam(prefix: string): AdventScenarioParkingjam {
+    return this.scenarios.filter(s => s.prefix === prefix)[0] as AdventScenarioParkingjam;
+  }
+
+  markCompleted(scenario: AdventScenario) {
+    this.saveScoreStatus(scenario);
+    this.updateEnabledScenario();
+  }
+
+  private updateEnabledScenario() {
+    let lastCompleted = -1;
+    for (let i = 0; i < this.scenarios.length; i++) {
+      let s = this.scenarios[i];
+      if (s.completed) {
+        lastCompleted = i;
+      } else {
+        break;
+      }
+    }
+    console.log(`Last completed scenario = ${lastCompleted}`);
+    
+    let date = new Date();
+    let diff = Math.floor((date.getTime() - this.FIRST_DECEMBER) / this.MILlIS_PER_DAY);
+    let next = lastCompleted + 1;
+    if (next <= diff && next < this.scenarios.length && !this.scenarios[next].enabled) {
+      console.log(`Enabling scenario ${this.scenarios[next].prefix}`)
+      this.scenarios[next].enabled = true;
+    }
   }
 
   saveScoreStatus(scenario: AdventScenario): void {
@@ -96,6 +144,7 @@ export class AdventScenarioService {
         localStorage.setItem(id + "_scenario_type", s.type);
         localStorage.setItem(id + "_completed", `${s.completed}`);
         localStorage.setItem(id + "_bonus", `${s.bonus}`);
+        localStorage.setItem(id + "_enabled", `${s.enabled}`);
 
         if (s instanceof AdventScenarioWordle) {
           this.saveScenarioWordle(id, s as AdventScenarioWordle);
