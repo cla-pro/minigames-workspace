@@ -1,23 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MinigameWordleService } from './minigame-wordle.service';
 
 @Component({
   selector: 'minigame-wordle',
   templateUrl: './minigame-wordle.component.html',
-  styleUrls: ['./minigame-wordle.component.css'],
-  /*host: {
-    '(document:keyup)': 'keyup($event)'
-  }*/
+  styleUrls: ['./minigame-wordle.component.css']
 })
-export class MinigameWordleComponent implements OnInit {
+export class MinigameWordleComponent implements OnInit, AfterViewInit {
   @Input() prefix: string = "";
   @Input() word: string[] = [];
   
   @Output() completionEvent = new EventEmitter<boolean>();
 
-  private status: string = "RUNNING";
+  @ViewChild("keyInput") _el!: ElementRef;
 
   constructor(private wordleService: MinigameWordleService) {}
+
+  ngAfterViewInit(): void {
+    this._el.nativeElement.focus();
+  }
 
   ngOnInit(): void {
     this.wordleService.setPrefix(this.prefix);

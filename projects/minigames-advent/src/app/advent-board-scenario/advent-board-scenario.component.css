@@ -1,0 +1,13 @@
+.bonus {
+    width: 15px;
+}
+
+.window-image {
+    height: 50px;
+    cursor: pointer;
+}
+
+.day-number {
+    height: 100%;
+    font-size: 35px;
+}

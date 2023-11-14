@@ -1,3 +1,7 @@
-.bonus {
-    width: 15px;
+.scenario-board {
+    width: 100%;
+}
+
+.scenario-cell {
+    width: 20%;
 }

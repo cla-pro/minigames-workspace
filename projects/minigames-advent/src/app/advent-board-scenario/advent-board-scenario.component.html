@@ -1,0 +1,7 @@
+<div>
+    <span class="day-number"><i>{{day}}</i></span>
+    <img src="assets/windows-opened.png" (click)="startScenario()" class="window-image" *ngIf="scenario.enabled" />
+    <img src="assets/windows-closed.png" class="window-image" *ngIf="!scenario.enabled" />
+    <img src="assets/star-empty.png" class="bonus" *ngIf="scenario.completed && !scenario.bonus" />
+    <img src="assets/star-full.png" class="bonus" *ngIf="scenario.completed && scenario.bonus" />
+</div>

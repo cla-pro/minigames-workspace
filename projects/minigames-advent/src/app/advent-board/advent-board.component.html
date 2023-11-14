@@ -1,8 +1,44 @@
-<div *ngFor="let s of scenarios">
-    <button (click)="startScenario(s)" [disabled]="!s.enabled || s.completed">{{s.prefix}}</button>
-    <img src="assets/star-empty.png" class="bonus" *ngIf="s.completed && !s.bonus" />
-    <img src="assets/star-full.png" class="bonus" *ngIf="s.completed && s.bonus" />
-</div>
+<!--<div *ngFor="let s of scenarios">
+    <advent-board-scenario [scenario]="s" />
+</div>-->
+<table class="scenario-board">
+    <tr>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-01')" /></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-02')" /></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-03')" /></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-04')" /></td>
+    </tr>
+    <tr>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-05')" /></td>
+        <td class="scenario-cell"><!--<advent-board-scenario [scenario]="getScenario('2023-12-06')" />--></td>
+        <td class="scenario-cell"><!--<advent-board-scenario [scenario]="getScenario('2023-12-07')" />--></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-08')" /></td>
+    </tr>
+    <tr>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-09')" /></td>
+        <td class="scenario-cell"><!--<advent-board-scenario [scenario]="getScenario('2023-12-10')" />--></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-11')" /></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-12')" /></td>
+    </tr>
+    <tr>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-13')" /></td>
+        <td class="scenario-cell"><!--<advent-board-scenario [scenario]="getScenario('2023-12-14')" />--></td>
+        <td class="scenario-cell"><!--<advent-board-scenario [scenario]="getScenario('2023-12-15')" />--></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-16')" /></td>
+    </tr>
+    <tr>
+        <td class="scenario-cell"><!--<advent-board-scenario [scenario]="getScenario('2023-12-17')" />--></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-18')" /></td>
+        <td class="scenario-cell"><!--<advent-board-scenario [scenario]="getScenario('2023-12-19')" />--></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-20')" /></td>
+    </tr>
+    <tr>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-21')" /></td>
+        <td class="scenario-cell"><!--<advent-board-scenario [scenario]="getScenario('2023-12-22')" />--></td>
+        <td class="scenario-cell"><!--<advent-board-scenario [scenario]="getScenario('2023-12-23')" />--></td>
+        <td class="scenario-cell"><advent-board-scenario [scenario]="getScenario('2023-12-24')" /></td>
+    </tr>
+</table>
 <hr />
 <div>
     <button (click)="resetScenario()">Reset</button>

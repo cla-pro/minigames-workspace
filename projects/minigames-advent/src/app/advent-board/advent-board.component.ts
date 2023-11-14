@@ -16,6 +16,10 @@ export class AdventBoardComponent {
     this.scenarios = this.service.loadScenarios();
   }
 
+  getScenario(prefix: string): AdventScenario {
+    return this.scenarios.filter(s => s.prefix === prefix)[0];
+  }
+
   resetScenario() {
     this.initiatorService.initiateScenarios();
     this.scenarios = this.service.loadScenarios();

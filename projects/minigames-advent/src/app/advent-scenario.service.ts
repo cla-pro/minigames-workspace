@@ -115,6 +115,7 @@ export class AdventScenarioService {
       let s = this.scenarios[i];
       if (s.completed) {
         lastCompleted = i;
+        console.log(`enabled: ${s.enabled}`);
       } else {
         break;
       }
@@ -125,8 +126,10 @@ export class AdventScenarioService {
     let diff = Math.floor((date.getTime() - this.FIRST_DECEMBER) / this.MILlIS_PER_DAY);
     let next = lastCompleted + 1;
     if (next <= diff && next < this.scenarios.length && !this.scenarios[next].enabled) {
-      console.log(`Enabling scenario ${this.scenarios[next].prefix}`)
-      this.scenarios[next].enabled = true;
+      let s = this.scenarios[next];
+      console.log(`Enabling scenario ${s.prefix}`)
+      s.enabled = true;
+      localStorage.setItem(s.prefix + "_enabled", `${s.enabled}`);
     }
   }
 
