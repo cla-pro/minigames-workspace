@@ -1,6 +1,6 @@
 export class MinigameParkingjamConst {
   public static BOARD_PADDING = 25;
-  public static CELL_SIZE = 25;
+  public static CELL_SIZE = 50;
 
   public static cellToPixelWithPadding(cell: number): number {
     return this.cellToPixel(cell) + this.BOARD_PADDING;
