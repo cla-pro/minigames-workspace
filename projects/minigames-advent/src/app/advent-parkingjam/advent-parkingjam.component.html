@@ -1,3 +1,4 @@
+<h1 class="game-title">Sors la voiture rouge</h1>
 <minigame-parkingjam
     [prefix]="scenario.prefix"
     [width]="scenario.width"
@@ -5,3 +6,5 @@
     [cars]="scenario.cars"
     [walls]="scenario.walls"
     (completionEvent)="scenarioCompleted($event)"></minigame-parkingjam>
+
+<img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />

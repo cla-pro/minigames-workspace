@@ -1,1 +1,3 @@
+<h1 class="game-title">Mémorie</h1>
 <minigame-memory [prefix]="scenario.prefix" [boardWidth]="scenario.width" [boardHeight]="scenario.height" (completionEvent)="scenarioCompleted($event)"></minigame-memory>
+<img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />

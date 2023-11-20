@@ -28,4 +28,8 @@ export class AdventBoardComponent {
   startScenario(scenario: AdventScenario): void {
     this.router.navigate([scenario.type, scenario.prefix]);
   }
+
+  enableAllScenario() {
+    this.scenarios.forEach(s => s.enabled = true);
+  }
 }
