@@ -49,7 +49,8 @@ export class AdventScenarioService {
   loadScenarioMemory(id: string): AdventScenarioMemory {
     let width = this.parseIntOrDefault(localStorage.getItem(id + "_width"), 0);
     let height = this.parseIntOrDefault(localStorage.getItem(id + "_height"), 0);
-    return this.loadScenarioStatus(new AdventScenarioMemory(id, width, height));
+    let cardSetId = localStorage.getItem(id + "_cardSetId") ?? "";
+    return this.loadScenarioStatus(new AdventScenarioMemory(id, width, height, cardSetId));
   }
 
   loadScenarioParkingjam(id: string): AdventScenarioParkingjam {
@@ -170,6 +171,7 @@ export class AdventScenarioService {
   private saveScenarioMemory(id: string, scenario: AdventScenarioMemory) {
     localStorage.setItem(id + "_width", '' + scenario.width);
     localStorage.setItem(id + "_height", '' + scenario.height);
+    localStorage.setItem(id + "_cardSetId", scenario.cardSetId);
   }
 
   private saveScenarioParkingjam(id: string, scenario: AdventScenarioParkingjam) {

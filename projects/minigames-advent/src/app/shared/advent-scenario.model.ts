@@ -29,11 +29,13 @@ export class AdventScenarioWordle extends AdventScenario {
 export class AdventScenarioMemory extends AdventScenario {
   width: number;
   height: number;
+  cardSetId: string;
 
-  constructor(prefix: string, width: number, height: number) {
+  constructor(prefix: string, width: number, height: number, cardSetId: string) {
     super(prefix, "memory");
     this.width = width;
     this.height = height;
+    this.cardSetId = cardSetId;
   }
 }
 

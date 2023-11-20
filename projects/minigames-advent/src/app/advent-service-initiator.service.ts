@@ -59,7 +59,7 @@ export class AdventServiceInitiatorService {
     this.service.saveScenarios([
       firstScenario,
       this.parkingjamScenario1(),
-      new AdventScenarioMemory("2023-12-03", 2, 2),
+      new AdventScenarioMemory("2023-12-03", 4, 6, "firstSet"),
       new AdventScenarioWordle("2023-12-04", "ECOLE"),
       new AdventScenarioWordle("2023-12-05", "LUNDI"),
       //new AdventScenarioMemory("2023-12-06"),

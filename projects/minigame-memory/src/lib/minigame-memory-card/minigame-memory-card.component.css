@@ -5,11 +5,14 @@
     border-color: black;
     border-radius: 5px;
     border-width: thin;
-    width: 30px;
-    height: 30px;
+    width: 15%;
+    height: 80px;
     text-align: center;
-    line-height: 25px;
-    margin: 5px;
+    line-height: 80px;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .memory-card-found {
@@ -21,8 +24,9 @@
 }
 
 .memory-card-image {
-    width: 20px;
-    height: 20px;
-    padding: 0;
-    margin: 5px;
+    width: 80%;
+    height: 80%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin: 0;
 }

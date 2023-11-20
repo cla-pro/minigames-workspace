@@ -1,26 +1,33 @@
 import { Injectable } from '@angular/core';
 import { MinigameMemoryCardDataModel } from './shared/minigame-memory-card-data.model';
+import { MinigameMemoryImageService } from './minigame-memory-image.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MinigameMemoryService {
+  public static BONUS_COUNT = 45;
   prefix: string = "";
   width: number = -1;
   height: number = -1;
+  cardSetId: string = "";
   private _board: MinigameMemoryCardDataModel[][] = [];
   private fliped: MinigameMemoryCardDataModel[] = [];
   private loaded: boolean = false;
+  private _count: number = 0;
+  private _zoomUrl: string | undefined = undefined;
 
   private _completionCallback!: (bonus: boolean) => void;
 
   public get board(): MinigameMemoryCardDataModel[][] { return this._board; }
+  public get count(): number { return this._count; }
+  public get zoomUrl(): string | undefined { return this._zoomUrl; }
 
   public set completionCallback(callback: (bonus: boolean) => void) {
     this._completionCallback = callback;
   }
 
-  constructor() {}
+  constructor(private service: MinigameMemoryImageService) {}
 
   public setupComplete(): void {
     this.loadFromStorage();
@@ -30,8 +37,9 @@ export class MinigameMemoryService {
   }
 
   private defineBoard(): void {
-    if (!this.loaded && this.width > -1 && this.height > -1) {
-      let nbCards = this.width * this.height;
+    if (!this.loaded && this.width > -1 && this.height > -1 && this.cardSetId !== "") {
+      let cardSet = this.service.cardSet(this.cardSetId);
+      let nbCards = cardSet.length * 2;
       let ids: number[] = Array(nbCards).fill(-1).map((value, index) => Math.floor(index / 2));
 
       this._board = [];
@@ -39,7 +47,7 @@ export class MinigameMemoryService {
         let line: MinigameMemoryCardDataModel[] = [];
         for (let j = 0; j < this.width; j++) {
           let index = Math.floor(Math.random() * ids.length);
-          let value = ids[index];
+          let value = cardSet[ids[index]];
           ids = ids.slice(0, index).concat(ids.slice(index + 1));
           line.push(new MinigameMemoryCardDataModel(`${value}`, false, false));
         }
@@ -51,25 +59,31 @@ export class MinigameMemoryService {
   }
 
   cardFliped(cardData: MinigameMemoryCardDataModel): void {
+    this._zoomUrl = this.service.url(cardData.id);
     this.fliped.push(cardData);
-    if (this.fliped.length == 2) {
-      let first = this.fliped[0];
-      let second = this.fliped[1];
 
-      if (first.id === second.id) {
-        first.found = true;
-        second.found = true;
-        this.updateStorage();
-
-        if (this.areAllPairsFound()) {
-          this.setCompleted();
+    let that = this;
+    setTimeout(function callback() {
+      that._zoomUrl = undefined;
+      if (that.fliped.length == 2) {
+        that._count++;
+        let first = that.fliped[0];
+        let second = that.fliped[1];
+  
+        if (first.id === second.id) {
+          first.found = true;
+          second.found = true;
+          that.updateStorage();
+  
+          if (that.areAllPairsFound()) {
+            that.setCompleted();
+          }
         }
+        
+        that.fliped = [];
+        setTimeout(function callback() { that.resetCards(first, second); }, 1000);
       }
-      
-      this.fliped = [];
-      let that = this;
-      setTimeout(function callback() { that.resetCards(first, second); }, 1000);
-    }
+    }, 1000);
   }
 
   private areAllPairsFound(): boolean {
@@ -77,8 +91,9 @@ export class MinigameMemoryService {
   }
 
   private setCompleted(): void {
-    this._completionCallback(false);
-    console.log("memory completed");
+    let bonus = this.count <= MinigameMemoryService.BONUS_COUNT;
+    this._completionCallback(bonus);
+    console.log(`memory completed with ${this.count} with bonus ${bonus}`);
   }
 
   private resetCards(first: MinigameMemoryCardDataModel, second: MinigameMemoryCardDataModel): void {
@@ -89,6 +104,7 @@ export class MinigameMemoryService {
   private loadFromStorage(): void {
     this.width = this.extractNumberFromStorage(this.prefix + "_width");
     this.height = this.extractNumberFromStorage(this.prefix + "_height");
+    this._count = this.extractNumberFromStorage(this.prefix + "_count");
     if (this.width > 0 && this.height > 0) {
       let loaded: MinigameMemoryCardDataModel[][] = [];
       for (let i = 0; i < this.height; i++) {
@@ -120,6 +136,7 @@ export class MinigameMemoryService {
   private updateStorage(): void {
     localStorage.setItem(this.prefix + "_width", "" + this.width);
     localStorage.setItem(this.prefix + "_height", "" + this.height);
+    localStorage.setItem(this.prefix + "_count", "" + this.count);
     for (let i = 0; i < this.height; i++) {
       for (let j = 0; j < this.width; j++) {
         let elem = this._board[i][j];
