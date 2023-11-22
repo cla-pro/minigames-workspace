@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdventScenarioService } from '../advent-scenario.service';
 import { AdventScenarioMemory } from '../shared/advent-scenario.model';
 
@@ -11,13 +11,17 @@ import { AdventScenarioMemory } from '../shared/advent-scenario.model';
 export class AdventMemoryComponent {
   scenario!: AdventScenarioMemory;
 
-  constructor(private route: ActivatedRoute, private scenarioService: AdventScenarioService) {
+  constructor(private route: ActivatedRoute, private router: Router, private scenarioService: AdventScenarioService) {
     this.route.paramMap.subscribe(map => {
       let id = map.get('id');
       if (id) {
         this.scenario = this.scenarioService.getScenarioMemory(id);
       }
     });
+  }
+
+  goToBoard(): void {
+    this.router.navigate(['..']);
   }
 
   scenarioCompleted(bonus: boolean): void {

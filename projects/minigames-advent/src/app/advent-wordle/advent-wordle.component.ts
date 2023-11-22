@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MinigameWordleComponent } from 'projects/minigame-wordle/src/public-api';
 import { AdventScenarioService } from '../advent-scenario.service';
 import { AdventScenarioWordle } from '../shared/advent-scenario.model';
@@ -13,7 +13,7 @@ export class AdventWordleComponent {
   scenario!: AdventScenarioWordle;
   word: string[] = [];
 
-  constructor(private route: ActivatedRoute, private scenarioService: AdventScenarioService) {
+  constructor(private route: ActivatedRoute, private router: Router, private scenarioService: AdventScenarioService) {
     this.route.paramMap.subscribe(map => {
       let id = map.get('id');
       if (id) {
@@ -23,7 +23,8 @@ export class AdventWordleComponent {
     });
   }
 
-  loadScenario(id: string): void {
+  goToBoard(): void {
+    this.router.navigate(['..']);
   }
 
   scenarioCompleted(bonus: boolean): void {

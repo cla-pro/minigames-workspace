@@ -15,7 +15,7 @@ export class AdventBoardScenarioComponent implements OnInit {
 
   ngOnInit(): void {
     let parsedDay = this.scenario.prefix.split('-')[2];
-    this.day = `${+parsedDay}`;
+    this.day = `${+parsedDay}`.padStart(2, ' ');
   }
 
   startScenario(): void {

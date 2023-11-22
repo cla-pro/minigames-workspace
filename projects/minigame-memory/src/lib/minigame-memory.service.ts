@@ -105,6 +105,8 @@ export class MinigameMemoryService {
     this.width = this.extractNumberFromStorage(this.prefix + "_width");
     this.height = this.extractNumberFromStorage(this.prefix + "_height");
     this._count = this.extractNumberFromStorage(this.prefix + "_count");
+    if (this._count === -1) this._count++;
+    
     if (this.width > 0 && this.height > 0) {
       let loaded: MinigameMemoryCardDataModel[][] = [];
       for (let i = 0; i < this.height; i++) {

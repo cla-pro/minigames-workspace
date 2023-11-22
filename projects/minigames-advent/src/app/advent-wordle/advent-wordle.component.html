@@ -1,3 +1,4 @@
 <h1 class="game-title">Trouve le mot caché</h1>
+<button class="back-button" (click)="goToBoard()">Retour</button>
 <minigame-wordle [prefix]="scenario.prefix" [word]="word" (completionEvent)="scenarioCompleted($event)"></minigame-wordle>
 <img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />

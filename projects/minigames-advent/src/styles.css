@@ -11,3 +11,9 @@
     top: 10%;
     width: 50%;
 }
+
+.back-button {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}

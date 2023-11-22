@@ -5,9 +5,24 @@
 .window-image {
     height: 50px;
     cursor: pointer;
+    z-index: -1;
 }
 
 .day-number {
-    height: 100%;
-    font-size: 35px;
+    position: relative;
+    top: -15px;
+    line-height: 50px;
+    height: 50px;
+    font-size: 30px;
+    color: #FFD700;
+    text-align: center;
+    cursor: pointer;
+}
+
+.day-number-opened {
+    left: -40px;
+}
+
+.day-number-closed {
+    left: -31px;
 }
