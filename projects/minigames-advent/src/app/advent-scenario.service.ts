@@ -59,7 +59,9 @@ export class AdventScenarioService {
 
     let cars: MinigameParkingjamCar[] = this.loadCars(id);
     let walls: MinigameParkingjamWall[] = this.loadWalls(id);
-    return this.loadScenarioStatus(new AdventScenarioParkingjam(id, width, height, cars, walls));
+
+    let bonusMoves = this.parseIntOrDefault(localStorage.getItem(id + "_bonusMoves"), 0);
+    return this.loadScenarioStatus(new AdventScenarioParkingjam(id, width, height, cars, walls, bonusMoves));
   }
 
   private loadCars(prefix: string): MinigameParkingjamCar[] {
@@ -177,6 +179,7 @@ export class AdventScenarioService {
   private saveScenarioParkingjam(id: string, scenario: AdventScenarioParkingjam) {
     localStorage.setItem(id + "_width", '' + scenario.width);
     localStorage.setItem(id + "_height", '' + scenario.height);
+    localStorage.setItem(id + "_bonusMoves", '' + scenario.bonusMoves);
     
     scenario.cars.forEach(c => c.store(id));
     scenario.walls.forEach(w => w.store(id));

@@ -10,10 +10,14 @@ export class MinigameParkingjamService {
   prefix: string = "";
   public width: number = -1;
   public height: number = -1;
+  public bonusMoves: number = -1;
 
   private walls: MinigameParkingjamWall[] = [];
   private cars: MinigameParkingjamCar[] = [];
   private movingCar: MinigameParkingjamCar | undefined;
+  private _moves: number = 0;
+
+  public get moves(): number { return this._moves; }
   
   private _completionCallback!: (bonus: boolean) => void;
 
@@ -21,6 +25,11 @@ export class MinigameParkingjamService {
 
   public set completionCallback(callback: (bonus: boolean) => void) {
     this._completionCallback = callback;
+  }
+
+  public setupComplete() {
+    this._moves = +(localStorage.getItem(this.prefix + '_moves') ?? "0");
+    console.log(localStorage.getItem(this.prefix + "_moves") + " - " + this._moves);
   }
 
   addCar(car: MinigameParkingjamCar) {
@@ -108,6 +117,7 @@ export class MinigameParkingjamService {
 
   movementComplete(): void {
     if (this.movingCar) {
+      this.increaseAndStoreMoves();
       if (this.isOut(this.movingCar)) {
         this.movingCar.wentOut();
         this.movingCar.store(this.prefix);
@@ -118,7 +128,7 @@ export class MinigameParkingjamService {
       }
 
       if (this.isCompleted()) {
-        this._completionCallback(false);
+        this._completionCallback(this._moves <= this.bonusMoves);
       }
     }
   }
@@ -152,6 +162,8 @@ export class MinigameParkingjamService {
   }
 
   load(ctx: CanvasRenderingContext2D): void {
+    this._moves = +(localStorage.getItem(this.prefix + '_moves') ?? "0");
+
     this.cars = Object.keys(localStorage)
       .filter(k => k.startsWith(this.prefix))
       .filter(k => k.search('_car_id') > -1)
@@ -183,7 +195,13 @@ export class MinigameParkingjamService {
       });
   }
 
+  private increaseAndStoreMoves(): void {
+    this._moves++;
+    localStorage.setItem(this.prefix + '_moves', '' + this._moves);
+  }
+
   store(): void {
+    localStorage.setItem(this.prefix + '_moves', '' + this._moves);
     this.walls.forEach(w => w.store(this.prefix));
     this.cars.forEach(c => c.store(this.prefix));
   }

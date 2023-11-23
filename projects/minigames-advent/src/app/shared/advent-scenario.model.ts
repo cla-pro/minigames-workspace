@@ -44,13 +44,15 @@ export class AdventScenarioParkingjam extends AdventScenario {
   height: number;
   cars: MinigameParkingjamCar[];
   walls: MinigameParkingjamWall[];
+  bonusMoves: number;
 
-  constructor(prefix: string, width: number, height: number, cars: MinigameParkingjamCar[], walls: MinigameParkingjamWall[]) {
+  constructor(prefix: string, width: number, height: number, cars: MinigameParkingjamCar[], walls: MinigameParkingjamWall[], bonusMoves: number) {
     super(prefix, "parkingjam");
     this.width = width;
     this.height = height;
     this.cars = cars;
     this.walls = walls;
+    this.bonusMoves = bonusMoves;
   }
 }
 
