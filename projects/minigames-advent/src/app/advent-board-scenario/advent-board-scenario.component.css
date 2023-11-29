@@ -8,6 +8,28 @@
     z-index: -1;
 }
 
+.scenario-cell {
+    width: 25%;
+    height: 17vh;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.scenario-cell-background {
+    background-color: black;
+}
+
+.scenario-cell-div {
+    width: 100%;
+    height: 100%;
+    line-height: 100%;
+    color: #FFD700;
+    text-align: center;
+    cursor: pointer;
+    font-size: 30px;
+    vertical-align: middle;
+}
+
 .day-number {
     position: relative;
     top: -15px;
@@ -17,12 +39,4 @@
     color: #FFD700;
     text-align: center;
     cursor: pointer;
-}
-
-.day-number-opened {
-    left: -40px;
-}
-
-.day-number-closed {
-    left: -31px;
 }
