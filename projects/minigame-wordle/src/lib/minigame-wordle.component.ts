@@ -6,7 +6,7 @@ import { MinigameWordleService } from './minigame-wordle.service';
   templateUrl: './minigame-wordle.component.html',
   styleUrls: ['./minigame-wordle.component.css']
 })
-export class MinigameWordleComponent implements OnInit, AfterViewInit {
+export class MinigameWordleComponent implements OnInit {
   @Input() prefix: string = "";
   @Input() word: string[] = [];
   
@@ -16,29 +16,11 @@ export class MinigameWordleComponent implements OnInit, AfterViewInit {
 
   constructor(private wordleService: MinigameWordleService) {}
 
-  ngAfterViewInit(): void {
-    this._el.nativeElement.focus();
-  }
-
   ngOnInit(): void {
     this.wordleService.setPrefix(this.prefix);
     this.wordleService.setWord(this.word);
-  }
-  
-  keyup(event: KeyboardEvent): void {
-    if (!this.wordleService.isCompleted()) {
-      if (event.key === 'Enter') {
-        this.wordleService.confirmWord();
-        if (this.wordleService.isCompleted()) {
-          this.completionEvent.emit(this.wordleService.hasBonus());
-        }
-      } else if (event.key === 'Backspace') {
-        this.wordleService.removeLetter();
-      } else if (event.key.length === 1 && /^[a-zA-Z]/i.test(event.key)) {
-        this.wordleService.letterEntered(event.key);
-      } else {
-        console.log(event);
-      }
-    }
+    // Required for the callback in order to run in the right context (otherwise is the context of the caller, here the service)
+    let that = this;
+    this.wordleService.completionCallback = (bonus: boolean) => { that.completionEvent.emit(bonus); };
   }
 }

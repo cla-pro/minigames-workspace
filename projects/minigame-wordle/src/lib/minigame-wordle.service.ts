@@ -19,9 +19,15 @@ export class MinigameWordleService {
 
   private currentLine: number = 0;
   private currentIndex: number = 0;
+  
+  private _completionCallback!: (bonus: boolean) => void;
 
   constructor() {
     this.words = this.initEmpty();
+  }
+
+  public set completionCallback(callback: (bonus: boolean) => void) {
+    this._completionCallback = callback;
   }
 
   private initEmpty(): MinigameWordleLetterModel[][] {
@@ -102,6 +108,10 @@ export class MinigameWordleService {
 
     if (!this.completed) {
       this.completed = this.currentLine === 6;
+    }
+
+    if (this.completed) {
+      this._completionCallback(this.hasBonus());
     }
   }
 

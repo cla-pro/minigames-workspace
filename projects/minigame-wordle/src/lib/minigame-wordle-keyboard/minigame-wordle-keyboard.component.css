@@ -1,0 +1,20 @@
+.keyboard {
+    text-align: center;
+}
+
+.keyboard-letter {
+    display: inline-block;
+    width: 25px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px black solid;
+    border-radius: 3px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 2px;
+    background-color: lightgray;
+}
+
+.keyboard-letter-wide {
+    width: 35px !important;
+}
