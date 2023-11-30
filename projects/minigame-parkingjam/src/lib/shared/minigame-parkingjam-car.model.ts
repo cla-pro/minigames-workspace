@@ -35,7 +35,7 @@ export class MinigameParkingjamCar {
     });
   }
 
-  constructor(private id: number) { }
+  constructor(public id: number) { }
 
   mapToGrid() {
     let width = (this.vertical) ? 1 : this.size;

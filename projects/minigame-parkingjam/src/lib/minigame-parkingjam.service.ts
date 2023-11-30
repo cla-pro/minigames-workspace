@@ -118,9 +118,11 @@ export class MinigameParkingjamService {
   movementComplete(): void {
     if (this.movingCar) {
       this.increaseAndStoreMoves();
+      console.log(`${this.movingCar.line}-${this.movingCar.column} (${this.movingCar.size}) (${this.width} ${this.height})`);
       if (this.isOut(this.movingCar)) {
         this.movingCar.wentOut();
         this.movingCar.store(this.prefix);
+        console.log("car is out");
       } else {
         this.movingCar.store(this.prefix);
         this.cars.push(this.movingCar);

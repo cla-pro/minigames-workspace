@@ -41,14 +41,16 @@ export class MinigameParkingjamBoardComponent implements AfterViewInit, OnDestro
   private captureEvent(): void {
     let canvasEl = this.canvas.nativeElement;
 
-    this.mousedown = fromEvent(canvasEl, 'mousedown');
-    this.mouseup = fromEvent(document, 'mouseup');
+    this.mousedown = fromEvent(canvasEl, 'touchstart');
+    this.mouseup = fromEvent(document, 'touchend');
 
     this.mousedownSubscription = this.mousedown.subscribe((res: any) => {
-      let filtered = this.service.getCarForPosition(res.offsetX, res.offsetY);
+      res.preventDefault();
+      let touch = res.touches[0];
+      let filtered = this.service.getCarForPosition(touch.clientX - touch.target.offsetLeft, touch.clientY - touch.target.offsetTop);
       if (filtered) {
         this.movingCar = filtered;
-        this.movingCar.onMouseClick(res.pageX, res.pageY);
+        this.movingCar.onMouseClick(touch.pageX, touch.pageY);
       }
     });
 
@@ -73,12 +75,15 @@ export class MinigameParkingjamBoardComponent implements AfterViewInit, OnDestro
       this.drawingSubscription.unsubscribe();
     }
 
-    this.drawingSubscription = fromEvent(document, 'mousemove')
+    this.drawingSubscription = fromEvent(document, 'touchmove')
       .pipe(skipUntil(this.mousedown))
       .pipe(takeUntil(this.mouseup))
       .subscribe((res: any) => {
+        if (res.touches[0].target === canvasEl) {
+          res.preventDefault();
+        }
         if (this.movingCar) {
-          this.movingCar.onMouseMove(res.pageX, res.pageY);
+          this.movingCar.onMouseMove(res.touches[0].pageX, res.touches[0].pageY);
           this.service.drawBoard();
         }
       });
