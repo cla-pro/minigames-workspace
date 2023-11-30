@@ -29,10 +29,11 @@ export class MinigameParkingjamBoardComponent implements AfterViewInit, OnDestro
   constructor(private service: MinigameParkingjamService) {}
 
   ngAfterViewInit(): void {
-    this.ctx = this.canvas.nativeElement.getContext('2d');
+    let nativ = this.canvas.nativeElement;
+    this.ctx = nativ.getContext('2d');
+    this.ctx!.clearRect(0, 0, nativ.width, nativ.height);
     this.service.prefix = this.prefix;
     this.service.setContext(this.ctx!);
-
     this.service.drawBoard();
     this.service.drawCars();
     this.captureEvent();

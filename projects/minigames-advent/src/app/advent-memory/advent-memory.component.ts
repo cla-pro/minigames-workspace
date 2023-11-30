@@ -21,12 +21,16 @@ export class AdventMemoryComponent {
   }
 
   goToBoard(): void {
-    this.router.navigate(['..']);
+    this.router.navigate(['/']);
   }
 
   scenarioCompleted(bonus: boolean): void {
     this.scenario.completed = true;
     this.scenario.bonus = bonus;
     this.scenarioService.markCompleted(this.scenario);
+    let that = this;
+    setTimeout(function callback() {
+      that.goToBoard();
+    }, 2000);
   }
 }
