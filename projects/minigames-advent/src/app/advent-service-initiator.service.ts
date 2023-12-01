@@ -27,25 +27,25 @@ export class AdventServiceInitiatorService {
       new AdventScenarioMemory("2023-12-03", 4, 6, "firstSet"),
       new AdventScenarioWordle("2023-12-04", "ECOLE"),
       new AdventScenarioWordle("2023-12-05", "LUNDI"),
-      //new AdventScenarioMemory("2023-12-06"),
+      new AdventScenarioMemory("2023-12-06", 4, 6, "secondSet"),
       this.parkingjamScenario2(),
       new AdventScenarioWordle("2023-12-08", "TORDU"),
       new AdventScenarioWordle("2023-12-09", "PROMU"),
-      //new AdventScenarioMemory("2023-12-10"),
+      new AdventScenarioMemory("2023-12-10", 4, 6, "thirdSet"),
       new AdventScenarioWordle("2023-12-11", "CYGNE"),
       new AdventScenarioWordle("2023-12-12", "OBJET"),
       new AdventScenarioWordle("2023-12-13", "GIVRE"),
       this.parkingjamScenario3(),
-      //new AdventScenarioMemory("2023-12-15"),
+      new AdventScenarioMemory("2023-12-15", 4, 6, "fourthSet"),
       new AdventScenarioWordle("2023-12-16", "MAUVE"),
       this.parkingjamScenario4(),
       new AdventScenarioWordle("2023-12-18", "CHOUX"),
-      //new AdventScenarioMemory("2023-12-19"),
+      new AdventScenarioMemory("2023-12-19", 4, 6, "fifthSet"),
       new AdventScenarioWordle("2023-12-20", "RUINE"),
       new AdventScenarioWordle("2023-12-21", "VACHE"),
-      //new AdventScenarioMemory("2023-12-22"),
+      new AdventScenarioMemory("2023-12-22", 4, 6, "sixthSet"),
       this.parkingjamScenario5(),
-      new AdventScenarioWordle("2023-12-24", "RUINE")
+      new AdventScenarioWordle("2023-12-24", "AMOUR")
     ]);
     localStorage.setItem('scenario-stored', 'true');
   }

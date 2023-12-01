@@ -1,24 +1,3 @@
-.bonus {
-    width: 15px;
-}
-
-.window-image {
-    height: 50px;
-    cursor: pointer;
-    z-index: -1;
-}
-
-.scenario-cell {
-    width: 25%;
-    height: 17vh;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.scenario-cell-background {
-    background-color: black;
-}
-
 .scenario-cell-div {
     width: 100%;
     height: 100%;
@@ -30,13 +9,6 @@
     vertical-align: middle;
 }
 
-.day-number {
-    position: relative;
-    top: -15px;
-    line-height: 50px;
-    height: 50px;
-    font-size: 30px;
-    color: #FFD700;
-    text-align: center;
-    cursor: pointer;
+.scenario-cell-disabled {
+    color: lightgray;
 }

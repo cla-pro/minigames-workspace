@@ -7,7 +7,7 @@ import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/sha
   providedIn: 'root'
 })
 export class AdventScenarioService {
-  private FIRST_DECEMBER = new Date(2023, 10, 1, 0, 0, 0, 0).getTime();
+  private FIRST_DECEMBER = new Date(2023, 11, 1, 0, 0, 0, 0).getTime();
   private MILlIS_PER_DAY = 86400000;
 
   private scenarios: AdventScenario[] = [];

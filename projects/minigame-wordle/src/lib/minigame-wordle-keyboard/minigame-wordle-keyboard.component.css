@@ -13,8 +13,9 @@
     vertical-align: middle;
     margin: 2px;
     background-color: lightgray;
+    cursor: pointer;
 }
 
 .keyboard-letter-wide {
-    width: 35px !important;
+    width: 45px !important;
 }

@@ -19,6 +19,8 @@ export class AdventBoardScenarioComponent implements OnInit {
   }
 
   startScenario(): void {
-    this.router.navigate([this.scenario.type, this.scenario.prefix]);
+    if (this.scenario.enabled) {
+      this.router.navigate([this.scenario.type, this.scenario.prefix]);
+    }
   }
 }
