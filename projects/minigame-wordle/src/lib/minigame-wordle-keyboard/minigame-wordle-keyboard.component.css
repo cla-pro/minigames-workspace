@@ -19,3 +19,18 @@
 .keyboard-letter-wide {
     width: 45px !important;
 }
+
+.keyboard-letter-badplace {
+    border-color: orange;
+    background-color: orange;
+}
+
+.keyboard-letter-correct {
+    border-color: green;
+    background-color: green;
+}
+
+.keyboard-letter-wrong {
+    border-color: grey;
+    background-color: grey;
+}

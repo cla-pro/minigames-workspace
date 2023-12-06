@@ -1,36 +1,36 @@
 <div class="keyboard">
     <div>
-        <span class="keyboard-letter" (click)="letterEntered('Q')">Q</span>
-        <span class="keyboard-letter" (click)="letterEntered('W')">W</span>
-        <span class="keyboard-letter" (click)="letterEntered('E')">E</span>
-        <span class="keyboard-letter" (click)="letterEntered('R')">R</span>
-        <span class="keyboard-letter" (click)="letterEntered('T')">T</span>
-        <span class="keyboard-letter" (click)="letterEntered('Z')">Z</span>
-        <span class="keyboard-letter" (click)="letterEntered('U')">U</span>
-        <span class="keyboard-letter" (click)="letterEntered('I')">I</span>
-        <span class="keyboard-letter" (click)="letterEntered('O')">O</span>
-        <span class="keyboard-letter" (click)="letterEntered('P')">P</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('Q')" [class.keyboard-letter-correct]="isCorrect('Q')" [class.keyboard-letter-wrong]="isWrong('Q')" (click)="letterEntered('Q')">Q</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('W')" [class.keyboard-letter-correct]="isCorrect('W')" [class.keyboard-letter-wrong]="isWrong('W')" (click)="letterEntered('W')">W</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('E')" [class.keyboard-letter-correct]="isCorrect('E')" [class.keyboard-letter-wrong]="isWrong('E')" (click)="letterEntered('E')">E</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('R')" [class.keyboard-letter-correct]="isCorrect('R')" [class.keyboard-letter-wrong]="isWrong('R')" (click)="letterEntered('R')">R</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('T')" [class.keyboard-letter-correct]="isCorrect('T')" [class.keyboard-letter-wrong]="isWrong('T')" (click)="letterEntered('T')">T</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('Z')" [class.keyboard-letter-correct]="isCorrect('Z')" [class.keyboard-letter-wrong]="isWrong('Z')" (click)="letterEntered('Z')">Z</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('U')" [class.keyboard-letter-correct]="isCorrect('U')" [class.keyboard-letter-wrong]="isWrong('U')" (click)="letterEntered('U')">U</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('I')" [class.keyboard-letter-correct]="isCorrect('I')" [class.keyboard-letter-wrong]="isWrong('I')" (click)="letterEntered('I')">I</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('O')" [class.keyboard-letter-correct]="isCorrect('O')" [class.keyboard-letter-wrong]="isWrong('O')" (click)="letterEntered('O')">O</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('P')" [class.keyboard-letter-correct]="isCorrect('P')" [class.keyboard-letter-wrong]="isWrong('P')" (click)="letterEntered('P')">P</span>
     </div>
     <div>
-        <span class="keyboard-letter" (click)="letterEntered('A')">A</span>
-        <span class="keyboard-letter" (click)="letterEntered('S')">S</span>
-        <span class="keyboard-letter" (click)="letterEntered('D')">D</span>
-        <span class="keyboard-letter" (click)="letterEntered('F')">F</span>
-        <span class="keyboard-letter" (click)="letterEntered('G')">G</span>
-        <span class="keyboard-letter" (click)="letterEntered('H')">H</span>
-        <span class="keyboard-letter" (click)="letterEntered('J')">J</span>
-        <span class="keyboard-letter" (click)="letterEntered('K')">K</span>
-        <span class="keyboard-letter" (click)="letterEntered('L')">L</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('A')" [class.keyboard-letter-correct]="isCorrect('A')" [class.keyboard-letter-wrong]="isWrong('A')" (click)="letterEntered('A')">A</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('S')" [class.keyboard-letter-correct]="isCorrect('S')" [class.keyboard-letter-wrong]="isWrong('S')" (click)="letterEntered('S')">S</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('D')" [class.keyboard-letter-correct]="isCorrect('D')" [class.keyboard-letter-wrong]="isWrong('D')" (click)="letterEntered('D')">D</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('F')" [class.keyboard-letter-correct]="isCorrect('F')" [class.keyboard-letter-wrong]="isWrong('F')" (click)="letterEntered('F')">F</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('G')" [class.keyboard-letter-correct]="isCorrect('G')" [class.keyboard-letter-wrong]="isWrong('G')" (click)="letterEntered('G')">G</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('H')" [class.keyboard-letter-correct]="isCorrect('H')" [class.keyboard-letter-wrong]="isWrong('H')" (click)="letterEntered('H')">H</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('J')" [class.keyboard-letter-correct]="isCorrect('J')" [class.keyboard-letter-wrong]="isWrong('J')" (click)="letterEntered('J')">J</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('K')" [class.keyboard-letter-correct]="isCorrect('K')" [class.keyboard-letter-wrong]="isWrong('K')" (click)="letterEntered('K')">K</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('L')" [class.keyboard-letter-correct]="isCorrect('L')" [class.keyboard-letter-wrong]="isWrong('L')" (click)="letterEntered('L')">L</span>
     </div>
     <div>
         <span class="keyboard-letter keyboard-letter-wide" (click)="removeLetter()">DEL</span>
-        <span class="keyboard-letter" (click)="letterEntered('Y')">Y</span>
-        <span class="keyboard-letter" (click)="letterEntered('X')">X</span>
-        <span class="keyboard-letter" (click)="letterEntered('C')">C</span>
-        <span class="keyboard-letter" (click)="letterEntered('V')">V</span>
-        <span class="keyboard-letter" (click)="letterEntered('B')">B</span>
-        <span class="keyboard-letter" (click)="letterEntered('N')">N</span>
-        <span class="keyboard-letter" (click)="letterEntered('M')">M</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('Y')" [class.keyboard-letter-correct]="isCorrect('Y')" [class.keyboard-letter-wrong]="isWrong('Y')" (click)="letterEntered('Y')">Y</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('X')" [class.keyboard-letter-correct]="isCorrect('X')" [class.keyboard-letter-wrong]="isWrong('X')" (click)="letterEntered('X')">X</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('C')" [class.keyboard-letter-correct]="isCorrect('C')" [class.keyboard-letter-wrong]="isWrong('C')" (click)="letterEntered('C')">C</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('V')" [class.keyboard-letter-correct]="isCorrect('V')" [class.keyboard-letter-wrong]="isWrong('V')" (click)="letterEntered('V')">V</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('B')" [class.keyboard-letter-correct]="isCorrect('B')" [class.keyboard-letter-wrong]="isWrong('B')" (click)="letterEntered('B')">B</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('N')" [class.keyboard-letter-correct]="isCorrect('N')" [class.keyboard-letter-wrong]="isWrong('N')" (click)="letterEntered('N')">N</span>
+        <span class="keyboard-letter" [class.keyboard-letter-badplace]="isBadPlace('M')" [class.keyboard-letter-correct]="isCorrect('M')" [class.keyboard-letter-wrong]="isWrong('M')" (click)="letterEntered('M')">M</span>
         <span class="keyboard-letter keyboard-letter-wide" (click)="confirmWord()">Enter</span>
     </div>
 </div>

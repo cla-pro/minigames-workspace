@@ -22,3 +22,8 @@
     border-color: green;
     background-color: green;
 }
+
+.wordle-letter-wrong {
+    border-color: grey;
+    background-color: grey;
+}

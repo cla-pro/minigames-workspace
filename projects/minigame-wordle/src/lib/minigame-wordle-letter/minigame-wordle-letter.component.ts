@@ -21,6 +21,10 @@ export class MinigameWordleLetterComponent implements OnInit {
     return this.letter.state == 'CORRECT';
   }
 
+  public isWrong(): boolean {
+    return this.letter.state == 'WRONG';
+  }
+
   constructor(private wordleService: MinigameWordleService) {}
 
   ngOnInit(): void {

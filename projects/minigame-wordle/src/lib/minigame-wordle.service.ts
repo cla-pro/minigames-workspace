@@ -16,6 +16,35 @@ export class MinigameWordleService {
 
   // states: EMPTY, ENTERED, WRONG, BAD_PLACE, CORRECT
   private words: MinigameWordleLetterModel[][] = [];
+  // states: OPEN, WRONG, BAD_PLACE, CORRECT
+  private keyboardLetters = new Map<string, string>([
+    ["A", "OPEN"],
+    ["B", "OPEN"],
+    ["C", "OPEN"],
+    ["D", "OPEN"],
+    ["E", "OPEN"],
+    ["F", "OPEN"],
+    ["G", "OPEN"],
+    ["H", "OPEN"],
+    ["I", "OPEN"],
+    ["J", "OPEN"],
+    ["K", "OPEN"],
+    ["L", "OPEN"],
+    ["M", "OPEN"],
+    ["N", "OPEN"],
+    ["O", "OPEN"],
+    ["P", "OPEN"],
+    ["Q", "OPEN"],
+    ["R", "OPEN"],
+    ["S", "OPEN"],
+    ["T", "OPEN"],
+    ["U", "OPEN"],
+    ["V", "OPEN"],
+    ["W", "OPEN"],
+    ["X", "OPEN"],
+    ["Y", "OPEN"],
+    ["Z", "OPEN"],
+  ]);
 
   private currentLine: number = 0;
   private currentIndex: number = 0;
@@ -28,6 +57,10 @@ export class MinigameWordleService {
 
   public set completionCallback(callback: (bonus: boolean) => void) {
     this._completionCallback = callback;
+  }
+
+  public getKeyboardLetterState(): Map<string, string> {
+    return this.keyboardLetters;
   }
 
   private initEmpty(): MinigameWordleLetterModel[][] {
@@ -92,10 +125,13 @@ export class MinigameWordleService {
       let line: MinigameWordleLetterModel[] = this.words[this.currentLine];
       if (this.mockWord[i] === line[i].letter) {
         line[i].state = 'CORRECT';
+        this.updateKeyboardLetterStatus(line[i].letter, line[i].state);
       } else if (this.isLetterAtWrongPlace(line[i].letter)) {
         line[i].state = 'BAD_PLACE';
+        this.updateKeyboardLetterStatus(line[i].letter, line[i].state);
       } else {
         line[i].state = 'WRONG';
+        this.updateKeyboardLetterStatus(line[i].letter, line[i].state);
       }
     }
 
@@ -113,6 +149,17 @@ export class MinigameWordleService {
     if (this.completed) {
       this._completionCallback(this.hasBonus());
     }
+  }
+
+  private updateKeyboardLetterStatus(letter: string, state: string) {
+    let currentState = this.keyboardLetters.get(letter) ?? "OPEN";
+    if (this.isStateHigher(state, currentState)) {
+      this.keyboardLetters.set(letter, state);
+    }
+  }
+  
+  private isStateHigher(newState: string, oldState: string): boolean {
+    return newState === 'CORRECT' || oldState === 'OPEN';
   }
 
   private isLetterAtWrongPlace(letter: string): boolean {
