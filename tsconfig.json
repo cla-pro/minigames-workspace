@@ -10,11 +10,17 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "paths": {
+      "minigame-common": [
+        "./dist/minigame-common"
+      ],
       "minigame-memory": [
         "dist/minigame-memory"
       ],
       "minigame-parkingjam": [
         "dist/minigame-parkingjam"
+      ],
+      "minigame-puzzle": [
+        "./dist/minigame-puzzle"
       ],
       "minigame-wordle": [
         "dist/minigame-wordle"

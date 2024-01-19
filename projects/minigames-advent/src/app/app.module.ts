@@ -13,6 +13,8 @@ import { MinigameParkingjamModule } from 'projects/minigame-parkingjam/src/publi
 import { MinigameWordleModule } from 'projects/minigame-wordle/src/public-api';
 import { AdventBoardScenarioComponent } from './advent-board-scenario/advent-board-scenario.component';
 import { AdventAdminComponent } from './advent-admin/advent-admin.component';
+import { AdventPuzzleComponent } from './advent-puzzle/advent-puzzle.component';
+import { MinigamePuzzleModule } from 'projects/minigame-puzzle/src/public-api';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { AdventAdminComponent } from './advent-admin/advent-admin.component';
     AdventWordleComponent,
     AdventMemoryComponent,
     AdventParkingjamComponent,
+    AdventPuzzleComponent,
     AdventBoardComponent,
     AdventBoardScenarioComponent,
     AdventAdminComponent
@@ -30,7 +33,8 @@ import { AdventAdminComponent } from './advent-admin/advent-admin.component';
     CommonModule,
     MinigameWordleModule,
     MinigameMemoryModule,
-    MinigameParkingjamModule
+    MinigameParkingjamModule,
+    MinigamePuzzleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
