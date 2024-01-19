@@ -12,7 +12,6 @@ import { MinigameCommonPosition } from 'projects/minigame-common/src/lib/minigam
   styleUrl: './minigame-puzzle-board.component.css'
 })
 export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
-  private static DEFAULT_CELL_SIZE: number = 25;
   private static BOARD_SIZE_PERCENT: number = 0.8;
   private static PIECE_RATIO = (284.0 / 196.0 + 380.0 / 256.0) / 2.0;
 
@@ -28,8 +27,8 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
 
   private heightPx: number = 0;
   private widthPx: number = 0;
-  private cellSize: number = MinigamePuzzleBoardComponent.DEFAULT_CELL_SIZE;
-  private pieceSize: number = MinigamePuzzleBoardComponent.DEFAULT_CELL_SIZE;
+  private cellSize: number = -1;
+  private pieceSize: number = -1;
   private remainingCellSize: number = 0;
   private remainingOffset: number = 0;
 
@@ -54,7 +53,6 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
     this.calculateAndSetSizes(nativ);
 
     this.touchService.trackMovementOn(nativ);
-    // TODO Update the size if possible
     this.ctx = nativ.getContext('2d')!;
     this.ctx.clearRect(0, 0, nativ.width, nativ.height);
 
@@ -78,12 +76,11 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
     nativ.width = this.widthPx;
     nativ.height = this.heightPx;
 
-    //let boardHeight = this.heightPx * MinigamePuzzleBoardComponent.BOARD_SIZE_PERCENT;
-    this.cellSize = divCellSize; // this.calculateCellSize(this.service.nbRows, this.service.nbCols, boardHeight, this.widthPx);
+    this.cellSize = divCellSize;
     this.pieceSize = Math.ceil(this.cellSize * MinigamePuzzleBoardComponent.PIECE_RATIO);
 
-    this.remainingCellSize = this.widthPx / (this.service.nbCols - 1); //MinigamePuzzleService.NB_REMAINING_DISPLAYED;
-    this.remainingOffset = allCellHeight; //this.heightPx * MinigamePuzzleBoardComponent.BOARD_SIZE_PERCENT;
+    this.remainingCellSize = this.widthPx / this.service.nbRemainings;
+    this.remainingOffset = allCellHeight;
   }
 
   private calculateCellSize(nbRows: number, nbCols: number, h: number, w: number): number {
@@ -114,13 +111,6 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
 
     this.ctx.save();
     this.ctx.strokeStyle = "#000000";
-    this.ctx.beginPath();
-    this.ctx.moveTo(0, 0);
-    this.ctx.lineTo(0, this.heightPx);
-    this.ctx.lineTo(this.widthPx, this.heightPx);
-    this.ctx.lineTo(this.widthPx, 0);
-    this.ctx.lineTo(0, 0);
-    this.ctx.stroke();
 
     this.ctx.beginPath();
     this.ctx.moveTo(0, this.remainingOffset);

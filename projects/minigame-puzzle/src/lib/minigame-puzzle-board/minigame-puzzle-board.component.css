@@ -1,0 +1,8 @@
+.puzzle-container {
+    height: 75vh;
+    text-align: center;
+}
+
+.puzzle-board {
+    border: black 1px solid;
+}
