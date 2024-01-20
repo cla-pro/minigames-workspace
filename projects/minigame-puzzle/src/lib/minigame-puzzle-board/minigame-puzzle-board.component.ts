@@ -117,20 +117,6 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
     this.ctx.lineTo(this.widthPx, this.remainingOffset);
     this.ctx.stroke();
 
-    this.ctx.strokeStyle = "#666666";
-    for (let i = 1; i <= this.service.nbRows; i++) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(0, i * this.cellSize);
-      this.ctx.lineTo(this.widthPx, i * this.cellSize);
-      this.ctx.stroke();
-    }
-    for (let i = 1; i <= this.service.nbCols; i++) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(i * this.cellSize, 0);
-      this.ctx.lineTo(i * this.cellSize, this.remainingOffset);
-      this.ctx.stroke();
-    }
-
     this.ctx.restore();
   }
 
@@ -149,7 +135,6 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
 
     toDraw.forEach((p: MinigamePuzzlePiece, index: number) => {
       if (this.movingPiece !== p) {
-        console.log(p.id);
         this.drawPiece(p, this.remainingOffset + this.remainingCellSize / 2, this.remainingIndexToCenterPosition(index), this.pieceSize);
       }
     });
@@ -163,7 +148,6 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
 
   private drawPiece(piece: MinigamePuzzlePiece, centerY: number, centerX: number, size: number) {
     let img = this.images.get(this.imagePrefix + piece.id);
-    console.log(this.imagePrefix + piece.id + " " + img);
     
     if (img !== undefined) {
       this.ctx.drawImage(img, centerX - size / 2, centerY - size / 2, size, size);
