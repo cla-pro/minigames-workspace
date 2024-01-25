@@ -19,7 +19,6 @@ export class MinigameCommonImageService {
 
   private loadImages(): void {
     this.imageContent.forEach((value, key) => {
-      console.log(`load image for name: ${key}`);
       let image = new Image();
       let observable = fromEvent(image, 'load')
         .pipe(map(() => image));
@@ -53,5 +52,21 @@ export class MinigameCommonImageService {
     this.imageContent.set("puzzle-test_set-123_62", "assets/20240117/20240117_puzzle-thermo-62.png");
     this.imageContent.set("puzzle-test_set-123_63", "assets/20240117/20240117_puzzle-thermo-63.png");
     this.imageContent.set("puzzle-test_set-123_64", "assets/20240117/20240117_puzzle-thermo-64.png");
+
+    this.imageContent.set("15-puzzle_1", "assets/15-puzzle/tile-1.png");
+    this.imageContent.set("15-puzzle_2", "assets/15-puzzle/tile-2.png");
+    this.imageContent.set("15-puzzle_3", "assets/15-puzzle/tile-3.png");
+    this.imageContent.set("15-puzzle_4", "assets/15-puzzle/tile-4.png");
+    this.imageContent.set("15-puzzle_5", "assets/15-puzzle/tile-5.png");
+    this.imageContent.set("15-puzzle_6", "assets/15-puzzle/tile-6.png");
+    this.imageContent.set("15-puzzle_7", "assets/15-puzzle/tile-7.png");
+    this.imageContent.set("15-puzzle_8", "assets/15-puzzle/tile-8.png");
+    this.imageContent.set("15-puzzle_9", "assets/15-puzzle/tile-9.png");
+    this.imageContent.set("15-puzzle_10", "assets/15-puzzle/tile-10.png");
+    this.imageContent.set("15-puzzle_11", "assets/15-puzzle/tile-11.png");
+    this.imageContent.set("15-puzzle_12", "assets/15-puzzle/tile-12.png");
+    this.imageContent.set("15-puzzle_13", "assets/15-puzzle/tile-13.png");
+    this.imageContent.set("15-puzzle_14", "assets/15-puzzle/tile-14.png");
+    this.imageContent.set("15-puzzle_15", "assets/15-puzzle/tile-15.png");
   }
 }

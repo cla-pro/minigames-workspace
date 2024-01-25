@@ -13,6 +13,9 @@
       "minigame-common": [
         "./dist/minigame-common"
       ],
+      "minigame-fifteen-puzzle": [
+        "./dist/minigame-fifteen-puzzle"
+      ],
       "minigame-memory": [
         "dist/minigame-memory"
       ],

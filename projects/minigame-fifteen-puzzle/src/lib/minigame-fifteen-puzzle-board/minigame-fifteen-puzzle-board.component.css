@@ -1,0 +1,8 @@
+.fifteen-puzzle-container {
+    height: 75vh;
+    text-align: center;
+}
+
+.fifteen-puzzle-board {
+    border: black 1px solid;
+}

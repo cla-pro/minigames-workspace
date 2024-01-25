@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { MinigamePuzzleService } from '../minigame-puzzle.service';
 import { MinigamePuzzlePiece } from '../shared/minigame-puzzle.model';
-import { MinigameCommonComponent, MinigameCommonImageService } from 'projects/minigame-common/src/public-api';
-import { Subscription } from 'rxjs';
-import { MinigameCommonTouchService } from 'projects/minigame-common/src/lib/minigame-common-touch.service';
+import { MinigameCommonImageService, MinigameCommonTouchService } from 'projects/minigame-common/src/public-api';
 import { MinigameCommonPosition } from 'projects/minigame-common/src/lib/minigame-common.model';
 
 @Component({
@@ -95,7 +93,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
           let obs = this.imageService.getImageForKey(this.imagePrefix + p.id);
           obs.subscribe(res => {
             this.images.set(this.imagePrefix + p.id, res);
-            this.drawRemainingPieces();
+            this.redisplay();
           });
         });
   }
@@ -130,7 +128,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  private drawRemainingPieces(): void {
+  private drawRemainingPieces() {
     let toDraw = this.service.remainingPiecesToDraw();
 
     toDraw.forEach((p: MinigamePuzzlePiece, index: number) => {
@@ -140,7 +138,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  private drawMovingPiece(): void {
+  private drawMovingPiece() {
     if (this.movingPiece) {
       this.drawPiece(this.movingPiece, this.movingPieceY, this.movingPieceX, this.pieceSize);
     }

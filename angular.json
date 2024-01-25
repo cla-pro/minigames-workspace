@@ -258,6 +258,39 @@
           }
         }
       }
+    },
+    "minigame-fifteen-puzzle": {
+      "projectType": "library",
+      "root": "projects/minigame-fifteen-puzzle",
+      "sourceRoot": "projects/minigame-fifteen-puzzle/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/minigame-fifteen-puzzle/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/minigame-fifteen-puzzle/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/minigame-fifteen-puzzle/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/minigame-fifteen-puzzle/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   }
 }
