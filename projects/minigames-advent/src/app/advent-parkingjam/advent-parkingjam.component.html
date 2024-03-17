@@ -6,7 +6,6 @@
     [height]="scenario.height"
     [cars]="scenario.cars"
     [walls]="scenario.walls"
-    [bonusMoves]="scenario.bonusMoves"
     (completionEvent)="scenarioCompleted($event)"></minigame-parkingjam>
 
 <img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />

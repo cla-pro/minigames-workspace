@@ -90,6 +90,10 @@ export class MinigameCommonTouchService {
     this.captureMoveEvent(canvas);
   }
 
+  /*
+   * Subscribe to the mouse move event. After each completed move, this has to be unsubscribed und
+   * re-subscribed in order to restart capturing the events.
+   */
   private captureMoveEvent(canvas: HTMLCanvasElement) {
     if (this.touchmoveSubscription) {
       this.touchmoveSubscription.unsubscribe();

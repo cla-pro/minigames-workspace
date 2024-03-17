@@ -1,11 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
-import { MinigameParkingjamCellstate } from '../shared/minigame-parkingjam-cellstate.model';
 import { MinigameParkingjamService } from '../minigame-parkingjam.service';
 import { MinigameParkingjamCar } from '../shared/minigame-parkingjam-car.model';
-import { Subscription, fromEvent } from 'rxjs';
-import { skipUntil, takeUntil } from 'rxjs/operators';
-import { MinigameParkingjamWall } from '../shared/minigame-parkingjam-wall.model';
-import { MinigameParkingjamConst } from '../shared/minigame-parkingjam-const.model';
+import { MinigameCommonTouchService } from 'projects/minigame-common/src/public-api';
 
 @Component({
   selector: 'minigame-parkingjam-board',
@@ -20,86 +16,48 @@ export class MinigameParkingjamBoardComponent implements AfterViewInit, OnDestro
 
   private movingCar: MinigameParkingjamCar | null = null;
 
-  private mousedown: any;
-  private mouseup: any;
-  private mousedownSubscription!: Subscription;
-  private mouseupSubscription!: Subscription;
-  private drawingSubscription!: Subscription;
-
-  constructor(private service: MinigameParkingjamService) {}
+  constructor(private service: MinigameParkingjamService, private touchService: MinigameCommonTouchService) {
+    let that = this;
+    this.touchService.startCallback = (x, y) => that.startTouch(x, y);
+    this.touchService.endCallback = () => that.endTouch();
+    this.touchService.moveCallback = (x, y) => this.moveTouch(x, y);
+  }
 
   ngAfterViewInit(): void {
     let nativ = this.canvas.nativeElement;
+    this.touchService.trackMovementOn(nativ);
     this.ctx = nativ.getContext('2d');
     this.ctx!.clearRect(0, 0, nativ.width, nativ.height);
     this.service.prefix = this.prefix;
     this.service.setContext(this.ctx!);
     this.service.drawBoard();
     this.service.drawCars();
-    this.captureEvent();
   }
 
-  private captureEvent(): void {
-    let canvasEl = this.canvas.nativeElement;
-
-    this.mousedown = fromEvent(canvasEl, 'touchstart');
-    this.mouseup = fromEvent(document, 'touchend');
-
-    this.mousedownSubscription = this.mousedown.subscribe((res: any) => {
-      res.preventDefault();
-      let touch = res.touches[0];
-      let filtered = this.service.getCarForPosition(touch.clientX - touch.target.offsetLeft, touch.clientY - touch.target.offsetTop);
-      if (filtered) {
-        this.movingCar = filtered;
-        this.movingCar.onMouseClick(touch.pageX, touch.pageY);
-      }
-    });
-
-    this.mouseupSubscription = this.mouseup.subscribe(() => {
-      if (this.movingCar) {
-        this.movingCar.onMouseRelease();
-        this.service.drawBoard();
-        this.movingCar = null;
-        this.captureMoveEvent(canvasEl);
-      }
-    });
-
-    this.captureMoveEvent(canvasEl);
-  }
-
-  /*
-   * Subscribe to the mouse move event. After each car move, this has to be unsubscribed und
-   * re-subscribed in order to restart capturing the events.
-   */
-  private captureMoveEvent(canvasEl: HTMLCanvasElement) {
-    if (this.drawingSubscription) {
-      this.drawingSubscription.unsubscribe();
+  startTouch(x: number, y: number) {
+    let filtered = this.service.getCarForPosition(x, y);
+    if (filtered) {
+      this.movingCar = filtered;
+      this.movingCar.onMouseClick(x, y);
     }
+  }
 
-    this.drawingSubscription = fromEvent(document, 'touchmove')
-      .pipe(skipUntil(this.mousedown))
-      .pipe(takeUntil(this.mouseup))
-      .subscribe((res: any) => {
-        if (res.touches[0].target === canvasEl) {
-          res.preventDefault();
-        }
-        if (this.movingCar) {
-          this.movingCar.onMouseMove(res.touches[0].pageX, res.touches[0].pageY);
-          this.service.drawBoard();
-        }
-      });
+  endTouch() {
+    if (this.movingCar) {
+      this.movingCar.onMouseRelease();
+      this.service.drawBoard();
+      this.movingCar = null;
+    }
+  }
+
+  moveTouch(x: number, y: number) {
+    if (this.movingCar) {
+      this.movingCar.onMouseMove(x, y);
+      this.service.drawBoard();
+    }
   }
   
   ngOnDestroy() {
-    // this will remove event lister when this component is destroyed
-    this.unsubscribe(this.mousedownSubscription);
-    this.unsubscribe(this.mouseupSubscription);
-    this.unsubscribe(this.drawingSubscription);
-  }
-
-  private unsubscribe(sub: Subscription) {
-    if (sub) {
-      sub.unsubscribe();
-    }
+    this.touchService.stopTracking();
   }
 }

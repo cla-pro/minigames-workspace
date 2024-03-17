@@ -14,6 +14,7 @@ export class MinigameFifteenPuzzleComponent implements OnInit {
   constructor(private service: MinigameFifteenPuzzleService) {}
 
   ngOnInit(): void {
+    console.log("Prefix: " + this.prefix);
     this.service.prefix = this.prefix;
     let that = this;
     this.service.completionCallback = (bonus: boolean) => { that.completionEvent.emit(bonus); };

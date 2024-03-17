@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AdventScenario, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioWordle } from './shared/advent-scenario.model';
+import { AdventScenario, AdventScenarioFifteenPuzzle, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioWordle } from './shared/advent-scenario.model';
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
+import { MinigameFifteenPuzzleService } from 'projects/minigame-fifteen-puzzle/src/public-api';
+import { MinigameParkingjamService } from 'projects/minigame-parkingjam/src/public-api';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class AdventScenarioService {
 
   private scenarios: AdventScenario[] = [];
 
-  constructor() {}
+  constructor(private parkingjamService: MinigameParkingjamService, private fifteenPuzzleService: MinigameFifteenPuzzleService) {}
 
   loadScenarios(): AdventScenario[] {
     if (this.scenarios.length == 0) {
@@ -34,6 +36,8 @@ export class AdventScenarioService {
       return this.loadScenarioMemory(id);
     } else if (type === "parkingjam") {
       return this.loadScenarioParkingjam(id);
+    } else if (type === "fifteen-puzzle") {
+      return this.loadFifteenPuzzle(id);
     } else {
       throw new Error('Unknown scenario type: ' + type);
     }
@@ -55,35 +59,15 @@ export class AdventScenarioService {
     let width = this.parseIntOrDefault(localStorage.getItem(id + "_width"), 0);
     let height = this.parseIntOrDefault(localStorage.getItem(id + "_height"), 0);
 
-    let cars: MinigameParkingjamCar[] = this.loadCars(id);
-    let walls: MinigameParkingjamWall[] = this.loadWalls(id);
+    let cars: MinigameParkingjamCar[] = this.parkingjamService.loadCars(id);
+    let walls: MinigameParkingjamWall[] = this.parkingjamService.loadWalls(id);
 
-    let bonusMoves = this.parseIntOrDefault(localStorage.getItem(id + "_bonusMoves"), 0);
-    return this.loadScenarioStatus(new AdventScenarioParkingjam(id, width, height, cars, walls, bonusMoves));
+    return this.loadScenarioStatus(new AdventScenarioParkingjam(id, width, height, cars, walls));
   }
 
-  private loadCars(prefix: string): MinigameParkingjamCar[] {
-    return Object.keys(localStorage)
-      .filter(k => k.startsWith(prefix))
-      .filter(k => k.search('_car_id') > -1)
-      .map(k => {
-        let id = localStorage.getItem(k);
-        return (id) ? +id : 0;
-      })
-      .filter(id => id != 0)
-      .map(id => new MinigameParkingjamCar(id).load(prefix));
-  }
-
-  private loadWalls(prefix: string): MinigameParkingjamWall[] {
-    return Object.keys(localStorage)
-      .filter(k => k.startsWith(prefix))
-      .filter(k => k.search('_wall_id') > -1)
-      .map(k => {
-        let id = localStorage.getItem(k);
-        return (id) ? +id : 0;
-      })
-      .filter(id => id != 0)
-      .map(id => new MinigameParkingjamWall(id).load(prefix));
+  private loadFifteenPuzzle(prefix: string): AdventScenarioFifteenPuzzle {
+    let pieces = this.fifteenPuzzleService.loadPiecesFromStorage(prefix);
+    return this.loadScenarioStatus(new AdventScenarioFifteenPuzzle(prefix, pieces));
   }
 
   private loadScenarioStatus<T extends AdventScenario>(scenario: T): T {
@@ -103,6 +87,10 @@ export class AdventScenarioService {
 
   getScenarioParkingjam(prefix: string): AdventScenarioParkingjam {
     return this.scenarios.filter(s => s.prefix === prefix)[0] as AdventScenarioParkingjam;
+  }
+
+  getScenarioFifteenPuzzle(prefix: string): AdventScenarioFifteenPuzzle {
+    return this.scenarios.filter(s => s.prefix === prefix)[0] as AdventScenarioFifteenPuzzle;
   }
 
   markCompleted(scenario: AdventScenario) {
@@ -156,6 +144,8 @@ export class AdventScenarioService {
           this.saveScenarioMemory(id, s as AdventScenarioMemory);
         } else if (s instanceof AdventScenarioParkingjam) {
           this.saveScenarioParkingjam(id, s as AdventScenarioParkingjam);
+        } else if (s instanceof AdventScenarioFifteenPuzzle) {
+          this.saveScenarioFifteenPuzzle(id, s as AdventScenarioFifteenPuzzle);
         }
       });
   }
@@ -177,10 +167,13 @@ export class AdventScenarioService {
   private saveScenarioParkingjam(id: string, scenario: AdventScenarioParkingjam) {
     localStorage.setItem(id + "_width", '' + scenario.width);
     localStorage.setItem(id + "_height", '' + scenario.height);
-    localStorage.setItem(id + "_bonusMoves", '' + scenario.bonusMoves);
     
     scenario.cars.forEach(c => c.store(id));
     scenario.walls.forEach(w => w.store(id));
+  }
+
+  private saveScenarioFifteenPuzzle(id: string, scenario: AdventScenarioFifteenPuzzle) {
+    this.fifteenPuzzleService.storePiecesToStorage(id, scenario.pieces);
   }
 
   private parseIntOrDefault(text: string | null, defaultValue: number): number {

@@ -1,7 +1,7 @@
+import { Rectangle } from "projects/minigame-common/src/public-api";
 import { MinigameParkingjamImagesService } from "../minigame-parkingjam-images.service";
 import { MinigameParkingjamService } from "../minigame-parkingjam.service";
 import { MinigameParkingjamConst } from "./minigame-parkingjam-const.model";
-import { Rectangle } from "./rectangle.model";
 
 export class MinigameParkingjamCar {
   ctx!: CanvasRenderingContext2D;
@@ -27,7 +27,6 @@ export class MinigameParkingjamCar {
 
   public set imageService(imageService: MinigameParkingjamImagesService) {
     this._imageService = imageService;
-    console.log(`get image for ${this.imageName}`);
     let obs = this._imageService.getImageForCar(this.imageName);
     obs.subscribe(res => {
       this.image = res;
@@ -56,7 +55,7 @@ export class MinigameParkingjamCar {
   }
 
   draw() {
-    if (this.image !== undefined) {
+    if (this.image !== undefined && this.ctx !== undefined) {
       this.ctx.save();
       let rect = this.getDisplayRectangle(this.offset);
       this.ctx.drawImage(this.image, rect.x, rect.y, rect.width, rect.height);

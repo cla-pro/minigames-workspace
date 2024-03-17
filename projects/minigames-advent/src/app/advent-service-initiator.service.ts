@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AdventScenarioService } from './advent-scenario.service';
-import { AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
+import { AdventScenarioFifteenPuzzle, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
+import { MinigameFifteenPuzzlePiece } from 'projects/minigame-fifteen-puzzle/src/lib/shared/minigame-fifteen-puzzle.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,29 @@ export class AdventServiceInitiatorService {
   initiateScenarios(): void {
     localStorage.clear();
 
-    let firstScenario = new AdventScenarioWordle("2023-12-01", "GLACE");
+    /*let scenario = new AdventScenarioFifteenPuzzle("my-first-fifteen", [
+      new MinigameFifteenPuzzlePiece(1, 0, 0, 0, 0),
+      new MinigameFifteenPuzzlePiece(2, 0, 1, 0, 1),
+      new MinigameFifteenPuzzlePiece(3, 0, 2, 0, 2),
+      new MinigameFifteenPuzzlePiece(4, 0, 3, 0, 3),
+      new MinigameFifteenPuzzlePiece(5, 1, 0, 1, 0),
+      new MinigameFifteenPuzzlePiece(6, 1, 1, 1, 1),
+      new MinigameFifteenPuzzlePiece(7, 1, 2, 1, 2),
+      new MinigameFifteenPuzzlePiece(8, 1, 3, 1, 3),
+      new MinigameFifteenPuzzlePiece(9, 2, 0, 2, 0),
+      new MinigameFifteenPuzzlePiece(10, 2, 1, 2, 1),
+      new MinigameFifteenPuzzlePiece(11, 2, 2, 2, 2),
+      new MinigameFifteenPuzzlePiece(12, 2, 3, 2, 3),
+      new MinigameFifteenPuzzlePiece(13, 3, 1, 3, 0),
+      new MinigameFifteenPuzzlePiece(14, 3, 2, 3, 1),
+      new MinigameFifteenPuzzlePiece(15, 3, 3, 3, 2)
+    ]);*/
+
+    let scenario = this.parkingjamScenario1();
+
+    this.service.saveScenarios([scenario]);
+
+    /*let firstScenario = new AdventScenarioWordle("2023-12-01", "GLACE");
     firstScenario.enabled = true;
     this.service.saveScenarios([
       firstScenario,
@@ -47,7 +70,7 @@ export class AdventServiceInitiatorService {
       this.parkingjamScenario5(),
       new AdventScenarioWordle("2023-12-24", "AMOUR")
     ]);
-    localStorage.setItem('scenario-stored', 'true');
+    localStorage.setItem('scenario-stored', 'true');*/
   }
 
   private wall(id: number, vertical: boolean, lineFrom: number, lineTo: number, columnFrom: number, columnTo: number) {
@@ -85,7 +108,7 @@ export class AdventServiceInitiatorService {
       this.car(10, 5, 4, 2, false, '1x2-green-truck-right-left.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-02", 6, 6, cars, this.parkingjamBorderWalls(), 8);
+    return new AdventScenarioParkingjam("2023-12-02", 6, 6, cars, this.parkingjamBorderWalls());
   }
 
   private parkingjamScenario2() {
@@ -99,7 +122,7 @@ export class AdventServiceInitiatorService {
       this.car(7, 4, 3, 2, true, '2x1-green-truck-top-down.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-07", 6, 6, cars, this.parkingjamBorderWalls(), 15);
+    return new AdventScenarioParkingjam("2023-12-07", 6, 6, cars, this.parkingjamBorderWalls());
   }
 
   private parkingjamScenario3() {
@@ -116,7 +139,7 @@ export class AdventServiceInitiatorService {
       this.car(10, 4, 5, 2, true, '2x1-green-truck-bottom-up.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-14", 6, 6, cars, this.parkingjamBorderWalls(), 15);
+    return new AdventScenarioParkingjam("2023-12-14", 6, 6, cars, this.parkingjamBorderWalls());
   }
 
   private parkingjamScenario4() {
@@ -136,7 +159,7 @@ export class AdventServiceInitiatorService {
       this.car(13, 5, 4, 2, false, '1x2-green-truck-left-right.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-17", 6, 6, cars, this.parkingjamBorderWalls(), 15);
+    return new AdventScenarioParkingjam("2023-12-17", 6, 6, cars, this.parkingjamBorderWalls());
   }
 
   private parkingjamScenario5() {
@@ -157,7 +180,7 @@ export class AdventServiceInitiatorService {
       this.car(14, 5, 4, 2, false, '1x2-green-truck-left-right.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-23", 6, 6, cars, this.parkingjamBorderWalls(), 20);
+    return new AdventScenarioParkingjam("2023-12-23", 6, 6, cars, this.parkingjamBorderWalls());
   }
 
   private parkingjamBorderWalls(): MinigameParkingjamWall[] {

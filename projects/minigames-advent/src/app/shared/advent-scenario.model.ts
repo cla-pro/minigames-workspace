@@ -1,3 +1,4 @@
+import { MinigameFifteenPuzzlePiece } from "projects/minigame-fifteen-puzzle/src/lib/shared/minigame-fifteen-puzzle.model";
 import { MinigameParkingjamCar } from "projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model";
 import { MinigameParkingjamWall } from "projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model";
 
@@ -44,20 +45,27 @@ export class AdventScenarioParkingjam extends AdventScenario {
   height: number;
   cars: MinigameParkingjamCar[];
   walls: MinigameParkingjamWall[];
-  bonusMoves: number;
 
-  constructor(prefix: string, width: number, height: number, cars: MinigameParkingjamCar[], walls: MinigameParkingjamWall[], bonusMoves: number) {
+  constructor(prefix: string, width: number, height: number, cars: MinigameParkingjamCar[], walls: MinigameParkingjamWall[]) {
     super(prefix, "parkingjam");
     this.width = width;
     this.height = height;
     this.cars = cars;
     this.walls = walls;
-    this.bonusMoves = bonusMoves;
   }
 }
 
 export class AdventScenarioPuzzle extends AdventScenario {
   constructor(prefix: string) {
     super(prefix, "puzzle");
+  }
+}
+
+export class AdventScenarioFifteenPuzzle extends AdventScenario {
+  pieces: MinigameFifteenPuzzlePiece[];
+  
+  constructor(prefix: string, pieces: MinigameFifteenPuzzlePiece[]) {
+    super(prefix, "fifteen-puzzle");
+    this.pieces = pieces;
   }
 }

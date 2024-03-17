@@ -23,7 +23,7 @@ export class MinigameFifteenPuzzleBoardComponent implements AfterViewInit, OnDes
   private widthPx: number = 0;
   private cellSize: number = -1;
 
-  private imagePrefix: string = "";
+  private imagePrefix: string = "15-puzzle_";
   private images: Map<string, any> = new Map();
 
   private movingPiece: MinigameFifteenPuzzlePiece | null = null;
@@ -41,8 +41,6 @@ export class MinigameFifteenPuzzleBoardComponent implements AfterViewInit, OnDes
   }
 
   ngAfterViewInit(): void {
-    this.imagePrefix = this.prefix + "_";
-
     let nativ = this.canvas.nativeElement;
     this.calculateAndSetSizes(nativ);
 

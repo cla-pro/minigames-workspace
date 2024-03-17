@@ -14,6 +14,7 @@ export class MinigameCommonImageService {
   }
 
   getImageForKey(key: string): Observable<any> {
+    console.log('load image for key ' + key);
     return this.images.get(key);
   }
 

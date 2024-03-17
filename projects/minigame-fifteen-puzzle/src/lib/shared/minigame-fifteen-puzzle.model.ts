@@ -7,7 +7,7 @@ export class MinigameFifteenPuzzlePiece {
     public goalX: number
   ) {}
 
-  public isMissplaced() {
+  public isMisplaced() {
     return this.boardX !== this.goalX || this.boardY !== this.goalY;
   }
 }

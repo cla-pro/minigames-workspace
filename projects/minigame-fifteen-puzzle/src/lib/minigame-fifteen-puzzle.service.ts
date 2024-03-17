@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MinigameFifteenPuzzlePiece } from './shared/minigame-fifteen-puzzle.model';
 import { MinigameCommonPosition } from 'projects/minigame-common/src/lib/minigame-common.model';
+import { MinigameCommonStorageService } from 'projects/minigame-common/src/lib/minigame-common-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class MinigameFifteenPuzzleService {
   constructor() {}
 
   setupComplete() {
-    this.loadFromStorage();
+    this.pieces = this.loadPiecesFromStorage(this.prefix);
   }
 
   pieceInCell(y: number, x: number) {
@@ -48,39 +49,38 @@ export class MinigameFifteenPuzzleService {
 
   private isCompleted(): boolean {
     return this.pieces
-      .filter(p => p.isMissplaced())
+      .filter(p => p.isMisplaced())
       .length === 0
   }
 
-  private loadFromStorage() {
-    /*
-    let pieces = Object.keys(localStorage)
-      .filter(k => k.startsWith(this.prefix))
+  public storePiecesToStorage(prefix: string, pieces: MinigameFifteenPuzzlePiece[]) {
+    pieces.forEach(p => {
+      let piecePrefix = prefix + "_piece_" + p.value + "_";
+      localStorage.setItem(piecePrefix + "piece_id", `${p.value}`);
+      localStorage.setItem(piecePrefix + "boardX", `${p.boardX}`);
+      localStorage.setItem(piecePrefix + "boardY", `${p.boardY}`);
+      localStorage.setItem(piecePrefix + "goalX", `${p.goalX}`);
+      localStorage.setItem(piecePrefix + "goalY", `${p.goalY}`);
+    })
+  }
+
+  public loadPiecesFromStorage(prefix: string) {
+    return Object.keys(localStorage)
+      .filter(k => k.startsWith(prefix))
       .filter(k => k.search('_piece_id') > -1)
       .map(k => {
         let id = localStorage.getItem(k);
-        return (id) ? +id : 0;
+        return (id) ? +id : -1;
       })
-      .filter(id => id !== null)
+      .filter(id => id > -1)
       .map(id => {
-        return new MinigamePuzzlePiece(id, -1, -1, -1, -1)
-      });*/
-    this.pieces = [
-      new MinigameFifteenPuzzlePiece(1, 0, 0, 0, 0),
-      new MinigameFifteenPuzzlePiece(2, 0, 1, 0, 1),
-      new MinigameFifteenPuzzlePiece(3, 0, 2, 0, 2),
-      new MinigameFifteenPuzzlePiece(4, 0, 3, 0, 3),
-      new MinigameFifteenPuzzlePiece(5, 1, 0, 1, 0),
-      new MinigameFifteenPuzzlePiece(6, 1, 1, 1, 1),
-      new MinigameFifteenPuzzlePiece(7, 1, 2, 1, 2),
-      new MinigameFifteenPuzzlePiece(8, 1, 3, 1, 3),
-      new MinigameFifteenPuzzlePiece(9, 2, 0, 2, 0),
-      new MinigameFifteenPuzzlePiece(10, 2, 1, 2, 1),
-      new MinigameFifteenPuzzlePiece(11, 2, 2, 2, 2),
-      new MinigameFifteenPuzzlePiece(12, 2, 3, 2, 3),
-      new MinigameFifteenPuzzlePiece(13, 3, 1, 3, 0),
-      new MinigameFifteenPuzzlePiece(14, 3, 2, 3, 1),
-      new MinigameFifteenPuzzlePiece(15, 3, 3, 3, 2),
-    ];
+        console.log(id);
+        let piecePrefix = prefix + "_piece_" + id + "_";
+        let boardX = MinigameCommonStorageService.loadNumberFromStorage(piecePrefix + "boardX", -1);
+        let boardY = MinigameCommonStorageService.loadNumberFromStorage(piecePrefix + "boardY", -1);
+        let goalX = MinigameCommonStorageService.loadNumberFromStorage(piecePrefix + "goalX", -1);
+        let goalY = MinigameCommonStorageService.loadNumberFromStorage(piecePrefix + "goalY", -1);
+        return new MinigameFifteenPuzzlePiece(id, boardY, boardX, goalY, goalX)
+      });
   }
 }

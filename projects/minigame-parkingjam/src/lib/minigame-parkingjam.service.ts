@@ -10,7 +10,6 @@ export class MinigameParkingjamService {
   prefix: string = "";
   public width: number = -1;
   public height: number = -1;
-  public bonusMoves: number = -1;
 
   private walls: MinigameParkingjamWall[] = [];
   private cars: MinigameParkingjamCar[] = [];
@@ -29,7 +28,6 @@ export class MinigameParkingjamService {
 
   public setupComplete() {
     this._moves = +(localStorage.getItem(this.prefix + '_moves') ?? "0");
-    console.log(localStorage.getItem(this.prefix + "_moves") + " - " + this._moves);
   }
 
   addCar(car: MinigameParkingjamCar) {
@@ -64,7 +62,7 @@ export class MinigameParkingjamService {
   rangeForMovement(): number[] {
     if (this.movingCar) {
       let minBound = -10;
-      // +1 because if there is no wall at the side of the board, the car must be able to leave it.
+      // +10 because if there is no wall at the side of the board, the car must be able to leave it.
       let maxBound = (this.movingCar.vertical ? this.height : this.width) + 10;
       let indices = this.movingCar.vertical ? this.movingCar.lines() : this.movingCar.columns();
       this.findCarsOnTheWay(this.movingCar)
@@ -130,7 +128,7 @@ export class MinigameParkingjamService {
       }
 
       if (this.isCompleted()) {
-        this._completionCallback(this._moves <= this.bonusMoves);
+        this._completionCallback(true);
       }
     }
   }
@@ -163,11 +161,9 @@ export class MinigameParkingjamService {
     this.cars.forEach(c => c.draw());
   }
 
-  load(ctx: CanvasRenderingContext2D): void {
-    this._moves = +(localStorage.getItem(this.prefix + '_moves') ?? "0");
-
-    this.cars = Object.keys(localStorage)
-      .filter(k => k.startsWith(this.prefix))
+  loadCars(scenarioId: string): MinigameParkingjamCar[] {
+    return Object.keys(localStorage)
+      .filter(k => k.startsWith(scenarioId))
       .filter(k => k.search('_car_id') > -1)
       .map(k => {
         let id = localStorage.getItem(k);
@@ -175,26 +171,26 @@ export class MinigameParkingjamService {
       })
       .filter(id => id != 0)
       .map(id => {
-        let car = new MinigameParkingjamCar(id).load(this.prefix)
-        car.ctx = ctx;
+        let car = new MinigameParkingjamCar(id).load(scenarioId);
         car.service = this;
         car.imageService = this.imageService;
-        return car.load(this.prefix);
+        return car.load(scenarioId);
       });
-    
-    this.walls = Object.keys(localStorage)
-      .filter(k => k.startsWith(this.prefix))
-      .filter(k => k.search('_wall_id') > -1)
-      .map(k => {
-        let id = localStorage.getItem(k);
-        return (id) ? +id : 0;
-      })
-      .filter(id => id != 0)
-      .map(id => {
-        let wall = new MinigameParkingjamWall(id);
-        wall.ctx = ctx;
-        return wall.load(this.prefix)
-      });
+  }
+
+  loadWalls(scenarioId: string): MinigameParkingjamWall[] {
+    return Object.keys(localStorage)
+    .filter(k => k.startsWith(scenarioId))
+    .filter(k => k.search('_wall_id') > -1)
+    .map(k => {
+      let id = localStorage.getItem(k);
+      return (id) ? +id : 0;
+    })
+    .filter(id => id != 0)
+    .map(id => {
+      let wall = new MinigameParkingjamWall(id);
+      return wall.load(scenarioId)
+    });
   }
 
   private increaseAndStoreMoves(): void {

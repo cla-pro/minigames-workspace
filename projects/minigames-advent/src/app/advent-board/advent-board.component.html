@@ -1,4 +1,6 @@
-<app-advent-fifteen-puzzle></app-advent-fifteen-puzzle>
+<button (click)="clearScenario()">Clear</button>
+<advent-board-scenario [scenario]="getScenario('2023-12-02')" />
+
 <!--<table class="scenario-board">
     <tr>
         <td class="scenario-cell" [class.scenario-cell-background]="!getScenario('2023-12-04').completed"><advent-board-scenario [scenario]="getScenario('2023-12-04')" /></td>

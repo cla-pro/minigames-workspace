@@ -18,4 +18,8 @@ export class AdventBoardComponent {
   getScenario(prefix: string): AdventScenario {
     return this.scenarios.filter(s => s.prefix === prefix)[0];
   }
+
+  clearScenario() {
+    this.initiatorService.initiateScenarios();
+  }
 }
