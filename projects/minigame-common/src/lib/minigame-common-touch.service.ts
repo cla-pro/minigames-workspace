@@ -40,7 +40,7 @@ export class MinigameCommonTouchService {
     this.mouseupSubscription = this.mouseup.subscribe((e: any) => { this.handleEnd(e, canvas); });
     this.touchendSubscription = this.touchend.subscribe((e: any) => { this.handleEnd(e, canvas); })
 
-    this.captureMoveEvent(canvas);
+    this.captureMoveEvent();
   }
 
   public stopTracking() {
@@ -94,7 +94,7 @@ export class MinigameCommonTouchService {
    * Subscribe to the mouse move event. After each completed move, this has to be unsubscribed und
    * re-subscribed in order to restart capturing the events.
    */
-  private captureMoveEvent(canvas: HTMLCanvasElement) {
+  private captureMoveEvent() {
     if (this.touchmoveSubscription) {
       this.touchmoveSubscription.unsubscribe();
     }

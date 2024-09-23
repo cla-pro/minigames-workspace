@@ -11,12 +11,6 @@ export class AdventFifteenPuzzleComponent {
   @Input() prefix: string = "";
 
   constructor(private route: ActivatedRoute, private router: Router, private scenarioService: AdventScenarioService) {
-    /*this.route.paramMap.subscribe(map => {
-      let id = map.get('id');
-      if (id) {
-        this.scenario = this.scenarioService.getScenarioWordle(id);
-        this.word = this.scenario.word.split('');
-      }
-    });*/
+    
   }
 }

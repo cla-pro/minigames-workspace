@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AdventScenarioService } from './advent-scenario.service';
-import { AdventScenarioFifteenPuzzle, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
+import { AdventScenario, AdventScenarioFifteenPuzzle, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
 import { MinigameFifteenPuzzlePiece } from 'projects/minigame-fifteen-puzzle/src/lib/shared/minigame-fifteen-puzzle.model';
@@ -17,60 +17,91 @@ export class AdventServiceInitiatorService {
     }
   }
 
-  initiateScenarios(): void {
+  initiateScenarios(group: string): void {
     localStorage.clear();
 
-    /*let scenario = new AdventScenarioFifteenPuzzle("my-first-fifteen", [
-      new MinigameFifteenPuzzlePiece(1, 0, 0, 0, 0),
-      new MinigameFifteenPuzzlePiece(2, 0, 1, 0, 1),
-      new MinigameFifteenPuzzlePiece(3, 0, 2, 0, 2),
-      new MinigameFifteenPuzzlePiece(4, 0, 3, 0, 3),
-      new MinigameFifteenPuzzlePiece(5, 1, 0, 1, 0),
-      new MinigameFifteenPuzzlePiece(6, 1, 1, 1, 1),
-      new MinigameFifteenPuzzlePiece(7, 1, 2, 1, 2),
-      new MinigameFifteenPuzzlePiece(8, 1, 3, 1, 3),
-      new MinigameFifteenPuzzlePiece(9, 2, 0, 2, 0),
-      new MinigameFifteenPuzzlePiece(10, 2, 1, 2, 1),
-      new MinigameFifteenPuzzlePiece(11, 2, 2, 2, 2),
-      new MinigameFifteenPuzzlePiece(12, 2, 3, 2, 3),
-      new MinigameFifteenPuzzlePiece(13, 3, 1, 3, 0),
-      new MinigameFifteenPuzzlePiece(14, 3, 2, 3, 1),
-      new MinigameFifteenPuzzlePiece(15, 3, 3, 3, 2)
-    ]);*/
+    let scenarios: AdventScenario[] = [];
+    switch (group) {
+      case 'Benoist': { scenarios = this.createScenariosBenoist(); break; }
+      case 'Lavanchy': { scenarios = this.createScenariosLavanchy(); break; }
+      case 'Catry': { scenarios = this.createScenariosCatry(); break; }
+    }
+    scenarios[0].enabled = true;
 
-    let scenario = this.parkingjamScenario1();
+    this.service.saveScenarios(scenarios);
+    //localStorage.setItem('scenario-stored', 'true');
+  }
 
-    this.service.saveScenarios([scenario]);
+  private createScenariosBenoist(): AdventScenario[] {
+    return [
+      new AdventScenarioWordle("2024-12-01", "SAPIN"),
+      this.parkingjamNr1("2024-12-03"),
+      this.puzzle15nr1("2024-12-04"),
+      new AdventScenarioMemory("2024-12-05", 4, 6, "memoryBenoist1"),
+      new AdventScenarioWordle("2024-12-06", "MAGIE"),
+      this.parkingjamNr2("2024-12-08"),
+      this.puzzle15nr2("2024-12-09"),
+      new AdventScenarioMemory("2024-12-10", 4, 6, "memoryBenoist2"),
+      new AdventScenarioWordle("2024-12-11", "BOULE"),
+      this.parkingjamNr3("2024-12-13"),
+      this.puzzle15nr3("2024-12-14"),
+      new AdventScenarioMemory("2024-12-15", 4, 6, "memoryBenoist3"),
+      new AdventScenarioWordle("2024-12-16", "LUNDI"),
+      this.parkingjamNr4("2024-12-18"),
+      this.puzzle15nr4("2024-12-19"),
+      new AdventScenarioMemory("2024-12-20", 4, 6, "memoryBenoist4"),
+      new AdventScenarioWordle("2024-12-21", "PHOTO"),
+      this.parkingjamNr5("2024-12-23"),
+      this.puzzle15nr5("2024-12-24")
+    ];
+  }
 
-    /*let firstScenario = new AdventScenarioWordle("2023-12-01", "GLACE");
-    firstScenario.enabled = true;
-    this.service.saveScenarios([
-      firstScenario,
-      this.parkingjamScenario1(),
-      new AdventScenarioMemory("2023-12-03", 4, 6, "firstSet"),
-      new AdventScenarioWordle("2023-12-04", "ECOLE"),
-      new AdventScenarioWordle("2023-12-05", "LUNDI"),
-      new AdventScenarioMemory("2023-12-06", 4, 6, "secondSet"),
-      this.parkingjamScenario2(),
-      new AdventScenarioWordle("2023-12-08", "TORDU"),
-      new AdventScenarioWordle("2023-12-09", "PROMU"),
-      new AdventScenarioMemory("2023-12-10", 4, 6, "thirdSet"),
-      new AdventScenarioWordle("2023-12-11", "CYGNE"),
-      new AdventScenarioWordle("2023-12-12", "OBJET"),
-      new AdventScenarioWordle("2023-12-13", "GIVRE"),
-      this.parkingjamScenario3(),
-      new AdventScenarioMemory("2023-12-15", 4, 6, "fourthSet"),
-      new AdventScenarioWordle("2023-12-16", "MAUVE"),
-      this.parkingjamScenario4(),
-      new AdventScenarioWordle("2023-12-18", "CHOUX"),
-      new AdventScenarioMemory("2023-12-19", 4, 6, "fifthSet"),
-      new AdventScenarioWordle("2023-12-20", "RUINE"),
-      new AdventScenarioWordle("2023-12-21", "VACHE"),
-      new AdventScenarioMemory("2023-12-22", 4, 6, "sixthSet"),
-      this.parkingjamScenario5(),
-      new AdventScenarioWordle("2023-12-24", "AMOUR")
-    ]);
-    localStorage.setItem('scenario-stored', 'true');*/
+  private createScenariosLavanchy(): AdventScenario[] {
+    return [
+      new AdventScenarioWordle("2024-12-01", "SAPIN"),
+      this.parkingjamNr1("2024-12-03"),
+      this.puzzle15nr1("2024-12-04"),
+      new AdventScenarioMemory("2024-12-05", 4, 6, "memoryLavanchy1"),
+      new AdventScenarioWordle("2024-12-06", "MAGIE"),
+      this.parkingjamNr2("2024-12-08"),
+      this.puzzle15nr2("2024-12-09"),
+      new AdventScenarioMemory("2024-12-10", 4, 6, "memoryLavanchy2"),
+      new AdventScenarioWordle("2024-12-11", "BOULE"),
+      this.parkingjamNr3("2024-12-13"),
+      this.puzzle15nr3("2024-12-14"),
+      new AdventScenarioMemory("2024-12-15", 4, 6, "memoryLavanchy3"),
+      new AdventScenarioWordle("2024-12-16", "LUNDI"),
+      this.parkingjamNr4("2024-12-18"),
+      this.puzzle15nr4("2024-12-19"),
+      new AdventScenarioMemory("2024-12-20", 4, 6, "memoryLavanchy4"),
+      new AdventScenarioWordle("2024-12-21", "PHOTO"),
+      this.parkingjamNr5("2024-12-23"),
+      this.puzzle15nr5("2024-12-24")
+    ];
+  }
+
+  private createScenariosCatry(): AdventScenario[] {
+    return [
+      new AdventScenarioWordle("2024-12-01", "SAPIN"),
+      this.parkingjamNr1("2024-12-03"),
+      this.puzzle15nr1("2024-12-04"),
+      new AdventScenarioMemory("2024-12-05", 4, 6, "memoryCatry1"),
+      new AdventScenarioWordle("2024-12-06", "MAGIE"),
+      this.parkingjamNr2("2024-12-08"),
+      this.puzzle15nr2("2024-12-09"),
+      new AdventScenarioMemory("2024-12-10", 4, 6, "memoryCatry2"),
+      new AdventScenarioWordle("2024-12-11", "BOULE"),
+      this.parkingjamNr3("2024-12-13"),
+      this.puzzle15nr3("2024-12-14"),
+      new AdventScenarioMemory("2024-12-15", 4, 6, "memoryCatry3"),
+      new AdventScenarioWordle("2024-12-16", "LUNDI"),
+      this.parkingjamNr4("2024-12-18"),
+      this.puzzle15nr4("2024-12-19"),
+      new AdventScenarioMemory("2024-12-20", 4, 6, "memoryCatry4"),
+      new AdventScenarioWordle("2024-12-21", "PHOTO"),
+      this.parkingjamNr5("2024-12-23"),
+      this.puzzle15nr5("2024-12-24")
+    ];
   }
 
   private wall(id: number, vertical: boolean, lineFrom: number, lineTo: number, columnFrom: number, columnTo: number) {
@@ -94,7 +125,7 @@ export class AdventServiceInitiatorService {
     return c;
   }
 
-  private parkingjamScenario1() {
+  private parkingjamNr1(prefix: string) {
     let cars = [
       this.car(1, 1, 0, 3, false, '1x3-blue-truck-right-left.png', false),
       this.car(2, 2, 0, 2, false, '1x2-red-car-left-right.png', true),
@@ -108,10 +139,10 @@ export class AdventServiceInitiatorService {
       this.car(10, 5, 4, 2, false, '1x2-green-truck-right-left.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-02", 6, 6, cars, this.parkingjamBorderWalls());
+    return new AdventScenarioParkingjam(prefix, 6, 6, cars, this.parkingjamBorderWalls());
   }
 
-  private parkingjamScenario2() {
+  private parkingjamNr2(prefix: string) {
     let cars = [
       this.car(1, 1, 1, 3, false, '1x3-blue-truck-right-left.png', false),
       this.car(2, 0, 4, 3, true, '3x1-blue-truck-top-down.png', false),
@@ -122,10 +153,10 @@ export class AdventServiceInitiatorService {
       this.car(7, 4, 3, 2, true, '2x1-green-truck-top-down.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-07", 6, 6, cars, this.parkingjamBorderWalls());
+    return new AdventScenarioParkingjam(prefix, 6, 6, cars, this.parkingjamBorderWalls());
   }
 
-  private parkingjamScenario3() {
+  private parkingjamNr3(prefix: string) {
     let cars = [
       this.car(1, 0, 0, 2, false, '1x2-green-truck-left-right.png', false),
       this.car(2, 1, 0, 3, true, '3x1-blue-truck-top-down.png', false),
@@ -139,10 +170,10 @@ export class AdventServiceInitiatorService {
       this.car(10, 4, 5, 2, true, '2x1-green-truck-bottom-up.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-14", 6, 6, cars, this.parkingjamBorderWalls());
+    return new AdventScenarioParkingjam(prefix, 6, 6, cars, this.parkingjamBorderWalls());
   }
 
-  private parkingjamScenario4() {
+  private parkingjamNr4(prefix: string) {
     let cars = [
       this.car(1, 0, 2, 2, true, '2x1-green-truck-bottom-up.png', false),
       this.car(2, 0, 3, 2, false, '1x2-green-truck-left-right.png', false),
@@ -159,10 +190,10 @@ export class AdventServiceInitiatorService {
       this.car(13, 5, 4, 2, false, '1x2-green-truck-left-right.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-17", 6, 6, cars, this.parkingjamBorderWalls());
+    return new AdventScenarioParkingjam(prefix, 6, 6, cars, this.parkingjamBorderWalls());
   }
 
-  private parkingjamScenario5() {
+  private parkingjamNr5(prefix: string) {
     let cars = [
       this.car(1, 0, 0, 2, false, '1x2-green-truck-left-right.png', false),
       this.car(2, 1, 0, 2, false, '1x2-green-truck-left-right.png', false),
@@ -180,7 +211,7 @@ export class AdventServiceInitiatorService {
       this.car(14, 5, 4, 2, false, '1x2-green-truck-left-right.png', false)
     ];
 
-    return new AdventScenarioParkingjam("2023-12-23", 6, 6, cars, this.parkingjamBorderWalls());
+    return new AdventScenarioParkingjam(prefix, 6, 6, cars, this.parkingjamBorderWalls());
   }
 
   private parkingjamBorderWalls(): MinigameParkingjamWall[] {
@@ -214,5 +245,105 @@ export class AdventServiceInitiatorService {
       this.wall(23, false, 0, 0, 4, 5),
       this.wall(24, false, 0, 0, 5, 6)
     ];
+  }
+
+  private puzzle15nr1(prefix: string): AdventScenarioFifteenPuzzle {
+    return new AdventScenarioFifteenPuzzle(prefix, [
+        new MinigameFifteenPuzzlePiece(1, 0, 3, 0, 0),
+        new MinigameFifteenPuzzlePiece(2, 2, 2, 0, 1),
+        new MinigameFifteenPuzzlePiece(3, 3, 2, 0, 2),
+        new MinigameFifteenPuzzlePiece(4, 1, 3, 0, 3),
+        new MinigameFifteenPuzzlePiece(5, 1, 2, 1, 0),
+        new MinigameFifteenPuzzlePiece(6, 2, 3, 1, 1),
+        new MinigameFifteenPuzzlePiece(7, 2, 0, 1, 2),
+        new MinigameFifteenPuzzlePiece(8, 1, 0, 1, 3),
+        new MinigameFifteenPuzzlePiece(9, 2, 1, 2, 0),
+        new MinigameFifteenPuzzlePiece(10, 0, 0, 2, 1),
+        new MinigameFifteenPuzzlePiece(11, 0, 2, 2, 2),
+        new MinigameFifteenPuzzlePiece(12, 3, 1, 2, 3),
+        new MinigameFifteenPuzzlePiece(13, 3, 0, 3, 0),
+        new MinigameFifteenPuzzlePiece(14, 0, 1, 3, 1),
+        new MinigameFifteenPuzzlePiece(15, 1, 1, 3, 2)
+      ]);
+  }
+
+  private puzzle15nr2(prefix: string): AdventScenarioFifteenPuzzle {
+    return new AdventScenarioFifteenPuzzle(prefix, [
+        new MinigameFifteenPuzzlePiece(1, 1, 1, 0, 0),
+        new MinigameFifteenPuzzlePiece(2, 3, 0, 0, 1),
+        new MinigameFifteenPuzzlePiece(3, 1, 2, 0, 2),
+        new MinigameFifteenPuzzlePiece(4, 3, 2, 0, 3),
+        new MinigameFifteenPuzzlePiece(5, 2, 2, 1, 0),
+        new MinigameFifteenPuzzlePiece(6, 3, 1, 1, 1),
+        new MinigameFifteenPuzzlePiece(7, 1, 0, 1, 2),
+        new MinigameFifteenPuzzlePiece(8, 0, 3, 1, 3),
+        new MinigameFifteenPuzzlePiece(9, 0, 1, 2, 0),
+        new MinigameFifteenPuzzlePiece(10, 0, 0, 2, 1),
+        new MinigameFifteenPuzzlePiece(11, 1, 3, 2, 2),
+        new MinigameFifteenPuzzlePiece(12, 2, 0, 2, 3),
+        new MinigameFifteenPuzzlePiece(13, 2, 1, 3, 0),
+        new MinigameFifteenPuzzlePiece(14, 0, 2, 3, 1),
+        new MinigameFifteenPuzzlePiece(15, 2, 3, 3, 2)
+      ]);
+  }
+
+  private puzzle15nr3(prefix: string): AdventScenarioFifteenPuzzle {
+    return new AdventScenarioFifteenPuzzle(prefix, [
+        new MinigameFifteenPuzzlePiece(1, 2, 3, 0, 0),
+        new MinigameFifteenPuzzlePiece(2, 1, 2, 0, 1),
+        new MinigameFifteenPuzzlePiece(3, 3, 2, 0, 2),
+        new MinigameFifteenPuzzlePiece(4, 2, 1, 0, 3),
+        new MinigameFifteenPuzzlePiece(5, 3, 0, 1, 0),
+        new MinigameFifteenPuzzlePiece(6, 0, 2, 1, 1),
+        new MinigameFifteenPuzzlePiece(7, 1, 0, 1, 2),
+        new MinigameFifteenPuzzlePiece(8, 2, 2, 1, 3),
+        new MinigameFifteenPuzzlePiece(9, 0, 3, 2, 0),
+        new MinigameFifteenPuzzlePiece(10, 0, 1, 2, 1),
+        new MinigameFifteenPuzzlePiece(11, 1, 1, 2, 2),
+        new MinigameFifteenPuzzlePiece(12, 1, 3, 2, 3),
+        new MinigameFifteenPuzzlePiece(13, 3, 1, 3, 0),
+        new MinigameFifteenPuzzlePiece(14, 0, 0, 3, 1),
+        new MinigameFifteenPuzzlePiece(15, 2, 0, 3, 2)
+      ]);
+  }
+
+  private puzzle15nr4(prefix: string): AdventScenarioFifteenPuzzle {
+    return new AdventScenarioFifteenPuzzle(prefix, [
+        new MinigameFifteenPuzzlePiece(1, 3, 2, 0, 0),
+        new MinigameFifteenPuzzlePiece(2, 2, 3, 0, 1),
+        new MinigameFifteenPuzzlePiece(3, 1, 3, 0, 2),
+        new MinigameFifteenPuzzlePiece(4, 0, 1, 0, 3),
+        new MinigameFifteenPuzzlePiece(5, 2, 1, 1, 0),
+        new MinigameFifteenPuzzlePiece(6, 0, 2, 1, 1),
+        new MinigameFifteenPuzzlePiece(7, 1, 0, 1, 2),
+        new MinigameFifteenPuzzlePiece(8, 2, 2, 1, 3),
+        new MinigameFifteenPuzzlePiece(9, 1, 2, 2, 0),
+        new MinigameFifteenPuzzlePiece(10, 3, 0, 2, 1),
+        new MinigameFifteenPuzzlePiece(11, 0, 0, 2, 2),
+        new MinigameFifteenPuzzlePiece(12, 1, 1, 2, 3),
+        new MinigameFifteenPuzzlePiece(13, 2, 0, 3, 0),
+        new MinigameFifteenPuzzlePiece(14, 3, 1, 3, 1),
+        new MinigameFifteenPuzzlePiece(15, 0, 3, 3, 2)
+      ]);
+  }
+
+  private puzzle15nr5(prefix: string): AdventScenarioFifteenPuzzle {
+    return new AdventScenarioFifteenPuzzle(prefix, [
+        new MinigameFifteenPuzzlePiece(1, 2, 3, 0, 0),
+        new MinigameFifteenPuzzlePiece(2, 3, 1, 0, 1),
+        new MinigameFifteenPuzzlePiece(3, 0, 3, 0, 2),
+        new MinigameFifteenPuzzlePiece(4, 1, 0, 0, 3),
+        new MinigameFifteenPuzzlePiece(5, 1, 1, 1, 0),
+        new MinigameFifteenPuzzlePiece(6, 2, 0, 1, 1),
+        new MinigameFifteenPuzzlePiece(7, 1, 3, 1, 2),
+        new MinigameFifteenPuzzlePiece(8, 0, 2, 1, 3),
+        new MinigameFifteenPuzzlePiece(9, 0, 1, 2, 0),
+        new MinigameFifteenPuzzlePiece(10, 3, 0, 2, 1),
+        new MinigameFifteenPuzzlePiece(11, 0, 0, 2, 2),
+        new MinigameFifteenPuzzlePiece(12, 2, 2, 2, 3),
+        new MinigameFifteenPuzzlePiece(13, 1, 2, 3, 0),
+        new MinigameFifteenPuzzlePiece(14, 2, 1, 3, 1),
+        new MinigameFifteenPuzzlePiece(15, 3, 2, 3, 2)
+      ]);
   }
 }

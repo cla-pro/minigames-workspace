@@ -14,7 +14,6 @@ export class Rectangle {
       && other.x + other.width >= this.x
       && other.y <= this.y + this.height
       && other.y + other.height >= this.y;
-    console.log(this.toString() + " - " + other.toString() + " = " + result);
     return result;
   }
 
