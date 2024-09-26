@@ -54,8 +54,11 @@ export class AdventScenarioParkingjam extends AdventScenario {
 }
 
 export class AdventScenarioPuzzle extends AdventScenario {
-  constructor(prefix: string) {
+  puzzleSetId: string;
+
+  constructor(prefix: string, puzzleSetId: string) {
     super(prefix, "puzzle");
+    this.puzzleSetId = puzzleSetId;
   }
 }
 

@@ -41,6 +41,7 @@ export class MinigameFifteenPuzzleService {
   movePiece(piece: MinigameFifteenPuzzlePiece, newPosition: MinigameCommonPosition) {
     piece.boardY = newPosition.y;
     piece.boardX = newPosition.x;
+    console.log("Piece moved to (" + piece.boardY + "," + piece.boardX + ") misplaced=" + piece.isMisplaced());
 
     if (this.isCompleted()) {
       this.completionCallback();
@@ -74,7 +75,6 @@ export class MinigameFifteenPuzzleService {
       })
       .filter(id => id > -1)
       .map(id => {
-        console.log(id);
         let piecePrefix = prefix + "_piece_" + id + "_";
         let boardX = MinigameCommonStorageService.loadNumberFromStorage(piecePrefix + "boardX", -1);
         let boardY = MinigameCommonStorageService.loadNumberFromStorage(piecePrefix + "boardY", -1);

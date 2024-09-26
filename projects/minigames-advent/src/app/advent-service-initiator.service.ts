@@ -41,6 +41,8 @@ export class AdventServiceInitiatorService {
       case 'Catry': { scenarios = this.createScenariosCatry(); break; }
     }
     scenarios[0].enabled = true;
+    scenarios[1].enabled = true;
+    scenarios[2].enabled = true;
 
     this.service.saveScenarios(scenarios);
     localStorage.setItem('scenario-stored', 'true');

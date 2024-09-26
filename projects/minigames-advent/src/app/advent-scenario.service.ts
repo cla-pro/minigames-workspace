@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AdventScenario, AdventScenarioFifteenPuzzle, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioWordle } from './shared/advent-scenario.model';
+import { AdventScenario, AdventScenarioFifteenPuzzle, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
 import { MinigameFifteenPuzzleService } from 'projects/minigame-fifteen-puzzle/src/public-api';
@@ -90,6 +90,10 @@ export class AdventScenarioService {
 
   getScenarioFifteenPuzzle(prefix: string): AdventScenarioFifteenPuzzle {
     return this.scenarios.filter(s => s.prefix === prefix)[0] as AdventScenarioFifteenPuzzle;
+  }
+
+  getScenarioPuzzle(prefix: string): AdventScenarioPuzzle {
+    return this.scenarios.filter(s => s.prefix === prefix)[0] as AdventScenarioPuzzle;
   }
 
   markCompleted(scenario: AdventScenario) {

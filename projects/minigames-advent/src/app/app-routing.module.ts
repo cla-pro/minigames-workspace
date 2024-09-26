@@ -6,6 +6,7 @@ import { AdventParkingjamComponent } from './advent-parkingjam/advent-parkingjam
 import { AdventBoardComponent } from './advent-board/advent-board.component';
 import { AdventAdminComponent } from './advent-admin/advent-admin.component';
 import { AdventGroupChooserComponent } from './advent-group-chooser/advent-group-chooser.component';
+import { AdventFifteenPuzzleComponent } from './advent-fifteen-puzzle/advent-fifteen-puzzle.component';
 
 export function isGroupSetGuard() {
   return localStorage.getItem('group') !== null;
@@ -24,6 +25,8 @@ const routes: Routes = [
   { path: 'memory/:id', component: AdventMemoryComponent },
   { path: 'parkingjam', component: AdventParkingjamComponent },
   { path: 'parkingjam/:id', component: AdventParkingjamComponent },
+  { path: 'fifteen-puzzle', component: AdventFifteenPuzzleComponent },
+  { path: 'fifteen-puzzle/:id', component: AdventFifteenPuzzleComponent },
   { path: 'admin', component: AdventAdminComponent },
   { path: 'group-chooser', component: AdventGroupChooserComponent }
 ];

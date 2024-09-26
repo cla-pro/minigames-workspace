@@ -19,7 +19,6 @@ export class MinigameParkingjamImagesService {
 
   private loadImages(): void {
     this.imageContent.forEach((value, key) => {
-      console.log(`load image for name: ${key}`);
       let image = new Image();
       let observable = fromEvent(image, 'load')
         .pipe(map(() => image));
