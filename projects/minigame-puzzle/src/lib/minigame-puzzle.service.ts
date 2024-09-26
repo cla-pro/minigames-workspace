@@ -9,7 +9,7 @@ export class MinigamePuzzleService {
 
   prefix!: string;
   puzzleSetId!: string;
-  completionCallback!: (bonus: boolean) => void;
+  completionCallback!: () => void;
 
   nbRows: number = -1;
   nbCols: number = -1;
@@ -61,7 +61,7 @@ export class MinigamePuzzleService {
 
   public checkCompletion(): void {
     if (this.remainingPieces.length === 0 && this.allPiecesOnBoardCorrect()) {
-      this.completionCallback(false);
+      this.completionCallback();
     }
   }
 

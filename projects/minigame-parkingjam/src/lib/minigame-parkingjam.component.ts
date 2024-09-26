@@ -30,7 +30,7 @@ export class MinigameParkingjamComponent implements OnInit {
     this.walls.forEach(w => this.service.addWall(w));
     // Required for the callback in order to run in the right context (otherwise is the context of the caller, here the service)
     let that = this;
-    this.service.completionCallback = (bonus: boolean) => { that.completionEvent.emit(bonus); };
+    this.service.completionCallback = () => { that.completionEvent.emit(); };
     this.service.setupComplete();
   }
 }

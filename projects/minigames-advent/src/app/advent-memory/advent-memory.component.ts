@@ -24,9 +24,8 @@ export class AdventMemoryComponent {
     this.router.navigate(['/']);
   }
 
-  scenarioCompleted(bonus: boolean): void {
+  scenarioCompleted(): void {
     this.scenario.completed = true;
-    this.scenario.bonus = bonus;
     this.scenarioService.markCompleted(this.scenario);
     let that = this;
     setTimeout(function callback() {

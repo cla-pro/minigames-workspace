@@ -18,11 +18,11 @@ export class MinigameParkingjamService {
 
   public get moves(): number { return this._moves; }
   
-  private _completionCallback!: (bonus: boolean) => void;
+  private _completionCallback!: () => void;
 
   constructor(private imageService: MinigameParkingjamImagesService) { }
 
-  public set completionCallback(callback: (bonus: boolean) => void) {
+  public set completionCallback(callback: () => void) {
     this._completionCallback = callback;
   }
 
@@ -128,7 +128,7 @@ export class MinigameParkingjamService {
       }
 
       if (this.isCompleted()) {
-        this._completionCallback(true);
+        this._completionCallback();
       }
     }
   }

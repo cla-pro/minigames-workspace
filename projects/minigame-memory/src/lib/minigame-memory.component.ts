@@ -15,7 +15,6 @@ export class MinigameMemoryComponent implements OnInit {
   
   @Output() completionEvent = new EventEmitter<boolean>();
 
-  bonus: number = MinigameMemoryService.BONUS_COUNT;
   get count(): number {
     return this.memoryService.count;
   }
@@ -29,7 +28,7 @@ export class MinigameMemoryComponent implements OnInit {
     this.memoryService.cardSetId = this.cardSetId;
     // Required for the callback in order to run in the right context (otherwise is the context of the caller, here the service)
     let that = this;
-    this.memoryService.completionCallback = (bonus: boolean) => { that.completionEvent.emit(bonus); };
+    this.memoryService.completionCallback = () => { that.completionEvent.emit(); };
     this.memoryService.setupComplete();
   }
 }

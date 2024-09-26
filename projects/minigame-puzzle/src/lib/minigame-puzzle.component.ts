@@ -18,7 +18,7 @@ export class MinigamePuzzleComponent implements OnInit {
     this.service.prefix = this.prefix;
     this.service.puzzleSetId = this.puzzleSetId;
     let that = this;
-    this.service.completionCallback = (bonus: boolean) => { that.completionEvent.emit(bonus); };
+    this.service.completionCallback = () => { that.completionEvent.emit(); };
     this.service.setupComplete();
   }
 }

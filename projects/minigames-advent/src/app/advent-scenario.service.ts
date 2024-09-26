@@ -72,7 +72,6 @@ export class AdventScenarioService {
 
   private loadScenarioStatus<T extends AdventScenario>(scenario: T): T {
     scenario.completed = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_completed"), false);
-    scenario.bonus = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_bonus"), false);
     scenario.enabled = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_enabled"), false);
     return scenario;
   }
@@ -124,7 +123,6 @@ export class AdventScenarioService {
 
   saveScoreStatus(scenario: AdventScenario): void {
     localStorage.setItem(scenario.prefix + "_completed", `${scenario.completed}`);
-    localStorage.setItem(scenario.prefix + "_bonus", `${scenario.bonus}`);
   }
 
   saveScenarios(scenarios: AdventScenario[]): void {
@@ -135,7 +133,6 @@ export class AdventScenarioService {
         localStorage.setItem(id + "_scenario_id", id);
         localStorage.setItem(id + "_scenario_type", s.type);
         localStorage.setItem(id + "_completed", `${s.completed}`);
-        localStorage.setItem(id + "_bonus", `${s.bonus}`);
         localStorage.setItem(id + "_enabled", `${s.enabled}`);
 
         if (s instanceof AdventScenarioWordle) {

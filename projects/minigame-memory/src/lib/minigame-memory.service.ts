@@ -6,7 +6,6 @@ import { MinigameMemoryImageService } from './minigame-memory-image.service';
   providedIn: 'root'
 })
 export class MinigameMemoryService {
-  public static BONUS_COUNT = 45;
   prefix: string = "";
   width: number = -1;
   height: number = -1;
@@ -17,13 +16,13 @@ export class MinigameMemoryService {
   private _count: number = 0;
   private _zoomUrl: string | undefined = undefined;
 
-  private _completionCallback!: (bonus: boolean) => void;
+  private _completionCallback!: () => void;
 
   public get board(): MinigameMemoryCardDataModel[][] { return this._board; }
   public get count(): number { return this._count; }
   public get zoomUrl(): string | undefined { return this._zoomUrl; }
 
-  public set completionCallback(callback: (bonus: boolean) => void) {
+  public set completionCallback(callback: () => void) {
     this._completionCallback = callback;
   }
 
@@ -91,9 +90,8 @@ export class MinigameMemoryService {
   }
 
   private setCompleted(): void {
-    let bonus = this.count <= MinigameMemoryService.BONUS_COUNT;
-    this._completionCallback(bonus);
-    console.log(`memory completed with ${this.count} with bonus ${bonus}`);
+    this._completionCallback();
+    console.log(`memory completed with ${this.count}`);
   }
 
   private resetCards(first: MinigameMemoryCardDataModel, second: MinigameMemoryCardDataModel): void {

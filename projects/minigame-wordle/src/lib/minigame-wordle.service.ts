@@ -49,13 +49,13 @@ export class MinigameWordleService {
   private currentLine: number = 0;
   private currentIndex: number = 0;
   
-  private _completionCallback!: (bonus: boolean) => void;
+  private _completionCallback!: () => void;
 
   constructor() {
     this.words = this.initEmpty();
   }
 
-  public set completionCallback(callback: (bonus: boolean) => void) {
+  public set completionCallback(callback: () => void) {
     this._completionCallback = callback;
   }
 
@@ -147,7 +147,7 @@ export class MinigameWordleService {
     }
 
     if (this.completed) {
-      this._completionCallback(this.hasBonus());
+      this._completionCallback();
     }
   }
 
@@ -173,10 +173,6 @@ export class MinigameWordleService {
 
   isCompleted(): boolean {
     return this.completed;
-  }
-
-  hasBonus(): boolean {
-    return this.currentLine < 5;
   }
 
   private loadFromStorage(): MinigameWordleLetterModel[][] {

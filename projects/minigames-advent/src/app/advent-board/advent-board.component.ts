@@ -34,6 +34,8 @@ export class AdventBoardComponent {
 
   clearScenario() {
     localStorage.clear();
+    localStorage.setItem('group', 'Benoist');
+    this.reinitScenario();
   }
 
   reinitScenario() {

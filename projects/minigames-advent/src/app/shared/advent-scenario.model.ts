@@ -6,14 +6,12 @@ export class AdventScenario {
   prefix: string;
   type: string;
   completed: boolean;
-  bonus: boolean;
   enabled: boolean;
 
   protected constructor(prefix: string, type: string) {
     this.prefix = prefix;
     this.type = type;
     this.completed = false;
-    this.bonus = false;
     this.enabled = false;
   }
 }

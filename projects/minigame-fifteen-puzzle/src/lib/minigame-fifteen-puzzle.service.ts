@@ -12,7 +12,7 @@ export class MinigameFifteenPuzzleService {
   pieces: MinigameFifteenPuzzlePiece[] = [];
 
   prefix!: string;
-  completionCallback!: (bonus: boolean) => void;
+  completionCallback!: () => void;
 
   constructor() {}
 
@@ -43,7 +43,7 @@ export class MinigameFifteenPuzzleService {
     piece.boardX = newPosition.x;
 
     if (this.isCompleted()) {
-      this.completionCallback(false);
+      this.completionCallback();
     }
   }
 
