@@ -37,8 +37,8 @@ export class MinigameCommonTouchService {
     this.mousedownSubscription = this.mousedown.subscribe((e: any) => { this.handleStart(e); });
     this.touchstartSubscription = this.touchstart.subscribe((e: any) => { this.handleStart(e); })
 
-    this.mouseupSubscription = this.mouseup.subscribe((e: any) => { this.handleEnd(e, canvas); });
-    this.touchendSubscription = this.touchend.subscribe((e: any) => { this.handleEnd(e, canvas); })
+    this.mouseupSubscription = this.mouseup.subscribe((e: any) => { this.handleEnd(e); });
+    this.touchendSubscription = this.touchend.subscribe((e: any) => { this.handleEnd(e); })
 
     this.captureMoveEvent();
   }
@@ -78,7 +78,7 @@ export class MinigameCommonTouchService {
     }
   }
 
-  private handleEnd(e: any, canvas: HTMLCanvasElement): void {
+  private handleEnd(e: any): void {
     e.preventDefault();
 
     this.initialPageX = -1;
@@ -87,7 +87,7 @@ export class MinigameCommonTouchService {
     this.initialLocalY = -1;
 
     this.endCallback();
-    this.captureMoveEvent(canvas);
+    this.captureMoveEvent();
   }
 
   /*

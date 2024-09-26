@@ -69,3 +69,9 @@ export class AdventScenarioFifteenPuzzle extends AdventScenario {
     this.pieces = pieces;
   }
 }
+
+export class AdventScenarioEmpty extends AdventScenario {
+  constructor(prefix: string) {
+    super(prefix, "unknown");
+  }
+}

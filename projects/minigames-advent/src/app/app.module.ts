@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { AdventBoardComponent } from './advent-board/advent-board.component';
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { AdventFifteenPuzzleComponent } from './advent-fifteen-puzzle/advent-fif
     BrowserModule,
     AppRoutingModule,
     CommonModule,
+    FormsModule,
     MinigameWordleModule,
     MinigameMemoryModule,
     MinigameParkingjamModule,

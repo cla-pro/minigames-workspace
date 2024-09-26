@@ -17,8 +17,22 @@ export class AdventServiceInitiatorService {
     }
   }
 
-  initiateScenarios(group: string): void {
+  initiateScenariosIfNotExisting(): void {
+    if (localStorage.getItem('scenario-stored') !== 'true') {
+      this.initiateScenarios();
+    }
+  }
+
+  initiateScenarios(): void {
+    let group = localStorage.getItem('group');
+    if (group !== null) {
+      this.initiateScenariosWithGroup(group);
+    }
+  }
+
+  private initiateScenariosWithGroup(group: string): void {
     localStorage.clear();
+    localStorage.setItem('group', group);
 
     let scenarios: AdventScenario[] = [];
     switch (group) {
@@ -29,7 +43,7 @@ export class AdventServiceInitiatorService {
     scenarios[0].enabled = true;
 
     this.service.saveScenarios(scenarios);
-    //localStorage.setItem('scenario-stored', 'true');
+    localStorage.setItem('scenario-stored', 'true');
   }
 
   private createScenariosBenoist(): AdventScenario[] {

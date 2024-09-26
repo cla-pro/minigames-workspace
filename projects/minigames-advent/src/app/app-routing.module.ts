@@ -5,16 +5,27 @@ import { AdventWordleComponent } from './advent-wordle/advent-wordle.component';
 import { AdventParkingjamComponent } from './advent-parkingjam/advent-parkingjam.component';
 import { AdventBoardComponent } from './advent-board/advent-board.component';
 import { AdventAdminComponent } from './advent-admin/advent-admin.component';
+import { AdventGroupChooserComponent } from './advent-group-chooser/advent-group-chooser.component';
+
+export function isGroupSetGuard() {
+  return localStorage.getItem('group') !== null;
+}
+
+export function IsGroupNotSetGuard() {
+  return !isGroupSetGuard();
+}
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: AdventBoardComponent },
+  { path: '', pathMatch: 'full', component: AdventBoardComponent, canMatch: [isGroupSetGuard] },
+  { path: '', pathMatch: 'full', redirectTo: 'group-chooser', canMatch: [IsGroupNotSetGuard] },
   { path: 'wordle', component: AdventWordleComponent },
   { path: 'wordle/:id', component: AdventWordleComponent },
   { path: 'memory', component: AdventMemoryComponent },
   { path: 'memory/:id', component: AdventMemoryComponent },
   { path: 'parkingjam', component: AdventParkingjamComponent },
   { path: 'parkingjam/:id', component: AdventParkingjamComponent },
-  { path: 'admin', component: AdventAdminComponent }
+  { path: 'admin', component: AdventAdminComponent },
+  { path: 'group-chooser', component: AdventGroupChooserComponent }
 ];
 
 @NgModule({
