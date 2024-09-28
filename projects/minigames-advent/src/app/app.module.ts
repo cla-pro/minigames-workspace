@@ -18,10 +18,12 @@ import { AdventPuzzleComponent } from './advent-puzzle/advent-puzzle.component';
 import { MinigamePuzzleModule } from 'projects/minigame-puzzle/src/public-api';
 import { MinigameFifteenPuzzleModule } from 'projects/minigame-fifteen-puzzle/src/public-api';
 import { AdventFifteenPuzzleComponent } from './advent-fifteen-puzzle/advent-fifteen-puzzle.component';
+import { AdventGroupChooserComponent } from './advent-group-chooser/advent-group-chooser.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AdventGroupChooserComponent,
     AdventWordleComponent,
     AdventMemoryComponent,
     AdventParkingjamComponent,

@@ -69,4 +69,9 @@ input {
     --clear-line-offset: 27px;
     --clear-long-array: 8.5px;
     --clear-long-offset: 24px;
+    text-align: center;
+}
+
+.errorMsg {
+    color: red;
 }
