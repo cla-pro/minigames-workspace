@@ -68,5 +68,25 @@ export class MinigameCommonImageService {
     this.imageContent.set("15-puzzle_13", "assets/15-puzzle/tile-13.png");
     this.imageContent.set("15-puzzle_14", "assets/15-puzzle/tile-14.png");
     this.imageContent.set("15-puzzle_15", "assets/15-puzzle/tile-15.png");
+
+    this.imageContent.set('2x1-red-car-bottom-up.png', 'assets/parkingjam/2x1-red-car-bottom-up.png');
+    this.imageContent.set('2x1-red-car-top-down.png', 'assets/parkingjam/2x1-red-car-top-down.png');
+    this.imageContent.set('1x2-red-car-left-right.png', 'assets/parkingjam/1x2-red-car-left-right.png');
+    this.imageContent.set('1x2-red-car-right-left.png', 'assets/parkingjam/1x2-red-car-right-left.png');
+
+    this.imageContent.set('3x1-blue-truck-bottom-up.png', 'assets/parkingjam/3x1-blue-truck-bottom-up.png');
+    this.imageContent.set('3x1-blue-truck-top-down.png', 'assets/parkingjam/3x1-blue-truck-top-down.png');
+    this.imageContent.set('1x3-blue-truck-left-right.png', 'assets/parkingjam/1x3-blue-truck-left-right.png');
+    this.imageContent.set('1x3-blue-truck-right-left.png', 'assets/parkingjam/1x3-blue-truck-right-left.png');
+
+    this.imageContent.set('1x2-green-truck-left-right.png', 'assets/parkingjam/1x2-green-truck-left-right.png');
+    this.imageContent.set('1x2-green-truck-right-left.png', 'assets/parkingjam/1x2-green-truck-right-left.png');
+    this.imageContent.set('2x1-green-truck-bottom-up.png', 'assets/parkingjam/2x1-green-truck-bottom-up.png');
+    this.imageContent.set('2x1-green-truck-top-down.png', 'assets/parkingjam/2x1-green-truck-top-down.png');
+
+    this.imageContent.set('3x1-red-car-bottom-up.png', 'assets/parkingjam/3x1-red-car-bottom-up.png');
+    this.imageContent.set('3x1-red-car-top-down.png', 'assets/parkingjam/3x1-red-car-top-down.png');
+    this.imageContent.set('1x3-red-car-left-right.png', 'assets/parkingjam/1x3-red-car-left-right.png');
+    this.imageContent.set('1x3-red-car-right-left.png', 'assets/parkingjam/1x3-red-car-right-left.png');
   }
 }

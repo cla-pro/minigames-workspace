@@ -1,12 +1,11 @@
-import { Rectangle } from "projects/minigame-common/src/public-api";
-import { MinigameParkingjamImagesService } from "../minigame-parkingjam-images.service";
+import { MinigameCommonImageService, Rectangle } from "projects/minigame-common/src/public-api";
 import { MinigameParkingjamService } from "../minigame-parkingjam.service";
 import { MinigameParkingjamConst } from "./minigame-parkingjam-const.model";
 
 export class MinigameParkingjamCar {
   ctx!: CanvasRenderingContext2D;
   service!: MinigameParkingjamService;
-  private _imageService!: MinigameParkingjamImagesService;
+  private _imageService!: MinigameCommonImageService;
   // position of the head of the car
   line: number = 0;
   column: number = 0;
@@ -25,9 +24,9 @@ export class MinigameParkingjamCar {
   private _isOut: boolean = false;
   private image: any;
 
-  public set imageService(imageService: MinigameParkingjamImagesService) {
+  public set imageService(imageService: MinigameCommonImageService) {
     this._imageService = imageService;
-    let obs = this._imageService.getImageForCar(this.imageName);
+    let obs = this._imageService.getImageForKey(this.imageName);
     obs.subscribe(res => {
       this.image = res;
       this.draw();

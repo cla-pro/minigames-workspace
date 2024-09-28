@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MinigameParkingjamCar } from './shared/minigame-parkingjam-car.model';
 import { MinigameParkingjamWall } from './shared/minigame-parkingjam-wall.model';
-import { MinigameParkingjamImagesService } from './minigame-parkingjam-images.service';
+import { MinigameCommonImageService } from 'projects/minigame-common/src/public-api';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class MinigameParkingjamService {
   
   private _completionCallback!: () => void;
 
-  constructor(private imageService: MinigameParkingjamImagesService) { }
+  constructor(private imageService: MinigameCommonImageService) { }
 
   public set completionCallback(callback: () => void) {
     this._completionCallback = callback;
