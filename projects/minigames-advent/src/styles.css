@@ -13,8 +13,10 @@
     height: 50%;
 }
 
-.back-button {
+.back-img {
     position: absolute;
-    left: 5px;
+    left: 15px;
     top: 5px;
+    max-width: 40px;
+    cursor: pointer;
 }
