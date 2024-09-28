@@ -5,6 +5,7 @@
     [boardWidth]="scenario.width"
     [boardHeight]="scenario.height"
     [cardSetId]="scenario.cardSetId"
+    [imageIds]="scenario.imageIds"
     (completionEvent)="scenarioCompleted()">
 </minigame-memory>
 <img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />

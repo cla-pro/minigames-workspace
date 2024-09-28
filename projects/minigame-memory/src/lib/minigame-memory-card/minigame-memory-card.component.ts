@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MinigameMemoryCardDataModel } from '../shared/minigame-memory-card-data.model';
 import { MinigameMemoryService } from '../minigame-memory.service';
-import { MinigameMemoryImageService } from '../minigame-memory-image.service';
+import { MinigameCommonImageService } from 'projects/minigame-common/src/public-api';
 
 @Component({
   selector: 'minigame-memory-card',
@@ -13,10 +13,10 @@ export class MinigameMemoryCardComponent implements OnInit {
 
   imageUrl: string | undefined = "";
 
-  constructor(private memoryService: MinigameMemoryService, private memoryImageService: MinigameMemoryImageService) {}
+  constructor(private memoryService: MinigameMemoryService, private imageService: MinigameCommonImageService) {}
 
   ngOnInit(): void {
-    this.imageUrl = this.memoryImageService.url(this.cardData.id);
+    this.imageUrl = this.imageService.getUrlForKey(this.cardData.id);
   }
 
   flipCard(): void {

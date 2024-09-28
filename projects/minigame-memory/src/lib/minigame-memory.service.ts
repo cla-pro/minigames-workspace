@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MinigameMemoryCardDataModel } from './shared/minigame-memory-card-data.model';
-import { MinigameMemoryImageService } from './minigame-memory-image.service';
+import { MinigameCommonImageService } from 'projects/minigame-common/src/public-api';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ export class MinigameMemoryService {
   width: number = -1;
   height: number = -1;
   cardSetId: string = "";
+  imageIds: string[] = [];
   private _board: MinigameMemoryCardDataModel[][] = [];
   private fliped: MinigameMemoryCardDataModel[] = [];
   private loaded: boolean = false;
@@ -26,7 +27,7 @@ export class MinigameMemoryService {
     this._completionCallback = callback;
   }
 
-  constructor(private service: MinigameMemoryImageService) {}
+  constructor(private imageService: MinigameCommonImageService) {}
 
   public setupComplete(): void {
     this.loadFromStorage();
@@ -37,8 +38,7 @@ export class MinigameMemoryService {
 
   private defineBoard(): void {
     if (!this.loaded && this.width > -1 && this.height > -1 && this.cardSetId !== "") {
-      let cardSet = this.service.cardSet(this.cardSetId);
-      let nbCards = cardSet.length * 2;
+      let nbCards = this.imageIds.length * 2;
       let ids: number[] = Array(nbCards).fill(-1).map((value, index) => Math.floor(index / 2));
 
       this._board = [];
@@ -46,7 +46,7 @@ export class MinigameMemoryService {
         let line: MinigameMemoryCardDataModel[] = [];
         for (let j = 0; j < this.width; j++) {
           let index = Math.floor(Math.random() * ids.length);
-          let value = cardSet[ids[index]];
+          let value = this.imageIds[ids[index]];
           ids = ids.slice(0, index).concat(ids.slice(index + 1));
           line.push(new MinigameMemoryCardDataModel(`${value}`, false, false));
         }
@@ -58,7 +58,7 @@ export class MinigameMemoryService {
   }
 
   cardFliped(cardData: MinigameMemoryCardDataModel): void {
-    this._zoomUrl = this.service.url(cardData.id);
+    this._zoomUrl = this.imageService.getUrlForKey(cardData.id);
     this.fliped.push(cardData);
 
     let that = this;

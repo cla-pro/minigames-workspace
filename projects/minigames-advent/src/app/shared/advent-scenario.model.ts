@@ -29,12 +29,14 @@ export class AdventScenarioMemory extends AdventScenario {
   width: number;
   height: number;
   cardSetId: string;
+  imageIds: string[];
 
   constructor(prefix: string, width: number, height: number, cardSetId: string) {
     super(prefix, "memory");
     this.width = width;
     this.height = height;
     this.cardSetId = cardSetId;
+    this.imageIds = Array.from(Array(width * height / 2).keys()).map(i => `${cardSetId}-${i}`);
   }
 }
 

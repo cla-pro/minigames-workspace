@@ -12,6 +12,7 @@ export class MinigameMemoryComponent implements OnInit {
   @Input() boardWidth: number = 0;
   @Input() boardHeight: number = 0;
   @Input() cardSetId: string = "";
+  @Input() imageIds: string[] = [];
   
   @Output() completionEvent = new EventEmitter<boolean>();
 
@@ -26,6 +27,7 @@ export class MinigameMemoryComponent implements OnInit {
     this.memoryService.width = this.boardWidth;
     this.memoryService.height = this.boardHeight;
     this.memoryService.cardSetId = this.cardSetId;
+    this.memoryService.imageIds = this.imageIds;
     // Required for the callback in order to run in the right context (otherwise is the context of the caller, here the service)
     let that = this;
     this.memoryService.completionCallback = () => { that.completionEvent.emit(); };
