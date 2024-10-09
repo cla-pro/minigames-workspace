@@ -55,8 +55,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
     this.ctx.clearRect(0, 0, nativ.width, nativ.height);
 
     this.loadImages();
-    this.drawBorders();
-    this.drawRemainingPieces();
+    this.display();
   }
 
   private calculateAndSetSizes(nativ: HTMLCanvasElement) {
@@ -88,17 +87,19 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
   }
 
   private loadImages() {
-    this.service.allRemainingPieces()
-        .forEach(p => {
-          let obs = this.imageService.getImageForKey(this.imagePrefix + p.id);
-          obs.subscribe(res => {
-            this.images.set(this.imagePrefix + p.id, res);
-            this.redisplay();
-          });
-        });
+    this.service.piecesOnBoardToDraw().forEach(p => this.loadSingleImage(p.id));
+    this.service.allRemainingPieces().forEach(p => this.loadSingleImage(p.id));
   }
 
-  private redisplay(): void {
+  private loadSingleImage(id: number) {
+    let obs = this.imageService.getImageForKey(this.imagePrefix + id);
+    obs.subscribe(res => {
+      this.images.set(this.imagePrefix + id, res);
+      this.display();
+    });
+  }
+
+  private display(): void {
     this.drawBorders();
     this.drawBoard();
     this.drawRemainingPieces();
@@ -179,7 +180,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
       this.movingPiece = matching;
       this.movingPieceX = x;
       this.movingPieceY = y;
-      this.redisplay();
+      this.display();
       this.drawMovingPiece();
     }
   }
@@ -202,7 +203,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
       this.movingPieceX = -1;
       this.movingPieceY = -1;
 
-      this.redisplay();
+      this.display();
 
       this.service.checkCompletion();
     }
@@ -213,7 +214,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
       this.movingPieceX = x;
       this.movingPieceY = y;
 
-      this.redisplay();
+      this.display();
       this.drawMovingPiece();
     }
   }

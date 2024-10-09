@@ -21,8 +21,18 @@ export class MinigamePuzzleService {
 
   constructor() { }
 
+  public setSize(width: number, height: number) {
+    this.nbCols = width;
+    this.nbRows = height;
+  }
+
+  public setPieces(onBoard: MinigamePuzzlePiece[], remaining: MinigamePuzzlePiece[]) {
+    this.piecesOnBoard = onBoard;
+    this.remainingPieces = remaining;
+  }
+
   public setupComplete() {
-    this.loadFromStorage();
+    
   }
 
   public piecesOnBoardToDraw(): MinigamePuzzlePiece[] {
@@ -57,6 +67,8 @@ export class MinigamePuzzleService {
 
     piece.boardX = x;
     piece.boardY = y;
+
+    MinigamePuzzleService.storePieces(this.prefix, this.piecesOnBoard, this.remainingPieces);
   }
 
   public checkCompletion(): void {
@@ -72,18 +84,6 @@ export class MinigamePuzzleService {
   }
 
   private loadFromStorage() {
-    /*
-    let pieces = Object.keys(localStorage)
-      .filter(k => k.startsWith(this.prefix))
-      .filter(k => k.search('_piece_id') > -1)
-      .map(k => {
-        let id = localStorage.getItem(k);
-        return (id) ? +id : 0;
-      })
-      .filter(id => id !== null)
-      .map(id => {
-        return new MinigamePuzzlePiece(id, -1, -1, -1, -1)
-      });*/
     this.nbRows = 6;
     this.nbCols = 4;
     this.nbRemainings = this.nbCols - 1;
@@ -116,5 +116,32 @@ export class MinigamePuzzleService {
     
     this.piecesOnBoard = pieces.filter(p => p.isOnBoard())
     this.remainingPieces = pieces.filter(p => !p.isOnBoard())
+  }
+
+  public static loadPiecesOnBoard(prefix: string): MinigamePuzzlePiece[] {
+    return this.loadPieces(prefix).filter(p => p.isOnBoard());
+  }
+
+  public static loadRemainingPieces(prefix: string): MinigamePuzzlePiece[] {
+    return this.loadPieces(prefix).filter(p => !p.isOnBoard());
+  }
+
+  private static loadPieces(prefix: string): MinigamePuzzlePiece[] {
+    return Object.keys(localStorage)
+      .filter(k => k.startsWith(prefix))
+      .filter(k => k.search('-piece-id') > -1)
+      .map(k => {
+        let id = localStorage.getItem(k);
+        return (id) ? +id : 0;
+      })
+      .filter(id => id !== null)
+      .map(id => {
+        return MinigamePuzzlePiece.load(prefix, id)
+      });
+  }
+
+  public static storePieces(prefix: string, piecesOnBoard: MinigamePuzzlePiece[], remainingPieces: MinigamePuzzlePiece[]) {
+    piecesOnBoard.forEach(p => p.store(prefix));
+    remainingPieces.forEach(p => p.store(prefix));
   }
 }

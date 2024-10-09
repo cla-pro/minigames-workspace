@@ -4,6 +4,7 @@ import { AdventScenario, AdventScenarioFifteenPuzzle, AdventScenarioMemory, Adve
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
 import { MinigameFifteenPuzzlePiece } from 'projects/minigame-fifteen-puzzle/src/lib/shared/minigame-fifteen-puzzle.model';
+import { MinigamePuzzlePiece } from 'projects/minigame-puzzle/src/lib/shared/minigame-puzzle.model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,7 @@ export class AdventServiceInitiatorService {
     scenarios[1].enabled = true;
     scenarios[2].enabled = true;
     scenarios[3].enabled = true;
+    scenarios[4].enabled = true;
 
     this.service.saveScenarios(scenarios);
     localStorage.setItem('scenario-stored', 'true');
@@ -52,22 +54,27 @@ export class AdventServiceInitiatorService {
   private createScenariosBenoist(): AdventScenario[] {
     return [
       new AdventScenarioWordle("2024-12-01", "SAPIN"),
+      this.puzzle("2024-12-02", "benoist-puzzle-1"),
       this.parkingjamNr1("2024-12-03"),
       this.puzzle15nr1("2024-12-04"),
       new AdventScenarioMemory("2024-12-05", 4, 6, "benoist-1"),
       new AdventScenarioWordle("2024-12-06", "MAGIE"),
+      this.puzzle("2024-12-07", "benoist-puzzle-2"),
       this.parkingjamNr2("2024-12-08"),
       this.puzzle15nr2("2024-12-09"),
       new AdventScenarioMemory("2024-12-10", 4, 6, "benoist-2"),
       new AdventScenarioWordle("2024-12-11", "BOULE"),
+      this.puzzle("2024-12-12", "benoist-puzzle-3"),
       this.parkingjamNr3("2024-12-13"),
       this.puzzle15nr3("2024-12-14"),
       new AdventScenarioMemory("2024-12-15", 4, 6, "benoist-3"),
       new AdventScenarioWordle("2024-12-16", "LUNDI"),
+      this.puzzle("2024-12-17", "benoist-puzzle-4"),
       this.parkingjamNr4("2024-12-18"),
       this.puzzle15nr4("2024-12-19"),
       new AdventScenarioMemory("2024-12-20", 4, 6, "benoist-4"),
       new AdventScenarioWordle("2024-12-21", "PHOTO"),
+      this.puzzle("2024-12-22", "benoist-puzzle-5"),
       this.parkingjamNr5("2024-12-23"),
       this.puzzle15nr5("2024-12-24")
     ];
@@ -76,22 +83,27 @@ export class AdventServiceInitiatorService {
   private createScenariosLavanchy(): AdventScenario[] {
     return [
       new AdventScenarioWordle("2024-12-01", "SAPIN"),
+      this.puzzle("2024-12-02", "lavanchy-puzzle-1"),
       this.parkingjamNr1("2024-12-03"),
       this.puzzle15nr1("2024-12-04"),
       new AdventScenarioMemory("2024-12-05", 4, 6, "lavanchy-1"),
       new AdventScenarioWordle("2024-12-06", "MAGIE"),
+      this.puzzle("2024-12-07", "lavanchy-puzzle-2"),
       this.parkingjamNr2("2024-12-08"),
       this.puzzle15nr2("2024-12-09"),
       new AdventScenarioMemory("2024-12-10", 4, 6, "lavanchy-2"),
       new AdventScenarioWordle("2024-12-11", "BOULE"),
+      this.puzzle("2024-12-12", "lavanchy-puzzle-3"),
       this.parkingjamNr3("2024-12-13"),
       this.puzzle15nr3("2024-12-14"),
       new AdventScenarioMemory("2024-12-15", 4, 6, "lavanchy-3"),
       new AdventScenarioWordle("2024-12-16", "LUNDI"),
+      this.puzzle("2024-12-17", "lavanchy-puzzle-4"),
       this.parkingjamNr4("2024-12-18"),
       this.puzzle15nr4("2024-12-19"),
       new AdventScenarioMemory("2024-12-20", 4, 6, "lavanchy-4"),
       new AdventScenarioWordle("2024-12-21", "PHOTO"),
+      this.puzzle("2024-12-22", "lavanchy-puzzle-5"),
       this.parkingjamNr5("2024-12-23"),
       this.puzzle15nr5("2024-12-24")
     ];
@@ -100,22 +112,27 @@ export class AdventServiceInitiatorService {
   private createScenariosCatry(): AdventScenario[] {
     return [
       new AdventScenarioWordle("2024-12-01", "SAPIN"),
+      this.puzzle("2024-12-02", "catry-puzzle-1"),
       this.parkingjamNr1("2024-12-03"),
       this.puzzle15nr1("2024-12-04"),
       new AdventScenarioMemory("2024-12-05", 4, 6, "catry-1"),
       new AdventScenarioWordle("2024-12-06", "MAGIE"),
+      this.puzzle("2024-12-07", "catry-puzzle-2"),
       this.parkingjamNr2("2024-12-08"),
       this.puzzle15nr2("2024-12-09"),
       new AdventScenarioMemory("2024-12-10", 4, 6, "catry-2"),
       new AdventScenarioWordle("2024-12-11", "BOULE"),
+      this.puzzle("2024-12-12", "catry-puzzle-3"),
       this.parkingjamNr3("2024-12-13"),
       this.puzzle15nr3("2024-12-14"),
       new AdventScenarioMemory("2024-12-15", 4, 6, "catry-3"),
       new AdventScenarioWordle("2024-12-16", "LUNDI"),
+      this.puzzle("2024-12-17", "catry-puzzle-4"),
       this.parkingjamNr4("2024-12-18"),
       this.puzzle15nr4("2024-12-19"),
       new AdventScenarioMemory("2024-12-20", 4, 6, "catry-4"),
       new AdventScenarioWordle("2024-12-21", "PHOTO"),
+      this.puzzle("2024-12-22", "catry-puzzle-5"),
       this.parkingjamNr5("2024-12-23"),
       this.puzzle15nr5("2024-12-24")
     ];
@@ -362,5 +379,40 @@ export class AdventServiceInitiatorService {
         new MinigameFifteenPuzzlePiece(14, 2, 1, 3, 1),
         new MinigameFifteenPuzzlePiece(15, 3, 2, 3, 2)
       ]);
+  }
+
+  private puzzle(prefix: string, setId: string): AdventScenarioPuzzle {
+    return new AdventScenarioPuzzle(
+      prefix,
+      4,
+      6,
+      setId,
+      [],
+      [
+        new MinigamePuzzlePiece(11, -1, -1, 0, 0),
+        new MinigamePuzzlePiece(12, -1, -1, 0, 1),
+        new MinigamePuzzlePiece(13, -1, -1, 0, 2),
+        new MinigamePuzzlePiece(14, -1, -1, 0, 3),
+        new MinigamePuzzlePiece(21, -1, -1, 1, 0),
+        new MinigamePuzzlePiece(22, -1, -1, 1, 1),
+        new MinigamePuzzlePiece(23, -1, -1, 1, 2),
+        new MinigamePuzzlePiece(24, -1, -1, 1, 3),
+        new MinigamePuzzlePiece(31, -1, -1, 2, 0),
+        new MinigamePuzzlePiece(32, -1, -1, 2, 1),
+        new MinigamePuzzlePiece(33, -1, -1, 2, 2),
+        new MinigamePuzzlePiece(34, -1, -1, 2, 3),
+        new MinigamePuzzlePiece(41, -1, -1, 3, 0),
+        new MinigamePuzzlePiece(42, -1, -1, 3, 1),
+        new MinigamePuzzlePiece(43, -1, -1, 3, 2),
+        new MinigamePuzzlePiece(44, -1, -1, 3, 3),
+        new MinigamePuzzlePiece(51, -1, -1, 4, 0),
+        new MinigamePuzzlePiece(52, -1, -1, 4, 1),
+        new MinigamePuzzlePiece(53, -1, -1, 4, 2),
+        new MinigamePuzzlePiece(54, -1, -1, 4, 3),
+        new MinigamePuzzlePiece(61, -1, -1, 5, 0),
+        new MinigamePuzzlePiece(62, -1, -1, 5, 1),
+        new MinigamePuzzlePiece(63, -1, -1, 5, 2),
+        new MinigamePuzzlePiece(64, -1, -1, 5, 3)]
+    )
   }
 }

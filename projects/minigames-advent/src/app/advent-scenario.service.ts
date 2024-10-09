@@ -4,6 +4,7 @@ import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shar
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
 import { MinigameFifteenPuzzleService } from 'projects/minigame-fifteen-puzzle/src/public-api';
 import { MinigameParkingjamService } from 'projects/minigame-parkingjam/src/public-api';
+import { MinigamePuzzleService } from 'projects/minigame-puzzle/src/public-api';
 
 @Injectable({
   providedIn: 'root'
@@ -38,26 +39,28 @@ export class AdventScenarioService {
       return this.loadScenarioParkingjam(id);
     } else if (type === "fifteen-puzzle") {
       return this.loadFifteenPuzzle(id);
+    } else if (type === "puzzle") {
+      return this.loadPuzzle(id);
     } else {
       throw new Error('Unknown scenario type: ' + type);
     }
   }
 
-  loadScenarioWordle(id: string): AdventScenarioWordle {
-    let word = localStorage.getItem(id + "_word");
+  private loadScenarioWordle(id: string): AdventScenarioWordle {
+    let word = localStorage.getItem(`${id}_word`);
     return this.loadScenarioStatus(new AdventScenarioWordle(id, (word) ? word : ""));
   }
 
-  loadScenarioMemory(id: string): AdventScenarioMemory {
-    let width = this.parseIntOrDefault(localStorage.getItem(id + "_width"), 0);
-    let height = this.parseIntOrDefault(localStorage.getItem(id + "_height"), 0);
-    let cardSetId = localStorage.getItem(id + "_cardSetId") ?? "";
+  private loadScenarioMemory(id: string): AdventScenarioMemory {
+    let width = this.parseIntOrDefault(localStorage.getItem(`${id}_width`), 0);
+    let height = this.parseIntOrDefault(localStorage.getItem(`${id}_height`), 0);
+    let cardSetId = localStorage.getItem(`${id}_cardSetId`) ?? "";
     return this.loadScenarioStatus(new AdventScenarioMemory(id, width, height, cardSetId));
   }
 
-  loadScenarioParkingjam(id: string): AdventScenarioParkingjam {
-    let width = this.parseIntOrDefault(localStorage.getItem(id + "_width"), 0);
-    let height = this.parseIntOrDefault(localStorage.getItem(id + "_height"), 0);
+  private loadScenarioParkingjam(id: string): AdventScenarioParkingjam {
+    let width = this.parseIntOrDefault(localStorage.getItem(`${id}_width`), 0);
+    let height = this.parseIntOrDefault(localStorage.getItem(`${id}_height`), 0);
 
     let cars: MinigameParkingjamCar[] = this.parkingjamService.loadCars(id);
     let walls: MinigameParkingjamWall[] = this.parkingjamService.loadWalls(id);
@@ -65,14 +68,24 @@ export class AdventScenarioService {
     return this.loadScenarioStatus(new AdventScenarioParkingjam(id, width, height, cars, walls));
   }
 
-  private loadFifteenPuzzle(prefix: string): AdventScenarioFifteenPuzzle {
-    let pieces = this.fifteenPuzzleService.loadPiecesFromStorage(prefix);
-    return this.loadScenarioStatus(new AdventScenarioFifteenPuzzle(prefix, pieces));
+  private loadFifteenPuzzle(id: string): AdventScenarioFifteenPuzzle {
+    let pieces = this.fifteenPuzzleService.loadPiecesFromStorage(id);
+    return this.loadScenarioStatus(new AdventScenarioFifteenPuzzle(id, pieces));
+  }
+
+  private loadPuzzle(id: string): AdventScenarioPuzzle {
+    let width = this.parseIntOrDefault(localStorage.getItem(`${id}_width`), 0);
+    let height = this.parseIntOrDefault(localStorage.getItem(`${id}_height`), 0);
+    let puzzleSetId = localStorage.getItem(`${id}_setId`) ?? "";
+
+    let piecesOnBoard = MinigamePuzzleService.loadPiecesOnBoard(id);
+    let remainingPieces = MinigamePuzzleService.loadRemainingPieces(id);
+    return this.loadScenarioStatus(new AdventScenarioPuzzle(id, width, height, puzzleSetId, piecesOnBoard, remainingPieces));
   }
 
   private loadScenarioStatus<T extends AdventScenario>(scenario: T): T {
-    scenario.completed = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_completed"), false);
-    scenario.enabled = this.parseBooleanOrDefault(localStorage.getItem(scenario.prefix + "_enabled"), false);
+    scenario.completed = this.parseBooleanOrDefault(localStorage.getItem(`${scenario.prefix}_completed`), false);
+    scenario.enabled = this.parseBooleanOrDefault(localStorage.getItem(`${scenario.prefix}_enabled`), false);
     return scenario;
   }
 
@@ -121,12 +134,12 @@ export class AdventScenarioService {
       let s = this.scenarios[next];
       console.log(`Enabling scenario ${s.prefix}`)
       s.enabled = true;
-      localStorage.setItem(s.prefix + "_enabled", `${s.enabled}`);
+      localStorage.setItem(`${s.prefix}_enabled`, `${s.enabled}`);
     }
   }
 
   saveScoreStatus(scenario: AdventScenario): void {
-    localStorage.setItem(scenario.prefix + "_completed", `${scenario.completed}`);
+    localStorage.setItem(`${scenario.prefix}_completed`, `${scenario.completed}`);
   }
 
   saveScenarios(scenarios: AdventScenario[]): void {
@@ -134,10 +147,10 @@ export class AdventScenarioService {
       .filter(s => this.isNotSaved(s))
       .forEach(s => {
         let id = s.prefix;
-        localStorage.setItem(id + "_scenario_id", id);
-        localStorage.setItem(id + "_scenario_type", s.type);
-        localStorage.setItem(id + "_completed", `${s.completed}`);
-        localStorage.setItem(id + "_enabled", `${s.enabled}`);
+        localStorage.setItem(`${id}_scenario_id`, id);
+        localStorage.setItem(`${id}_scenario_type`, s.type);
+        localStorage.setItem(`${id}_completed`, `${s.completed}`);
+        localStorage.setItem(`${id}_enabled`, `${s.enabled}`);
 
         if (s instanceof AdventScenarioWordle) {
           this.saveScenarioWordle(id, s as AdventScenarioWordle);
@@ -147,27 +160,29 @@ export class AdventScenarioService {
           this.saveScenarioParkingjam(id, s as AdventScenarioParkingjam);
         } else if (s instanceof AdventScenarioFifteenPuzzle) {
           this.saveScenarioFifteenPuzzle(id, s as AdventScenarioFifteenPuzzle);
+        } else if (s instanceof AdventScenarioPuzzle) {
+          this.saveScenarioPuzzle(id, s as AdventScenarioPuzzle);
         }
       });
   }
 
   private isNotSaved(scenario: AdventScenario): boolean {
-    return localStorage.getItem(scenario.prefix + "_scenario_id") === null;
+    return localStorage.getItem(`${scenario.prefix}_scenario_id`) === null;
   }
 
   private saveScenarioWordle(id: string, scenario: AdventScenarioWordle) {
-    localStorage.setItem(id + "_word", scenario.word);
+    localStorage.setItem(`${id}_word`, scenario.word);
   }
 
   private saveScenarioMemory(id: string, scenario: AdventScenarioMemory) {
-    localStorage.setItem(id + "_width", '' + scenario.width);
-    localStorage.setItem(id + "_height", '' + scenario.height);
-    localStorage.setItem(id + "_cardSetId", scenario.cardSetId);
+    localStorage.setItem(`${id}_width`, '' + scenario.width);
+    localStorage.setItem(`${id}_height`, '' + scenario.height);
+    localStorage.setItem(`${id}_cardSetId`, scenario.cardSetId);
   }
 
   private saveScenarioParkingjam(id: string, scenario: AdventScenarioParkingjam) {
-    localStorage.setItem(id + "_width", '' + scenario.width);
-    localStorage.setItem(id + "_height", '' + scenario.height);
+    localStorage.setItem(`${id}_width`, '' + scenario.width);
+    localStorage.setItem(`${id}_height`, '' + scenario.height);
     
     scenario.cars.forEach(c => c.store(id));
     scenario.walls.forEach(w => w.store(id));
@@ -175,6 +190,14 @@ export class AdventScenarioService {
 
   private saveScenarioFifteenPuzzle(id: string, scenario: AdventScenarioFifteenPuzzle) {
     this.fifteenPuzzleService.storePiecesToStorage(id, scenario.pieces);
+  }
+
+  private saveScenarioPuzzle(id: string, scenario: AdventScenarioPuzzle) {
+    localStorage.setItem(`${id}_width`, `${scenario.width}`);
+    localStorage.setItem(`${id}_height`, `${scenario.height}`);
+    localStorage.setItem(`${id}_setId`, scenario.puzzleSetId);
+
+    MinigamePuzzleService.storePieces(id, scenario.piecesOnBoard, scenario.remainingPieces);
   }
 
   private parseIntOrDefault(text: string | null, defaultValue: number): number {

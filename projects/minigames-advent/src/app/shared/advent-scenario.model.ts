@@ -1,6 +1,7 @@
 import { MinigameFifteenPuzzlePiece } from "projects/minigame-fifteen-puzzle/src/lib/shared/minigame-fifteen-puzzle.model";
 import { MinigameParkingjamCar } from "projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model";
 import { MinigameParkingjamWall } from "projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model";
+import { MinigamePuzzlePiece } from "projects/minigame-puzzle/src/lib/shared/minigame-puzzle.model";
 
 export class AdventScenario {
   prefix: string;
@@ -57,10 +58,18 @@ export class AdventScenarioParkingjam extends AdventScenario {
 
 export class AdventScenarioPuzzle extends AdventScenario {
   puzzleSetId: string;
+  width: number;
+  height: number;
+  piecesOnBoard: MinigamePuzzlePiece[];
+  remainingPieces: MinigamePuzzlePiece[];
 
-  constructor(prefix: string, puzzleSetId: string) {
+  constructor(prefix: string, width: number, height: number, puzzleSetId: string, piecesOnBoard: MinigamePuzzlePiece[], remainingPieces: MinigamePuzzlePiece[]) {
     super(prefix, "puzzle");
+    this.width = width;
+    this.height = height;
     this.puzzleSetId = puzzleSetId;
+    this.piecesOnBoard = piecesOnBoard;
+    this.remainingPieces = remainingPieces;
   }
 }
 

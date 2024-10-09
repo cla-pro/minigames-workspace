@@ -1,3 +1,11 @@
 <img class="back-img" src="assets/exit.png" (click)="goToBoard()" alt="Retour" />
-<minigame-puzzle style="width: 100%; height: 100%" [prefix]="scenario.prefix" [puzzleSetId]="scenario.puzzleSetId" (completionEvent)="scenarioCompleted()"></minigame-puzzle>
+<minigame-puzzle
+    class="full"
+    [prefix]="scenario.prefix"
+    [width]="scenario.width"
+    [height]="scenario.height"
+    [puzzleSetId]="scenario.puzzleSetId"
+    [piecesOnBoard]="scenario.piecesOnBoard"
+    [remainingPieces]="scenario.remainingPieces"
+    (completionEvent)="scenarioCompleted()"></minigame-puzzle>
 <img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />
