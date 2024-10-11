@@ -15,7 +15,9 @@ export class AdventScenarioService {
 
   private scenarios: AdventScenario[] = [];
 
-  constructor(private parkingjamService: MinigameParkingjamService, private fifteenPuzzleService: MinigameFifteenPuzzleService) {}
+  constructor(private parkingjamService: MinigameParkingjamService, private fifteenPuzzleService: MinigameFifteenPuzzleService) {
+    this.loadScenarios();
+  }
 
   loadScenarios(): AdventScenario[] {
     if (this.scenarios.length == 0) {
@@ -24,7 +26,9 @@ export class AdventScenarioService {
         .sort()
         .map(k => localStorage.getItem(k))
         .map(k => this.loadScenario(k!));
-      this.updateEnabledScenario();
+      if (this.scenarios.length > 0) {
+        this.updateEnabledScenario();
+      }
     }
     return this.scenarios;
   }
