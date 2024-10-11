@@ -40,6 +40,7 @@ export class AdventServiceInitiatorService {
       case 'Benoist': { scenarios = this.createScenariosBenoist(); break; }
       case 'Lavanchy': { scenarios = this.createScenariosLavanchy(); break; }
       case 'Catry': { scenarios = this.createScenariosCatry(); break; }
+      case 'Doudette': { scenarios = this.createScenariosDoudette(); break; }
     }
     scenarios[0].enabled = true;
     scenarios[1].enabled = true;
@@ -133,6 +134,35 @@ export class AdventServiceInitiatorService {
       new AdventScenarioMemory("2024-12-20", 4, 6, "catry-4"),
       new AdventScenarioWordle("2024-12-21", "PHOTO"),
       this.puzzle("2024-12-22", "catry-puzzle-5"),
+      this.parkingjamNr5("2024-12-23"),
+      this.puzzle15nr5("2024-12-24")
+    ];
+  }
+
+  private createScenariosDoudette(): AdventScenario[] {
+    return [
+      new AdventScenarioWordle("2024-12-01", "SAPIN"),
+      this.puzzle("2024-12-02", "doudette-puzzle-1"),
+      this.parkingjamNr1("2024-12-03"),
+      this.puzzle15nr1("2024-12-04"),
+      new AdventScenarioMemory("2024-12-05", 4, 6, "doudette-1"),
+      new AdventScenarioWordle("2024-12-06", "MAGIE"),
+      this.puzzle("2024-12-07", "doudette-puzzle-2"),
+      this.parkingjamNr2("2024-12-08"),
+      this.puzzle15nr2("2024-12-09"),
+      new AdventScenarioMemory("2024-12-10", 4, 6, "doudette-2"),
+      new AdventScenarioWordle("2024-12-11", "BOULE"),
+      this.puzzle("2024-12-12", "doudette-puzzle-3"),
+      this.parkingjamNr3("2024-12-13"),
+      this.puzzle15nr3("2024-12-14"),
+      new AdventScenarioMemory("2024-12-15", 4, 6, "doudette-3"),
+      new AdventScenarioWordle("2024-12-16", "LUNDI"),
+      this.puzzle("2024-12-17", "doudette-puzzle-4"),
+      this.parkingjamNr4("2024-12-18"),
+      this.puzzle15nr4("2024-12-19"),
+      new AdventScenarioMemory("2024-12-20", 4, 6, "doudette-4"),
+      new AdventScenarioWordle("2024-12-21", "PHOTO"),
+      this.puzzle("2024-12-22", "doudette-puzzle-5"),
       this.parkingjamNr5("2024-12-23"),
       this.puzzle15nr5("2024-12-24")
     ];
