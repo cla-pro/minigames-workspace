@@ -42,6 +42,7 @@ export class MinigameFifteenPuzzleService {
     piece.boardY = newPosition.y;
     piece.boardX = newPosition.x;
     console.log("Piece moved to (" + piece.boardY + "," + piece.boardX + ") misplaced=" + piece.isMisplaced());
+    this.storePiece(this.prefix, piece);
 
     if (this.isCompleted()) {
       this.completionCallback();
@@ -55,14 +56,16 @@ export class MinigameFifteenPuzzleService {
   }
 
   public storePiecesToStorage(prefix: string, pieces: MinigameFifteenPuzzlePiece[]) {
-    pieces.forEach(p => {
-      let piecePrefix = prefix + "_piece_" + p.value + "_";
+    pieces.forEach(p => this.storePiece(prefix, p));
+  }
+
+  private storePiece(prefix: string, p: MinigameFifteenPuzzlePiece) {
+    let piecePrefix = prefix + "_piece_" + p.value + "_";
       localStorage.setItem(piecePrefix + "piece_id", `${p.value}`);
       localStorage.setItem(piecePrefix + "boardX", `${p.boardX}`);
       localStorage.setItem(piecePrefix + "boardY", `${p.boardY}`);
       localStorage.setItem(piecePrefix + "goalX", `${p.goalX}`);
       localStorage.setItem(piecePrefix + "goalY", `${p.goalY}`);
-    })
   }
 
   public loadPiecesFromStorage(prefix: string) {
