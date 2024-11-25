@@ -18,10 +18,13 @@ export class AdventBoardComponent {
     ['2024-12-02', '2024-12-11', '2024-12-24', '2024-12-12'],
     ['2024-12-13', '2024-12-18', '2024-12-08', '2024-12-10']
   ];
+  backgroundurl: string = "";
 
   constructor(private service: AdventScenarioService, private initiatorService: AdventServiceInitiatorService) {
     this.initiatorService.initiateScenariosIfNotExisting();
     this.scenarios = this.service.loadScenarios();
+    let group = localStorage.getItem('group');
+    this.backgroundurl = `assets/background/background-${group}.jpg`;
   }
 
   getScenario(prefix: string): AdventScenario {
@@ -34,7 +37,6 @@ export class AdventBoardComponent {
 
   clearScenario() {
     localStorage.clear();
-    localStorage.setItem('group', 'Benoist');
     this.reinitScenario();
   }
 

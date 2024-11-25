@@ -41,7 +41,6 @@ export class MinigameFifteenPuzzleService {
   movePiece(piece: MinigameFifteenPuzzlePiece, newPosition: MinigameCommonPosition) {
     piece.boardY = newPosition.y;
     piece.boardX = newPosition.x;
-    console.log("Piece moved to (" + piece.boardY + "," + piece.boardX + ") misplaced=" + piece.isMisplaced());
     this.storePiece(this.prefix, piece);
 
     if (this.isCompleted()) {

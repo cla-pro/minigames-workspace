@@ -134,6 +134,7 @@ export class AdventScenarioService {
     let date = new Date();
     let diff = Math.floor((date.getTime() - this.FIRST_DECEMBER) / this.MILlIS_PER_DAY);
     let next = lastCompleted + 1;
+    console.log(`Next to enable: ${next} - diff to ref-date: ${diff}`)
     if (next <= diff && next < this.scenarios.length && !this.scenarios[next].enabled) {
       let s = this.scenarios[next];
       console.log(`Enabling scenario ${s.prefix}`)
@@ -168,6 +169,8 @@ export class AdventScenarioService {
           this.saveScenarioPuzzle(id, s as AdventScenarioPuzzle);
         }
       });
+    this.scenarios = scenarios;
+    this.updateEnabledScenario();
   }
 
   private isNotSaved(scenario: AdventScenario): boolean {

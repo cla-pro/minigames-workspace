@@ -92,7 +92,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
   }
 
   private loadSingleImage(id: number) {
-    let obs = this.imageService.getImageForKey(this.imagePrefix + id);
+    let obs = this.imageService.getImageForKey(this.puzzleSetId + '-' + id);
     obs.subscribe(res => {
       this.images.set(this.imagePrefix + id, res);
       this.display();

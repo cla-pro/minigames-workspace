@@ -13,13 +13,14 @@ export class AdventServiceInitiatorService {
 
   constructor(private service: AdventScenarioService) {
     let stored = localStorage.getItem('scenario-stored');
-    if (stored !== 'true') {
+    if (stored !== '2024') {
       this.initiateScenarios();
     }
   }
 
   initiateScenariosIfNotExisting(): void {
-    if (localStorage.getItem('scenario-stored') !== 'true') {
+    if (localStorage.getItem('scenario-stored') !== '2024') {
+      localStorage.clear();
       this.initiateScenarios();
     }
   }
@@ -37,45 +38,41 @@ export class AdventServiceInitiatorService {
 
     let scenarios: AdventScenario[] = [];
     switch (group) {
-      case 'Benoist': { scenarios = this.createScenariosBenoist(); break; }
-      case 'Lavanchy': { scenarios = this.createScenariosLavanchy(); break; }
-      case 'Catry': { scenarios = this.createScenariosCatry(); break; }
-      case 'Doudette': { scenarios = this.createScenariosDoudette(); break; }
+      case 'benoist': { scenarios = this.createScenariosBenoist(); break; }
+      case 'lavanchy': { scenarios = this.createScenariosLavanchy(); break; }
+      case 'catry': { scenarios = this.createScenariosCatry(); break; }
+      case 'doudette': { scenarios = this.createScenariosDoudette(); break; }
     }
-    scenarios[0].enabled = true;
-    scenarios[1].enabled = true;
-    scenarios[2].enabled = true;
-    scenarios[3].enabled = true;
-    scenarios[4].enabled = true;
+    // scenarios[0].enabled = true;
 
     this.service.saveScenarios(scenarios);
-    localStorage.setItem('scenario-stored', 'true');
+    localStorage.setItem('scenario-stored', '2024');
   }
 
   private createScenariosBenoist(): AdventScenario[] {
     return [
       new AdventScenarioWordle("2024-12-01", "SAPIN"),
-      this.puzzle("2024-12-02", "benoist-puzzle-1"),
+      this.puzzle("2024-12-02", "puzzle-benoist-1"),
       this.parkingjamNr1("2024-12-03"),
       this.puzzle15nr1("2024-12-04"),
       new AdventScenarioMemory("2024-12-05", 4, 6, "benoist-1"),
       new AdventScenarioWordle("2024-12-06", "MAGIE"),
-      this.puzzle("2024-12-07", "benoist-puzzle-2"),
+      this.puzzle("2024-12-07", "puzzle-benoist-2"),
       this.parkingjamNr2("2024-12-08"),
       this.puzzle15nr2("2024-12-09"),
       new AdventScenarioMemory("2024-12-10", 4, 6, "benoist-2"),
       new AdventScenarioWordle("2024-12-11", "BOULE"),
-      this.puzzle("2024-12-12", "benoist-puzzle-3"),
+      this.puzzle("2024-12-12", "puzzle-benoist-3"),
       this.parkingjamNr3("2024-12-13"),
       this.puzzle15nr3("2024-12-14"),
       new AdventScenarioMemory("2024-12-15", 4, 6, "benoist-3"),
       new AdventScenarioWordle("2024-12-16", "LUNDI"),
-      this.puzzle("2024-12-17", "benoist-puzzle-4"),
+      this.puzzle("2024-12-17", "puzzle-benoist-4"),
       this.parkingjamNr4("2024-12-18"),
       this.puzzle15nr4("2024-12-19"),
       new AdventScenarioMemory("2024-12-20", 4, 6, "benoist-4"),
       new AdventScenarioWordle("2024-12-21", "PHOTO"),
-      this.puzzle("2024-12-22", "benoist-puzzle-5"),
+      this.puzzle("2024-12-22", "puzzle-benoist-5"),
       this.parkingjamNr5("2024-12-23"),
       this.puzzle15nr5("2024-12-24")
     ];
@@ -84,27 +81,27 @@ export class AdventServiceInitiatorService {
   private createScenariosLavanchy(): AdventScenario[] {
     return [
       new AdventScenarioWordle("2024-12-01", "SAPIN"),
-      this.puzzle("2024-12-02", "lavanchy-puzzle-1"),
+      this.puzzle("2024-12-02", "puzzle-lavanchy-1"),
       this.parkingjamNr1("2024-12-03"),
       this.puzzle15nr1("2024-12-04"),
       new AdventScenarioMemory("2024-12-05", 4, 6, "lavanchy-1"),
       new AdventScenarioWordle("2024-12-06", "MAGIE"),
-      this.puzzle("2024-12-07", "lavanchy-puzzle-2"),
+      this.puzzle("2024-12-07", "puzzle-lavanchy-2"),
       this.parkingjamNr2("2024-12-08"),
       this.puzzle15nr2("2024-12-09"),
       new AdventScenarioMemory("2024-12-10", 4, 6, "lavanchy-2"),
       new AdventScenarioWordle("2024-12-11", "BOULE"),
-      this.puzzle("2024-12-12", "lavanchy-puzzle-3"),
+      this.puzzle("2024-12-12", "puzzle-lavanchy-3"),
       this.parkingjamNr3("2024-12-13"),
       this.puzzle15nr3("2024-12-14"),
       new AdventScenarioMemory("2024-12-15", 4, 6, "lavanchy-3"),
       new AdventScenarioWordle("2024-12-16", "LUNDI"),
-      this.puzzle("2024-12-17", "lavanchy-puzzle-4"),
+      this.puzzle("2024-12-17", "puzzle-lavanchy-4"),
       this.parkingjamNr4("2024-12-18"),
       this.puzzle15nr4("2024-12-19"),
       new AdventScenarioMemory("2024-12-20", 4, 6, "lavanchy-4"),
       new AdventScenarioWordle("2024-12-21", "PHOTO"),
-      this.puzzle("2024-12-22", "lavanchy-puzzle-5"),
+      this.puzzle("2024-12-22", "puzzle-lavanchy-5"),
       this.parkingjamNr5("2024-12-23"),
       this.puzzle15nr5("2024-12-24")
     ];
@@ -113,27 +110,27 @@ export class AdventServiceInitiatorService {
   private createScenariosCatry(): AdventScenario[] {
     return [
       new AdventScenarioWordle("2024-12-01", "SAPIN"),
-      this.puzzle("2024-12-02", "catry-puzzle-1"),
+      this.puzzle("2024-12-02", "puzzle-catry-1"),
       this.parkingjamNr1("2024-12-03"),
       this.puzzle15nr1("2024-12-04"),
       new AdventScenarioMemory("2024-12-05", 4, 6, "catry-1"),
       new AdventScenarioWordle("2024-12-06", "MAGIE"),
-      this.puzzle("2024-12-07", "catry-puzzle-2"),
+      this.puzzle("2024-12-07", "puzzle-catry-2"),
       this.parkingjamNr2("2024-12-08"),
       this.puzzle15nr2("2024-12-09"),
       new AdventScenarioMemory("2024-12-10", 4, 6, "catry-2"),
       new AdventScenarioWordle("2024-12-11", "BOULE"),
-      this.puzzle("2024-12-12", "catry-puzzle-3"),
+      this.puzzle("2024-12-12", "puzzle-catry-3"),
       this.parkingjamNr3("2024-12-13"),
       this.puzzle15nr3("2024-12-14"),
       new AdventScenarioMemory("2024-12-15", 4, 6, "catry-3"),
       new AdventScenarioWordle("2024-12-16", "LUNDI"),
-      this.puzzle("2024-12-17", "catry-puzzle-4"),
+      this.puzzle("2024-12-17", "puzzle-catry-4"),
       this.parkingjamNr4("2024-12-18"),
       this.puzzle15nr4("2024-12-19"),
       new AdventScenarioMemory("2024-12-20", 4, 6, "catry-4"),
       new AdventScenarioWordle("2024-12-21", "PHOTO"),
-      this.puzzle("2024-12-22", "catry-puzzle-5"),
+      this.puzzle("2024-12-22", "puzzle-catry-5"),
       this.parkingjamNr5("2024-12-23"),
       this.puzzle15nr5("2024-12-24")
     ];
@@ -142,27 +139,27 @@ export class AdventServiceInitiatorService {
   private createScenariosDoudette(): AdventScenario[] {
     return [
       new AdventScenarioWordle("2024-12-01", "SAPIN"),
-      this.puzzle("2024-12-02", "doudette-puzzle-1"),
+      this.puzzle("2024-12-02", "puzzle-doudette-1"),
       this.parkingjamNr1("2024-12-03"),
       this.puzzle15nr1("2024-12-04"),
       new AdventScenarioMemory("2024-12-05", 4, 6, "doudette-1"),
       new AdventScenarioWordle("2024-12-06", "MAGIE"),
-      this.puzzle("2024-12-07", "doudette-puzzle-2"),
+      this.puzzle("2024-12-07", "puzzle-doudette-2"),
       this.parkingjamNr2("2024-12-08"),
       this.puzzle15nr2("2024-12-09"),
       new AdventScenarioMemory("2024-12-10", 4, 6, "doudette-2"),
       new AdventScenarioWordle("2024-12-11", "BOULE"),
-      this.puzzle("2024-12-12", "doudette-puzzle-3"),
+      this.puzzle("2024-12-12", "puzzle-doudette-3"),
       this.parkingjamNr3("2024-12-13"),
       this.puzzle15nr3("2024-12-14"),
       new AdventScenarioMemory("2024-12-15", 4, 6, "doudette-3"),
       new AdventScenarioWordle("2024-12-16", "LUNDI"),
-      this.puzzle("2024-12-17", "doudette-puzzle-4"),
+      this.puzzle("2024-12-17", "puzzle-doudette-4"),
       this.parkingjamNr4("2024-12-18"),
       this.puzzle15nr4("2024-12-19"),
       new AdventScenarioMemory("2024-12-20", 4, 6, "doudette-4"),
       new AdventScenarioWordle("2024-12-21", "PHOTO"),
-      this.puzzle("2024-12-22", "doudette-puzzle-5"),
+      this.puzzle("2024-12-22", "puzzle-doudette-5"),
       this.parkingjamNr5("2024-12-23"),
       this.puzzle15nr5("2024-12-24")
     ];

@@ -1,6 +1,6 @@
-<button (click)="clearScenario()">Clear</button>
+<!--<button (click)="clearScenario()">Clear</button>
 <button (click)="reinitScenario()">Reinit</button>
-
+-->
 <table class="scenario-board">
     <tr *ngFor="let scenarioLine of numberedCells">
         <td *ngFor="let scenarioCell of scenarioLine"
@@ -10,4 +10,4 @@
         </td>
     </tr>
 </table>
-<!--<img class="background-image" src="assets/background-board.jpg" />-->
+<img class="background-image" [src]="backgroundurl" />

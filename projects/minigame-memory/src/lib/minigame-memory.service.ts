@@ -58,7 +58,7 @@ export class MinigameMemoryService {
   }
 
   cardFliped(cardData: MinigameMemoryCardDataModel): void {
-    this._zoomUrl = this.imageService.getUrlForKey(cardData.id);
+    this._zoomUrl = this.imageService.getUrlForKey('memory-' + cardData.id);
     this.fliped.push(cardData);
 
     let that = this;
@@ -91,7 +91,6 @@ export class MinigameMemoryService {
 
   private setCompleted(): void {
     this._completionCallback();
-    console.log(`memory completed with ${this.count}`);
   }
 
   private resetCards(first: MinigameMemoryCardDataModel, second: MinigameMemoryCardDataModel): void {

@@ -32,10 +32,10 @@ export class AdventGroupChooserComponent {
   }
 
   private isGroupnameUnknown(groupname: string) {
-    return groupname !== 'Benoist' && groupname !== 'Lavanchy' && groupname !== 'Catry' && groupname !== 'Doudette';
+    return groupname !== 'benoist' && groupname !== 'lavanchy' && groupname !== 'catry' && groupname !== 'doudette';
   }
 
   private fixCase(groupname: string) {
-    return groupname.charAt(0).toUpperCase() + groupname.slice(1).toLowerCase();
+    return groupname.toLowerCase();
   }
 }

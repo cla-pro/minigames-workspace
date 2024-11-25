@@ -16,7 +16,7 @@ export class MinigameMemoryCardComponent implements OnInit {
   constructor(private memoryService: MinigameMemoryService, private imageService: MinigameCommonImageService) {}
 
   ngOnInit(): void {
-    this.imageUrl = this.imageService.getUrlForKey(this.cardData.id);
+    this.imageUrl = this.imageService.getUrlForKey('memory-' + this.cardData.id);
   }
 
   flipCard(): void {
