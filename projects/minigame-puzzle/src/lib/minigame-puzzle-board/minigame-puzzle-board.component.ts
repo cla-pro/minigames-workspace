@@ -11,7 +11,8 @@ import { MinigameCommonPosition } from 'projects/minigame-common/src/lib/minigam
 })
 export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
   private static BOARD_SIZE_PERCENT: number = 0.8;
-  private static PIECE_RATIO = (284.0 / 196.0 + 380.0 / 256.0) / 2.0;
+  // External size (minus a small gap for the piece-border) divided by the actual size of the piece
+  private static PIECE_RATIO = 268.0 / 172.0;
 
   @Input() prefix: string = "";
   @Input() puzzleSetId: string = "";
@@ -63,6 +64,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
     let divWidth = nativDiv.clientWidth;
     let divHeight = nativDiv.clientHeight;
     let divCellSize = this.calculateCellSize(this.service.nbRows, this.service.nbCols, divHeight * MinigamePuzzleBoardComponent.BOARD_SIZE_PERCENT, divWidth);
+    console.log("DivCellSize " + divCellSize);
     let allCellWidth = this.service.nbCols * divCellSize;
     let allCellHeight = this.service.nbRows * divCellSize;
     let totalHeight = allCellHeight / MinigamePuzzleBoardComponent.BOARD_SIZE_PERCENT;
@@ -75,6 +77,7 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
 
     this.cellSize = divCellSize;
     this.pieceSize = Math.ceil(this.cellSize * MinigamePuzzleBoardComponent.PIECE_RATIO);
+    console.log("pieceSize " + this.pieceSize);
 
     this.remainingCellSize = this.widthPx / this.service.nbRemainings;
     this.remainingOffset = allCellHeight;

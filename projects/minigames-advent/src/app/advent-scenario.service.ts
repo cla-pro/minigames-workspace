@@ -10,7 +10,7 @@ import { MinigamePuzzleService } from 'projects/minigame-puzzle/src/public-api';
   providedIn: 'root'
 })
 export class AdventScenarioService {
-  private FIRST_DECEMBER = new Date(2024, 11, 1, 0, 0, 0, 0).getTime();
+  static FIRST_DECEMBER = new Date(2024, 11, 1, 0, 0, 0, 0).getTime();
   private MILlIS_PER_DAY = 86400000;
 
   private scenarios: AdventScenario[] = [];
@@ -132,7 +132,7 @@ export class AdventScenarioService {
     console.log(`Last completed scenario = ${lastCompleted}`);
     
     let date = new Date();
-    let diff = Math.floor((date.getTime() - this.FIRST_DECEMBER) / this.MILlIS_PER_DAY);
+    let diff = Math.floor((date.getTime() - AdventScenarioService.FIRST_DECEMBER) / this.MILlIS_PER_DAY);
     let next = lastCompleted + 1;
     console.log(`Next to enable: ${next} - diff to ref-date: ${diff}`)
     if (next <= diff && next < this.scenarios.length && !this.scenarios[next].enabled) {
