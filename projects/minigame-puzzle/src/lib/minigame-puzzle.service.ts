@@ -83,47 +83,12 @@ export class MinigamePuzzleService {
       .length === 0;
   }
 
-  private loadFromStorage() {
-    this.nbRows = 6;
-    this.nbCols = 4;
-    this.nbRemainings = this.nbCols - 1;
-    let pieces = [
-      new MinigamePuzzlePiece(11, -1, -1, 0, 0),
-      new MinigamePuzzlePiece(12, -1, -1, 0, 1),
-      new MinigamePuzzlePiece(13, -1, -1, 0, 2),
-      new MinigamePuzzlePiece(14, -1, -1, 0, 3),
-      new MinigamePuzzlePiece(21, -1, -1, 1, 0),
-      new MinigamePuzzlePiece(22, -1, -1, 1, 1),
-      new MinigamePuzzlePiece(23, -1, -1, 1, 2),
-      new MinigamePuzzlePiece(24, -1, -1, 1, 3),
-      new MinigamePuzzlePiece(31, -1, -1, 2, 0),
-      new MinigamePuzzlePiece(32, -1, -1, 2, 1),
-      new MinigamePuzzlePiece(33, -1, -1, 2, 2),
-      new MinigamePuzzlePiece(34, -1, -1, 2, 3),
-      new MinigamePuzzlePiece(41, -1, -1, 3, 0),
-      new MinigamePuzzlePiece(42, -1, -1, 3, 1),
-      new MinigamePuzzlePiece(43, -1, -1, 3, 2),
-      new MinigamePuzzlePiece(44, -1, -1, 3, 3),
-      new MinigamePuzzlePiece(51, -1, -1, 4, 0),
-      new MinigamePuzzlePiece(52, -1, -1, 4, 1),
-      new MinigamePuzzlePiece(53, -1, -1, 4, 2),
-      new MinigamePuzzlePiece(54, -1, -1, 4, 3),
-      new MinigamePuzzlePiece(61, -1, -1, 5, 0),
-      new MinigamePuzzlePiece(62, -1, -1, 5, 1),
-      new MinigamePuzzlePiece(63, -1, -1, 5, 2),
-      new MinigamePuzzlePiece(64, -1, -1, 5, 3)
-    ];
-    
-    this.piecesOnBoard = pieces.filter(p => p.isOnBoard())
-    this.remainingPieces = pieces.filter(p => !p.isOnBoard())
-  }
-
   public static loadPiecesOnBoard(prefix: string): MinigamePuzzlePiece[] {
     return this.loadPieces(prefix).filter(p => p.isOnBoard());
   }
 
   public static loadRemainingPieces(prefix: string): MinigamePuzzlePiece[] {
-    return this.loadPieces(prefix).filter(p => !p.isOnBoard());
+    return this.shuffleArray(this.loadPieces(prefix).filter(p => !p.isOnBoard()));
   }
 
   private static loadPieces(prefix: string): MinigamePuzzlePiece[] {
@@ -138,6 +103,24 @@ export class MinigamePuzzleService {
       .map(id => {
         return MinigamePuzzlePiece.load(prefix, id)
       });
+  }
+
+  private static shuffleArray<T>(array: T[]): T[] {
+    let currentIndex = array.length,  randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
   }
 
   public static storePieces(prefix: string, piecesOnBoard: MinigamePuzzlePiece[], remainingPieces: MinigamePuzzlePiece[]) {
