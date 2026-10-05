@@ -5,9 +5,10 @@ import { AdventScenarioService } from '../advent-scenario.service';
 import { AdventScenarioWordle } from '../shared/advent-scenario.model';
 
 @Component({
-  selector: 'app-advent-wordle',
-  templateUrl: './advent-wordle.component.html',
-  styleUrls: ['./advent-wordle.component.css']
+    selector: 'app-advent-wordle',
+    templateUrl: './advent-wordle.component.html',
+    styleUrls: ['./advent-wordle.component.css'],
+    standalone: false
 })
 export class AdventWordleComponent {
   scenario!: AdventScenarioWordle;

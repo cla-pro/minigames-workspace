@@ -3,9 +3,10 @@ import { MinigamePuzzleService } from './minigame-puzzle.service';
 import { MinigamePuzzlePiece } from './shared/minigame-puzzle.model';
 
 @Component({
-  selector: 'minigame-puzzle',
-  templateUrl: './minigame-puzzle.component.html',
-  styleUrls: ['./minigame-puzzle.component.css']
+    selector: 'minigame-puzzle',
+    templateUrl: './minigame-puzzle.component.html',
+    styleUrls: ['./minigame-puzzle.component.css'],
+    standalone: false
 })
 export class MinigamePuzzleComponent implements OnInit {
   @Input() prefix: string = "";

@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MinigameMemoryService } from './minigame-memory.service';
 
 @Component({
-  selector: 'minigame-memory',
-  templateUrl: './minigame-memory.component.html',
-  styleUrls: ['./minigame-memory.component.css']
+    selector: 'minigame-memory',
+    templateUrl: './minigame-memory.component.html',
+    styleUrls: ['./minigame-memory.component.css'],
+    standalone: false
 })
 export class MinigameMemoryComponent implements OnInit {
   @Input() prefix: string = "";

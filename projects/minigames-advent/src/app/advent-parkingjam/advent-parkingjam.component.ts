@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AdventScenarioService } from '../advent-scenario.service';
 
 @Component({
-  selector: 'app-advent-parkingjam',
-  templateUrl: './advent-parkingjam.component.html',
-  styleUrls: ['./advent-parkingjam.component.css']
+    selector: 'app-advent-parkingjam',
+    templateUrl: './advent-parkingjam.component.html',
+    styleUrls: ['./advent-parkingjam.component.css'],
+    standalone: false
 })
 export class AdventParkingjamComponent {
   scenario!: AdventScenarioParkingjam;

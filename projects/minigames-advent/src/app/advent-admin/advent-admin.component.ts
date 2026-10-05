@@ -5,9 +5,10 @@ import { AdventScenarioService } from '../advent-scenario.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'advent-admin',
-  templateUrl: './advent-admin.component.html',
-  styleUrls: ['./advent-admin.component.css']
+    selector: 'advent-admin',
+    templateUrl: './advent-admin.component.html',
+    styleUrls: ['./advent-admin.component.css'],
+    standalone: false
 })
 export class AdventAdminComponent {
   scenarios: AdventScenario[] = [];

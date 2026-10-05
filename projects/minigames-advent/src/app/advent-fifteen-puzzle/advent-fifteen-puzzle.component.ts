@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AdventScenarioFifteenPuzzle } from '../shared/advent-scenario.model';
 
 @Component({
-  selector: 'app-advent-fifteen-puzzle',
-  templateUrl: './advent-fifteen-puzzle.component.html',
-  styleUrl: './advent-fifteen-puzzle.component.css'
+    selector: 'app-advent-fifteen-puzzle',
+    templateUrl: './advent-fifteen-puzzle.component.html',
+    styleUrl: './advent-fifteen-puzzle.component.css',
+    standalone: false
 })
 export class AdventFifteenPuzzleComponent {
   @Input() prefix: string = "";

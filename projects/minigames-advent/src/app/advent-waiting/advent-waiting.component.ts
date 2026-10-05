@@ -3,11 +3,10 @@ import { map, Observable, shareReplay, timer } from 'rxjs';
 import { AdventScenarioService } from '../advent-scenario.service';
 
 @Component({
-  selector: 'app-advent-waiting',
-  standalone: true,
-  imports: [],
-  templateUrl: './advent-waiting.component.html',
-  styleUrl: './advent-waiting.component.css'
+    selector: 'app-advent-waiting',
+    imports: [],
+    templateUrl: './advent-waiting.component.html',
+    styleUrl: './advent-waiting.component.css'
 })
 export class AdventWaitingComponent {
   hours = 0;

@@ -4,9 +4,10 @@ import { MinigameParkingjamCar } from './shared/minigame-parkingjam-car.model';
 import { MinigameParkingjamWall } from './shared/minigame-parkingjam-wall.model';
 
 @Component({
-  selector: 'minigame-parkingjam',
-  templateUrl: './minigame-parkingjam.component.html',
-  styleUrls: ['./minigame-parkingjam.component.css']
+    selector: 'minigame-parkingjam',
+    templateUrl: './minigame-parkingjam.component.html',
+    styleUrls: ['./minigame-parkingjam.component.css'],
+    standalone: false
 })
 export class MinigameParkingjamComponent implements OnInit {
   @Input() prefix: string = "";

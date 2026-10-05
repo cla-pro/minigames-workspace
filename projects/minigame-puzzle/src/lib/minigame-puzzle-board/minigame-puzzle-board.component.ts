@@ -5,9 +5,10 @@ import { MinigameCommonImageService, MinigameCommonTouchService } from 'projects
 import { MinigameCommonPosition } from 'projects/minigame-common/src/lib/minigame-common.model';
 
 @Component({
-  selector: 'minigame-puzzle-board',
-  templateUrl: './minigame-puzzle-board.component.html',
-  styleUrl: './minigame-puzzle-board.component.css'
+    selector: 'minigame-puzzle-board',
+    templateUrl: './minigame-puzzle-board.component.html',
+    styleUrl: './minigame-puzzle-board.component.css',
+    standalone: false
 })
 export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
   private static BOARD_SIZE_PERCENT: number = 0.8;

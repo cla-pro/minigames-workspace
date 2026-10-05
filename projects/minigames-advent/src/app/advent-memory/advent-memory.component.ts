@@ -4,9 +4,10 @@ import { AdventScenarioService } from '../advent-scenario.service';
 import { AdventScenarioMemory } from '../shared/advent-scenario.model';
 
 @Component({
-  selector: 'app-advent-memory',
-  templateUrl: './advent-memory.component.html',
-  styleUrls: ['./advent-memory.component.css']
+    selector: 'app-advent-memory',
+    templateUrl: './advent-memory.component.html',
+    styleUrls: ['./advent-memory.component.css'],
+    standalone: false
 })
 export class AdventMemoryComponent {
   scenario!: AdventScenarioMemory;

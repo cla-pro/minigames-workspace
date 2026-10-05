@@ -3,9 +3,10 @@ import { MinigameMemoryCardDataModel } from '../shared/minigame-memory-card-data
 import { MinigameMemoryService } from '../minigame-memory.service';
 
 @Component({
-  selector: 'minigame-memory-board',
-  templateUrl: './minigame-memory-board.component.html',
-  styleUrls: ['./minigame-memory-board.component.css']
+    selector: 'minigame-memory-board',
+    templateUrl: './minigame-memory-board.component.html',
+    styleUrls: ['./minigame-memory-board.component.css'],
+    standalone: false
 })
 export class MinigameMemoryBoardComponent implements OnInit {
   board: MinigameMemoryCardDataModel[][] = [];

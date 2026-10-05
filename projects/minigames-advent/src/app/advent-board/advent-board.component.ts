@@ -4,9 +4,10 @@ import { AdventScenarioService } from '../advent-scenario.service';
 import { AdventServiceInitiatorService } from '../advent-service-initiator.service';
 
 @Component({
-  selector: 'app-advent-board',
-  templateUrl: './advent-board.component.html',
-  styleUrls: ['./advent-board.component.css']
+    selector: 'app-advent-board',
+    templateUrl: './advent-board.component.html',
+    styleUrls: ['./advent-board.component.css'],
+    standalone: false
 })
 export class AdventBoardComponent {
   scenarios: AdventScenario[] = [];

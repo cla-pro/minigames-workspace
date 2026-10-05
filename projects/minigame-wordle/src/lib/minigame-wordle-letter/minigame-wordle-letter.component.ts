@@ -3,9 +3,10 @@ import { MinigameWordleService } from '../minigame-wordle.service';
 import { MinigameWordleLetterModel } from '../shared/minigame-wordle-letter.model';
 
 @Component({
-  selector: 'minigame-wordle-letter',
-  templateUrl: './minigame-wordle-letter.component.html',
-  styleUrls: ['./minigame-wordle-letter.component.css']
+    selector: 'minigame-wordle-letter',
+    templateUrl: './minigame-wordle-letter.component.html',
+    styleUrls: ['./minigame-wordle-letter.component.css'],
+    standalone: false
 })
 export class MinigameWordleLetterComponent implements OnInit {
   @Input() line: number = -1;

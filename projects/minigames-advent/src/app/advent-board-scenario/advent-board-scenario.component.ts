@@ -3,9 +3,10 @@ import { AdventScenario } from '../shared/advent-scenario.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'advent-board-scenario',
-  templateUrl: './advent-board-scenario.component.html',
-  styleUrls: ['./advent-board-scenario.component.css']
+    selector: 'advent-board-scenario',
+    templateUrl: './advent-board-scenario.component.html',
+    styleUrls: ['./advent-board-scenario.component.css'],
+    standalone: false
 })
 export class AdventBoardScenarioComponent implements OnInit {
   @Input() scenario!: AdventScenario;

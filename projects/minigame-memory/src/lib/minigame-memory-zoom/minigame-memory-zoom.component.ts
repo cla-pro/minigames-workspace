@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { MinigameMemoryService } from '../minigame-memory.service';
 
 @Component({
-  selector: 'minigame-memory-zoom',
-  templateUrl: './minigame-memory-zoom.component.html',
-  styleUrls: ['./minigame-memory-zoom.component.css']
+    selector: 'minigame-memory-zoom',
+    templateUrl: './minigame-memory-zoom.component.html',
+    styleUrls: ['./minigame-memory-zoom.component.css'],
+    standalone: false
 })
 export class MinigameMemoryZoomComponent {
   

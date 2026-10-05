@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { MinigameWordleService } from '../minigame-wordle.service';
 
 @Component({
-  selector: 'minigame-wordle-keyboard',
-  templateUrl: './minigame-wordle-keyboard.component.html',
-  styleUrls: ['./minigame-wordle-keyboard.component.css']
+    selector: 'minigame-wordle-keyboard',
+    templateUrl: './minigame-wordle-keyboard.component.html',
+    styleUrls: ['./minigame-wordle-keyboard.component.css'],
+    standalone: false
 })
 export class MinigameWordleKeyboardComponent {
   constructor(private service: MinigameWordleService) {}

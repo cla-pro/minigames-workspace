@@ -2,9 +2,10 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outp
 import { MinigameWordleService } from './minigame-wordle.service';
 
 @Component({
-  selector: 'minigame-wordle',
-  templateUrl: './minigame-wordle.component.html',
-  styleUrls: ['./minigame-wordle.component.css']
+    selector: 'minigame-wordle',
+    templateUrl: './minigame-wordle.component.html',
+    styleUrls: ['./minigame-wordle.component.css'],
+    standalone: false
 })
 export class MinigameWordleComponent implements OnInit {
   @Input() prefix: string = "";

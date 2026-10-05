@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AdventScenarioService } from '../advent-scenario.service';
 
 @Component({
-  selector: 'app-advent-puzzle',
-  templateUrl: './advent-puzzle.component.html',
-  styleUrl: './advent-puzzle.component.css'
+    selector: 'app-advent-puzzle',
+    templateUrl: './advent-puzzle.component.html',
+    styleUrl: './advent-puzzle.component.css',
+    standalone: false
 })
 export class AdventPuzzleComponent {
   scenario!: AdventScenarioPuzzle;

@@ -4,9 +4,10 @@ import { MinigameParkingjamCar } from '../shared/minigame-parkingjam-car.model';
 import { MinigameCommonTouchService } from 'projects/minigame-common/src/public-api';
 
 @Component({
-  selector: 'minigame-parkingjam-board',
-  templateUrl: './minigame-parkingjam-board.component.html',
-  styleUrls: ['./minigame-parkingjam-board.component.css']
+    selector: 'minigame-parkingjam-board',
+    templateUrl: './minigame-parkingjam-board.component.html',
+    styleUrls: ['./minigame-parkingjam-board.component.css'],
+    standalone: false
 })
 export class MinigameParkingjamBoardComponent implements AfterViewInit, OnDestroy {
   @Input() prefix: string = "";

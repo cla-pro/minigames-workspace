@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-advent-group-chooser',
-  templateUrl: './advent-group-chooser.component.html',
-  styleUrl: './advent-group-chooser.component.css'
+    selector: 'app-advent-group-chooser',
+    templateUrl: './advent-group-chooser.component.html',
+    styleUrl: './advent-group-chooser.component.css',
+    standalone: false
 })
 export class AdventGroupChooserComponent {
   public errorText: string | null = null;

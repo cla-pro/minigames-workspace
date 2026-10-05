@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MinigameFifteenPuzzleService } from './minigame-fifteen-puzzle.service';
 
 @Component({
-  selector: 'minigame-fifteen-puzzle',
-  templateUrl: './minigame-fifteen-puzzle.component.html',
-  styleUrls: ['./minigame-fifteen-puzzle.component.css']
+    selector: 'minigame-fifteen-puzzle',
+    templateUrl: './minigame-fifteen-puzzle.component.html',
+    styleUrls: ['./minigame-fifteen-puzzle.component.css'],
+    standalone: false
 })
 export class MinigameFifteenPuzzleComponent implements OnInit {
   @Input() prefix: string = "";

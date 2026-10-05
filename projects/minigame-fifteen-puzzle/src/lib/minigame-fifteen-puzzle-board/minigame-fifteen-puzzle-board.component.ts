@@ -5,9 +5,10 @@ import { MinigameFifteenPuzzlePiece } from '../shared/minigame-fifteen-puzzle.mo
 import { MinigameCommonPosition } from 'projects/minigame-common/src/lib/minigame-common.model';
 
 @Component({
-  selector: 'minigame-fifteen-puzzle-board',
-  templateUrl: './minigame-fifteen-puzzle-board.component.html',
-  styleUrl: './minigame-fifteen-puzzle-board.component.css'
+    selector: 'minigame-fifteen-puzzle-board',
+    templateUrl: './minigame-fifteen-puzzle-board.component.html',
+    styleUrl: './minigame-fifteen-puzzle-board.component.css',
+    standalone: false
 })
 export class MinigameFifteenPuzzleBoardComponent implements AfterViewInit, OnDestroy {
   @Input() prefix: string = "";
