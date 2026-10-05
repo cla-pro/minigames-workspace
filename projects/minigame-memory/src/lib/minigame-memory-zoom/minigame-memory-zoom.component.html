@@ -1,3 +1,5 @@
-<div class="zoom" *ngIf="active">
+@if (active) {
+  <div class="zoom">
     <img class="zoom-image" [src]="srcUrl" />
-</div>
+  </div>
+}

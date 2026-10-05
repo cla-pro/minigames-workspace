@@ -1,3 +1,7 @@
-<div *ngFor="let line of board">
-    <minigame-memory-card class="memory-card-wrap" *ngFor="let c of line" [cardData]="c"></minigame-memory-card>
-</div>
+@for (line of board; track line) {
+  <div>
+    @for (c of line; track c) {
+      <minigame-memory-card class="memory-card-wrap" [cardData]="c"></minigame-memory-card>
+    }
+  </div>
+}

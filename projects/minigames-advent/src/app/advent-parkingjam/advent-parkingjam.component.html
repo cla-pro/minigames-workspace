@@ -1,11 +1,13 @@
 <h1 class="game-title">Sors la voiture rouge</h1>
 <img class="back-img" src="assets/exit.png" (click)="goToBoard()" alt="Retour" />
 <minigame-parkingjam
-    [prefix]="scenario.prefix"
-    [width]="scenario.width"
-    [height]="scenario.height"
-    [cars]="scenario.cars"
-    [walls]="scenario.walls"
-    (completionEvent)="scenarioCompleted()"></minigame-parkingjam>
+  [prefix]="scenario.prefix"
+  [width]="scenario.width"
+  [height]="scenario.height"
+  [cars]="scenario.cars"
+  [walls]="scenario.walls"
+(completionEvent)="scenarioCompleted()"></minigame-parkingjam>
 
-<img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />
+@if (scenario.completed) {
+  <img class="scenario-completed" src="assets/green-check.png" />
+}

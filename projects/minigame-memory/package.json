@@ -2,8 +2,8 @@
   "name": "minigame-memory",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^19.2.25",
-    "@angular/core": "^19.2.25"
+    "@angular/common": "^20.3.33",
+    "@angular/core": "^20.3.33"
   },
   "dependencies": {
     "tslib": "^2.3.0"

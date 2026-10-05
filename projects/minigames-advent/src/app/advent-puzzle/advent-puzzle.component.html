@@ -1,11 +1,13 @@
 <img class="back-img" src="assets/exit.png" (click)="goToBoard()" alt="Retour" />
 <minigame-puzzle
-    class="full"
-    [prefix]="scenario.prefix"
-    [width]="scenario.width"
-    [height]="scenario.height"
-    [puzzleSetId]="scenario.puzzleSetId"
-    [piecesOnBoard]="scenario.piecesOnBoard"
-    [remainingPieces]="scenario.remainingPieces"
-    (completionEvent)="scenarioCompleted()"></minigame-puzzle>
-<img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />
+  class="full"
+  [prefix]="scenario.prefix"
+  [width]="scenario.width"
+  [height]="scenario.height"
+  [puzzleSetId]="scenario.puzzleSetId"
+  [piecesOnBoard]="scenario.piecesOnBoard"
+  [remainingPieces]="scenario.remainingPieces"
+(completionEvent)="scenarioCompleted()"></minigame-puzzle>
+@if (scenario.completed) {
+  <img class="scenario-completed" src="assets/green-check.png" />
+}

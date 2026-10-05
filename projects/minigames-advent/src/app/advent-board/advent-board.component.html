@@ -2,12 +2,16 @@
 <button (click)="reinitScenario()">Reinit</button>
 -->
 <table class="scenario-board">
-    <tr *ngFor="let scenarioLine of numberedCells">
-        <td *ngFor="let scenarioCell of scenarioLine"
-            class="scenario-cell"
-            [class.scenario-cell-background]="!getScenario(scenarioCell).completed">
-            <advent-board-scenario [scenario]="getScenario(scenarioCell)" />
+  @for (scenarioLine of numberedCells; track scenarioLine) {
+    <tr>
+      @for (scenarioCell of scenarioLine; track scenarioCell) {
+        <td
+          class="scenario-cell"
+          [class.scenario-cell-background]="!getScenario(scenarioCell).completed">
+          <advent-board-scenario [scenario]="getScenario(scenarioCell)" />
         </td>
+      }
     </tr>
+  }
 </table>
 <img class="background-image" [src]="backgroundurl" />

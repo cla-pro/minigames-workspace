@@ -2,8 +2,12 @@
 <img class="back-img" src="assets/exit.png" (click)="goToBoard()" alt="Retour" />
 <minigame-wordle [prefix]="scenario.prefix" [word]="word" (completionEvent)="scenarioCompleted()"></minigame-wordle>
 <div>
-    <img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />
-    <div class="scenario-solution" *ngIf="scenario.completed">
-        <b>{{scenario.word}}</b>
+  @if (scenario.completed) {
+    <img class="scenario-completed" src="assets/green-check.png" />
+  }
+  @if (scenario.completed) {
+    <div class="scenario-solution">
+      <b>{{scenario.word}}</b>
     </div>
+  }
 </div>

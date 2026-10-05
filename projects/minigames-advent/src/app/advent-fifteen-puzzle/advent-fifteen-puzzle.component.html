@@ -1,3 +1,5 @@
 <img class="back-img" src="assets/exit.png" (click)="goToBoard()" alt="Retour" />
 <minigame-fifteen-puzzle [prefix]="scenario.prefix" (completionEvent)="scenarioCompleted()"></minigame-fifteen-puzzle>
-<img class="scenario-completed" src="assets/green-check.png" *ngIf="scenario.completed" />
+@if (scenario.completed) {
+  <img class="scenario-completed" src="assets/green-check.png" />
+}

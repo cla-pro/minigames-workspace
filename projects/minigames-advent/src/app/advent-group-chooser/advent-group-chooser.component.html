@@ -1,9 +1,11 @@
 <div class="centered">
-    <input #groupname type="text" placeholder="Nom du groupe" />
+  <input #groupname type="text" placeholder="Nom du groupe" />
 </div>
 <div class="centered">
-    <button class="btn-custom" (click)="registerGroup(groupname.value)" >Confirmer</button>
+  <button class="btn-custom" (click)="registerGroup(groupname.value)" >Confirmer</button>
 </div>
 <div class="centered">
-    <p class="errorMsg" *ngIf="errorText">{{errorText}}</p>
+  @if (errorText) {
+    <p class="errorMsg">{{errorText}}</p>
+  }
 </div>
