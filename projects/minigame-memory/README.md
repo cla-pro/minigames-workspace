@@ -17,7 +17,7 @@ After building your library with `ng build minigame-memory`, go to the dist fold
 
 ## Running unit tests
 
-Run `ng test minigame-memory` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test minigame-memory` to execute the unit tests via [Vitest](https://vitest.dev).
 
 ## Further help
 

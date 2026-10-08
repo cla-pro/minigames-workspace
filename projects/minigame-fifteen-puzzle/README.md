@@ -17,7 +17,7 @@ After building your library with `ng build minigame-fifteen-puzzle`, go to the d
 
 ## Running unit tests
 
-Run `ng test minigame-fifteen-puzzle` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test minigame-fifteen-puzzle` to execute the unit tests via [Vitest](https://vitest.dev).
 
 ## Further help
 

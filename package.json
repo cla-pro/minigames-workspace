@@ -28,8 +28,9 @@
     "@angular/cli": "~20.3.38",
     "@angular/compiler-cli": "^20.3.33",
     "@types/jasmine": "~4.3.0",
-    "jasmine-core": "~4.5.0",
+    "jsdom": "^30.1.2",
     "ng-packagr": "^20.3.2",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.7"
   }
 }
