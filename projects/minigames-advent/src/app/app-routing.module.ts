@@ -11,40 +11,29 @@ import { AdventPuzzleComponent } from './advent-puzzle/advent-puzzle.component';
 import { AdventScenarioService } from './advent-scenario.service';
 import { AdventWaitingComponent } from './advent-waiting/advent-waiting.component';
 
-export function isAdventReady() {
-  return !isWaitingGuard() && isGroupSetGuard();
-}
-
-export function isWaitingGuard() {
-  return new Date().getTime() < AdventScenarioService.FIRST_DECEMBER;
-}
-
-export function isGroupSetGuard() {
-  return localStorage.getItem('group') !== null;
-}
-
-export function IsGroupNotSetGuard() {
-  return !isGroupSetGuard();
-}
-
 @Injectable({providedIn: 'root'})
 export class AdventGuards implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate() {
-    if (isWaitingGuard()) {
+    if (this.isWaitingGuard()) {
       return this.router.parseUrl('/waiting');
-    } else if (!isGroupSetGuard()) {
+    } else if (this.isGroupNotSetGuard()) {
       return this.router.parseUrl('/group-chooser');
     }
     return true;
   }
+
+  isWaitingGuard() {
+    return new Date().getTime() < AdventScenarioService.FIRST_DECEMBER;
+  }
+
+  isGroupNotSetGuard() {
+    return localStorage.getItem('group') === null;
+  }
 }
 
 const routes: Routes = [
-  //{ path: '', pathMatch: 'full', component: AdventBoardComponent, canMatch: [isAdventReady] },
-  //{ path: '', pathMatch: 'full', redirectTo: 'waiting', canMatch: [isWaitingGuard] },
-  //{ path: '', pathMatch: 'full', redirectTo: 'group-chooser', canMatch: [IsGroupNotSetGuard] },
   { path: '', pathMatch: 'full', component: AdventBoardComponent, canActivate: [AdventGuards] },
   { path: 'wordle', component: AdventWordleComponent },
   { path: 'wordle/:id', component: AdventWordleComponent },
