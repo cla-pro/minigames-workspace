@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Injectable, NgModule } from '@angular/core';
+import { CanActivate, Router, RouterModule, Routes } from '@angular/router';
 import { AdventMemoryComponent } from './advent-memory/advent-memory.component';
 import { AdventWordleComponent } from './advent-wordle/advent-wordle.component';
 import { AdventParkingjamComponent } from './advent-parkingjam/advent-parkingjam.component';
@@ -27,10 +27,25 @@ export function IsGroupNotSetGuard() {
   return !isGroupSetGuard();
 }
 
+@Injectable({providedIn: 'root'})
+export class AdventGuards implements CanActivate {
+  constructor(private router: Router) {}
+
+  canActivate() {
+    if (isWaitingGuard()) {
+      return this.router.parseUrl('/waiting');
+    } else if (!isGroupSetGuard()) {
+      return this.router.parseUrl('/group-chooser');
+    }
+    return true;
+  }
+}
+
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: AdventBoardComponent, canMatch: [isAdventReady] },
-  { path: '', pathMatch: 'full', redirectTo: 'waiting', canMatch: [isWaitingGuard] },
-  { path: '', pathMatch: 'full', redirectTo: 'group-chooser', canMatch: [IsGroupNotSetGuard] },
+  //{ path: '', pathMatch: 'full', component: AdventBoardComponent, canMatch: [isAdventReady] },
+  //{ path: '', pathMatch: 'full', redirectTo: 'waiting', canMatch: [isWaitingGuard] },
+  //{ path: '', pathMatch: 'full', redirectTo: 'group-chooser', canMatch: [IsGroupNotSetGuard] },
+  { path: '', pathMatch: 'full', component: AdventBoardComponent, canActivate: [AdventGuards] },
   { path: 'wordle', component: AdventWordleComponent },
   { path: 'wordle/:id', component: AdventWordleComponent },
   { path: 'memory', component: AdventMemoryComponent },

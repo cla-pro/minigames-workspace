@@ -135,7 +135,9 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/minigame-memory/tsconfig.spec.json"
+            "tsConfig": "projects/minigame-memory/tsconfig.spec.json",
+            "runner": "vitest",
+            "buildTarget": "minigame-memory:build:development"
           }
         }
       }
