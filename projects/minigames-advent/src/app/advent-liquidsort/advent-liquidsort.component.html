@@ -1,0 +1,9 @@
+<h1 class="game-title">Liquid Sort</h1>
+<img class="back-img" src="assets/exit.png" (click)="goToBoard()" alt="Retour" />
+<minigame-liquidsort
+  [prefix]="scenario.prefix"
+  (completionEvent)="scenarioCompleted()">
+</minigame-liquidsort>
+@if (scenario.completed) {
+  <img class="scenario-completed" src="assets/green-check.png" />
+}

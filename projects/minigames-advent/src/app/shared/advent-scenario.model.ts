@@ -87,3 +87,9 @@ export class AdventScenarioEmpty extends AdventScenario {
     super(prefix, "unknown");
   }
 }
+
+export class AdventScenarioLiquidsort extends AdventScenario {
+  constructor(prefix: string) {
+    super(prefix, "liquidsort");
+  }
+}

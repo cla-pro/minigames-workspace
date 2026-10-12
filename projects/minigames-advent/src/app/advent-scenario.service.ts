@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AdventScenario, AdventScenarioFifteenPuzzle, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
+import { AdventScenario, AdventScenarioFifteenPuzzle, AdventScenarioLiquidsort, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
 import { MinigameFifteenPuzzleService } from 'projects/minigame-fifteen-puzzle/src/public-api';
@@ -45,6 +45,8 @@ export class AdventScenarioService {
       return this.loadFifteenPuzzle(id);
     } else if (type === "puzzle") {
       return this.loadPuzzle(id);
+    } else if (type === "liquidsort") {
+      return this.loadScenarioLiquidsort(id);
     } else {
       throw new Error('Unknown scenario type: ' + type);
     }
@@ -87,6 +89,10 @@ export class AdventScenarioService {
     return this.loadScenarioStatus(new AdventScenarioPuzzle(id, width, height, puzzleSetId, piecesOnBoard, remainingPieces));
   }
 
+  private loadScenarioLiquidsort(id: string): AdventScenarioLiquidsort {
+    return this.loadScenarioStatus(new AdventScenarioLiquidsort(id));
+  }
+
   private loadScenarioStatus<T extends AdventScenario>(scenario: T): T {
     scenario.completed = this.parseBooleanOrDefault(localStorage.getItem(`${scenario.prefix}_completed`), false);
     scenario.enabled = this.parseBooleanOrDefault(localStorage.getItem(`${scenario.prefix}_enabled`), false);
@@ -111,6 +117,10 @@ export class AdventScenarioService {
 
   getScenarioPuzzle(prefix: string): AdventScenarioPuzzle {
     return this.scenarios.filter(s => s.prefix === prefix)[0] as AdventScenarioPuzzle;
+  }
+
+  getScenarioLiquidsort(prefix: string): AdventScenarioLiquidsort {
+    return this.scenarios.filter(s => s.prefix === prefix)[0] as AdventScenarioLiquidsort;
   }
 
   markCompleted(scenario: AdventScenario) {

@@ -17,6 +17,9 @@
       "minigame-fifteen-puzzle": [
         "./dist/minigame-fifteen-puzzle"
       ],
+      "minigame-liquidsort": [
+        "./dist/minigame-liquidsort"
+      ],
       "minigame-memory": [
         "dist/minigame-memory"
       ],

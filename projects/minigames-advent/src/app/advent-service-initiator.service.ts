@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AdventScenarioService } from './advent-scenario.service';
-import { AdventScenario, AdventScenarioFifteenPuzzle, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
+import { AdventScenario, AdventScenarioFifteenPuzzle, AdventScenarioLiquidsort, AdventScenarioMemory, AdventScenarioParkingjam, AdventScenarioPuzzle, AdventScenarioWordle } from './shared/advent-scenario.model';
 import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model';
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
 import { MinigameFifteenPuzzlePiece } from 'projects/minigame-fifteen-puzzle/src/lib/shared/minigame-fifteen-puzzle.model';
@@ -42,8 +42,9 @@ export class AdventServiceInitiatorService {
       case 'lavanchy': { scenarios = this.createScenariosLavanchy(); break; }
       case 'catry': { scenarios = this.createScenariosCatry(); break; }
       case 'doudette': { scenarios = this.createScenariosDoudette(); break; }
+      case 'test': { scenarios = this.createScenariosTest(); break; }
     }
-    // scenarios[0].enabled = true;
+    scenarios[0].enabled = true;
 
     this.service.saveScenarios(scenarios);
     localStorage.setItem('scenario-stored', '2024');
@@ -162,6 +163,12 @@ export class AdventServiceInitiatorService {
       this.puzzle("2024-12-22", "puzzle-doudette-5"),
       this.parkingjamNr5("2024-12-23"),
       this.puzzle15nr5("2024-12-24")
+    ];
+  }
+
+  private createScenariosTest(): AdventScenario[] {
+    return [
+      new AdventScenarioLiquidsort("2024-12-01")
     ];
   }
 

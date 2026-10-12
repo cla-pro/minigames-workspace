@@ -257,6 +257,32 @@
           }
         }
       }
+    },
+    "minigame-liquidsort": {
+      "projectType": "library",
+      "root": "projects/minigame-liquidsort",
+      "sourceRoot": "projects/minigame-liquidsort/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/minigame-liquidsort/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/minigame-liquidsort/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/minigame-liquidsort/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "schematics": {

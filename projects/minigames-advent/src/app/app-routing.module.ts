@@ -10,6 +10,7 @@ import { AdventFifteenPuzzleComponent } from './advent-fifteen-puzzle/advent-fif
 import { AdventPuzzleComponent } from './advent-puzzle/advent-puzzle.component';
 import { AdventScenarioService } from './advent-scenario.service';
 import { AdventWaitingComponent } from './advent-waiting/advent-waiting.component';
+import { AdventLiquidsortComponent } from './advent-liquidsort/advent-liquidsort.component';
 
 @Injectable({providedIn: 'root'})
 export class AdventGuards implements CanActivate {
@@ -45,6 +46,8 @@ const routes: Routes = [
   { path: 'fifteen-puzzle/:id', component: AdventFifteenPuzzleComponent },
   { path: 'puzzle', component: AdventPuzzleComponent },
   { path: 'puzzle/:id', component: AdventPuzzleComponent },
+  { path: 'liquidsort', component: AdventLiquidsortComponent },
+  { path: 'liquidsort/:id', component: AdventLiquidsortComponent }, 
   { path: 'admin', component: AdventAdminComponent },
   { path: 'group-chooser', component: AdventGroupChooserComponent },
   { path: 'waiting', component: AdventWaitingComponent }

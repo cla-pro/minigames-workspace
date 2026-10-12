@@ -33,7 +33,8 @@ export class AdventGroupChooserComponent {
   }
 
   private isGroupnameUnknown(groupname: string) {
-    return groupname !== 'benoist' && groupname !== 'lavanchy' && groupname !== 'catry' && groupname !== 'doudette';
+    //return groupname !== 'benoist' && groupname !== 'lavanchy' && groupname !== 'catry' && groupname !== 'doudette';
+    return false;
   }
 
   private fixCase(groupname: string) {

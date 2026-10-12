@@ -12,6 +12,7 @@ import { AdventWordleComponent } from './advent-wordle/advent-wordle.component';
 import { MinigameMemoryModule } from 'projects/minigame-memory/src/public-api';
 import { MinigameParkingjamModule } from 'projects/minigame-parkingjam/src/public-api';
 import { MinigameWordleModule } from 'projects/minigame-wordle/src/public-api';
+import { MinigameLiquidsortModule } from 'projects/minigame-liquidsort/src/public-api';
 import { AdventBoardScenarioComponent } from './advent-board-scenario/advent-board-scenario.component';
 import { AdventAdminComponent } from './advent-admin/advent-admin.component';
 import { AdventPuzzleComponent } from './advent-puzzle/advent-puzzle.component';
@@ -19,6 +20,7 @@ import { MinigamePuzzleModule } from 'projects/minigame-puzzle/src/public-api';
 import { MinigameFifteenPuzzleModule } from 'projects/minigame-fifteen-puzzle/src/public-api';
 import { AdventFifteenPuzzleComponent } from './advent-fifteen-puzzle/advent-fifteen-puzzle.component';
 import { AdventGroupChooserComponent } from './advent-group-chooser/advent-group-chooser.component';
+import { AdventLiquidsortComponent } from './advent-liquidsort/advent-liquidsort.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { AdventGroupChooserComponent } from './advent-group-chooser/advent-group
     AdventParkingjamComponent,
     AdventPuzzleComponent,
     AdventFifteenPuzzleComponent,
+    AdventLiquidsortComponent,
     AdventBoardComponent,
     AdventBoardScenarioComponent,
     AdventAdminComponent
@@ -42,7 +45,8 @@ import { AdventGroupChooserComponent } from './advent-group-chooser/advent-group
     MinigameMemoryModule,
     MinigameParkingjamModule,
     MinigamePuzzleModule,
-    MinigameFifteenPuzzleModule
+    MinigameFifteenPuzzleModule,
+    MinigameLiquidsortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
