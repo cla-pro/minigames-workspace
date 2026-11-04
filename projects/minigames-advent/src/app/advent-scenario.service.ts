@@ -5,6 +5,7 @@ import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/sha
 import { MinigameFifteenPuzzleService } from 'projects/minigame-fifteen-puzzle/src/public-api';
 import { MinigameParkingjamService } from 'projects/minigame-parkingjam/src/public-api';
 import { MinigamePuzzleService } from 'projects/minigame-puzzle/src/public-api';
+import { MinigameLiquidsortBottleService } from 'projects/minigame-liquidsort/src/lib/minigame-liquidsort-bottle.service';
 
 @Injectable({
   providedIn: 'root'
@@ -90,7 +91,8 @@ export class AdventScenarioService {
   }
 
   private loadScenarioLiquidsort(id: string): AdventScenarioLiquidsort {
-    return this.loadScenarioStatus(new AdventScenarioLiquidsort(id));
+    let bottles = MinigameLiquidsortBottleService.loadBottlesFromStorage(id);
+    return this.loadScenarioStatus(new AdventScenarioLiquidsort(id, bottles));
   }
 
   private loadScenarioStatus<T extends AdventScenario>(scenario: T): T {
@@ -177,6 +179,8 @@ export class AdventScenarioService {
           this.saveScenarioFifteenPuzzle(id, s as AdventScenarioFifteenPuzzle);
         } else if (s instanceof AdventScenarioPuzzle) {
           this.saveScenarioPuzzle(id, s as AdventScenarioPuzzle);
+        } else if (s instanceof AdventScenarioLiquidsort) {
+          this.saveScenarioLiquidsort(id, s as AdventScenarioLiquidsort);
         }
       });
     this.scenarios = scenarios;
@@ -215,6 +219,10 @@ export class AdventScenarioService {
     localStorage.setItem(`${id}_setId`, scenario.puzzleSetId);
 
     MinigamePuzzleService.storePieces(id, scenario.piecesOnBoard, scenario.remainingPieces);
+  }
+
+  private saveScenarioLiquidsort(id: string, scenario: AdventScenarioLiquidsort) {
+    MinigameLiquidsortBottleService.storeBottlesToStorage(id, scenario.bottles);
   }
 
   private parseIntOrDefault(text: string | null, defaultValue: number): number {

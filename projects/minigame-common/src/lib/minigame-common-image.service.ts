@@ -34,6 +34,9 @@ export class MinigameCommonImageService {
   }
 
   private fillImages() {
+    this.imageContent.set('liquidsort-bottle-empty', 'assets/liquidsort/bottle-empty.png');
+    this.imageContent.set('liquidsort-bottle-closed', 'assets/liquidsort/bottle-closed.png');
+
     this.imageContent.set("15-puzzle_1", "assets/15-puzzle/tile-1.png");
     this.imageContent.set("15-puzzle_2", "assets/15-puzzle/tile-2.png");
     this.imageContent.set("15-puzzle_3", "assets/15-puzzle/tile-3.png");

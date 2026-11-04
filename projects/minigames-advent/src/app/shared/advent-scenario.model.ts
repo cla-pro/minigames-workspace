@@ -1,4 +1,5 @@
 import { MinigameFifteenPuzzlePiece } from "projects/minigame-fifteen-puzzle/src/lib/shared/minigame-fifteen-puzzle.model";
+import { MinigameLiquidSortBottle } from "projects/minigame-liquidsort/src/lib/shared/minigame-liquidsort.model";
 import { MinigameParkingjamCar } from "projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model";
 import { MinigameParkingjamWall } from "projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-wall.model";
 import { MinigamePuzzlePiece } from "projects/minigame-puzzle/src/lib/shared/minigame-puzzle.model";
@@ -89,7 +90,10 @@ export class AdventScenarioEmpty extends AdventScenario {
 }
 
 export class AdventScenarioLiquidsort extends AdventScenario {
-  constructor(prefix: string) {
+  bottles: MinigameLiquidSortBottle[];
+  
+  constructor(prefix: string, bottles: MinigameLiquidSortBottle[]) {
     super(prefix, "liquidsort");
+    this.bottles = bottles;
   }
 }

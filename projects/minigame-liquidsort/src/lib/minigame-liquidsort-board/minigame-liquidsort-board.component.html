@@ -1,0 +1,11 @@
+<div #board class="liquidsort-container">
+    <canvas
+      #canvas
+      width="20"
+      height="20"
+      class="liquidsort-board"
+      (click)="onBoardClick($event)"
+      (touchend)="onBoardTouchEnd($event)"
+      ></canvas>
+      <!-- (touchstart)="onBoardTouchStart($event)" -->
+</div>

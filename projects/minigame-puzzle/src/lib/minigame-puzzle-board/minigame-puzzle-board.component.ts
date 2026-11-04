@@ -65,7 +65,6 @@ export class MinigamePuzzleBoardComponent implements AfterViewInit, OnDestroy {
     let divWidth = nativDiv.clientWidth;
     let divHeight = nativDiv.clientHeight;
     let divCellSize = this.calculateCellSize(this.service.nbRows, this.service.nbCols, divHeight * MinigamePuzzleBoardComponent.BOARD_SIZE_PERCENT, divWidth);
-    console.log("DivCellSize " + divCellSize);
     let allCellWidth = this.service.nbCols * divCellSize;
     let allCellHeight = this.service.nbRows * divCellSize;
     let totalHeight = allCellHeight / MinigamePuzzleBoardComponent.BOARD_SIZE_PERCENT;

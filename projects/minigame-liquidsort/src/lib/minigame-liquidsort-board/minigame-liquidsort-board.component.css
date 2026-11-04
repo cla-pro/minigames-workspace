@@ -1,0 +1,9 @@
+.liquidsort-container {
+    height: 75vh;
+    text-align: center;
+}
+
+.liquidsort-board {
+    border: black 1px solid;
+    touch-action: none;
+}

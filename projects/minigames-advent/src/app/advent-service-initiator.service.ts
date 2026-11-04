@@ -5,6 +5,7 @@ import { MinigameParkingjamWall } from 'projects/minigame-parkingjam/src/lib/sha
 import { MinigameParkingjamCar } from 'projects/minigame-parkingjam/src/lib/shared/minigame-parkingjam-car.model';
 import { MinigameFifteenPuzzlePiece } from 'projects/minigame-fifteen-puzzle/src/lib/shared/minigame-fifteen-puzzle.model';
 import { MinigamePuzzlePiece } from 'projects/minigame-puzzle/src/lib/shared/minigame-puzzle.model';
+import { MinigameLiquidSortBottle, MinigameLiquidSortLiquid } from 'projects/minigame-liquidsort/src/lib/shared/minigame-liquidsort.model';
 
 @Injectable({
   providedIn: 'root'
@@ -168,7 +169,15 @@ export class AdventServiceInitiatorService {
 
   private createScenariosTest(): AdventScenario[] {
     return [
-      new AdventScenarioLiquidsort("2024-12-01")
+      new AdventScenarioLiquidsort("2024-12-01",
+        [
+          new MinigameLiquidSortBottle(1, 5, [new MinigameLiquidSortLiquid("#0000FF"), new MinigameLiquidSortLiquid("#0000FF"), new MinigameLiquidSortLiquid("#FF0000")]),
+          new MinigameLiquidSortBottle(2, 5, [new MinigameLiquidSortLiquid("#FF00FF"), new MinigameLiquidSortLiquid("#FF0000"), new MinigameLiquidSortLiquid("#FF00FF")]),
+          new MinigameLiquidSortBottle(3, 5, [new MinigameLiquidSortLiquid("#FF0000"), new MinigameLiquidSortLiquid("#0000FF"), new MinigameLiquidSortLiquid("#FF0000")]),
+          new MinigameLiquidSortBottle(4, 5, [new MinigameLiquidSortLiquid("#FF0000"), new MinigameLiquidSortLiquid("#FF00FF"), new MinigameLiquidSortLiquid("#0000FF")]),
+          new MinigameLiquidSortBottle(5, 5, [new MinigameLiquidSortLiquid("#FF00FF"), new MinigameLiquidSortLiquid("#FF00FF"), new MinigameLiquidSortLiquid("#0000FF")])
+        ]
+      )
     ];
   }
 
